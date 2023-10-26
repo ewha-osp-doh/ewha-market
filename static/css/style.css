@@ -1,6 +1,6 @@
 /* 네비게이션 바 스타일 */
 nav {
-  background-color: #333;
+  background-color: #002A7E;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -25,7 +25,7 @@ nav {
 }
 
 .navbar__menu li {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .navbar__menu a {
