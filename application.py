@@ -36,5 +36,11 @@ def reg_item():
 @application.route("/reg_reviews") 
 def reg_review():
     return render_template("reg_reviews.html")
+
+@application.route("/submit_item_post", methods=['POST']) 
+def reg_item_submit_post():
+    data=request.form
+    return render_template("submit_item_result.html", data=data)
+
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
