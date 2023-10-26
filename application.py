@@ -37,7 +37,7 @@ def reg_item():
 def reg_review():
     return render_template("reg_reviews.html")
 
-@application.route("/submit_item_post", methods=['POST']) 
+@application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
     data=request.form
     return render_template("submit_item_result.html", data=data)
