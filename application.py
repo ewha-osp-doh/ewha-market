@@ -21,5 +21,20 @@ def reg_item_submit():
     print(name,addr,tel,category,park,time,site) 
     return render_template("reg_item.html")
 
+@application.route("/list")
+def view_list():
+    return render_template("list.html")
+
+@application.route("/review") 
+def view_review():
+    return render_template("review.html")
+
+@application.route("/reg_items") 
+def reg_item():
+    return render_template("reg_items.html")
+
+@application.route("/reg_reviews") 
+def reg_review():
+    return render_template("reg_reviews.html")
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
