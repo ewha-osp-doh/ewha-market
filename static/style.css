@@ -1,0 +1,41 @@
+/* 네비게이션 바 스타일 */
+nav {
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* 로고 스타일 */
+.navbar__logo a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* 메뉴 목록 스타일 */
+.navbar__menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar__menu li {
+  margin-right: 20px;
+}
+
+.navbar__menu a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* 토글 버튼 아이콘 스타일 (Font Awesome 기반) */
+.navbar__toogleBtn i {
+  font-size: 24px;
+  color: white;
+}
