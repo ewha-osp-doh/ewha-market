@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 application = Flask(__name__)
 
@@ -13,13 +13,13 @@ def reg_item_submit():
     name=request.args.get("name")
     seller=request.args.get("seller") 
     addr=request.args.get("addr") 
-    email=request.args.get("email") 
+    tel=request.args.get("tel") 
     category=request.args.get("category") 
     card=request.args.get("card") 
     status=request.args.get("status") 
     phone=request.args.get("phone")
-    print(name,addr,tel,category,park,time,site) 
-    return render_template("reg_item.html")
+    print(name,addr,tel,category,card,status,phone) 
+    return render_template("submit_item.html")
 
 @application.route("/list")
 def view_list():
