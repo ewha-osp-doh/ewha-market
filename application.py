@@ -19,7 +19,7 @@ def reg_item_submit():
     status=request.args.get("status") 
     phone=request.args.get("phone")
     print(name,addr,tel,category,card,status,phone) 
-    return render_template("submit_item.html")
+    return render_template("reg_items.html")
 
 @application.route("/list")
 def view_list():
