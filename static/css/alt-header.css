@@ -1,0 +1,20 @@
+.alt-header {
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.alt-header__column:first-child {
+  justify-self: start;
+  align-self: center;
+}
+
+.alt-header__column:nth-child(2) {
+  justify-self: center;
+  align-self: center;
+}
+
+.alt-header__column:nth-child(3) {
+  justify-self: end;
+  align-self: center;
+}
