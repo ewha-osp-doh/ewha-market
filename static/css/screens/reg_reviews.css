@@ -1,4 +1,12 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+#productImage {
+  display: none;
+}
+
+#imageWrapper {
+  display: inline-block;
+}
+
 .rate {
   display: inline-block;
   border: 0;
