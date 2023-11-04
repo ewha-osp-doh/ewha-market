@@ -1,0 +1,15 @@
+.review_panel{
+    margin: 20px
+}
+.review_content{
+    display: flex; /* 추가: flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 좌우로 배치 */
+    padding-bottom: 15px;
+    padding-top:15px;
+}
+
+
+.review_discription{
+    margin-left: 10px;
+    margin-top: 15px;
+}

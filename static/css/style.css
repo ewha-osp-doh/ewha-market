@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+}
+
 /* 네비게이션 바 스타일 */
 nav {
   background-color: #002A7E;
@@ -38,4 +42,24 @@ nav {
 .navbar__toogleBtn i {
   font-size: 24px;
   color: white;
+}
+
+/* 타원형 빅 버튼(구매, 등록, 가입완료) */
+
+.button_container{
+  display: flex;
+  justify-content: center;
+}
+
+.oval_button {
+  text-align: center;
+  font-size: 20px;
+  border-radius: 37.5px;
+  border:none;
+  width: 90vw;
+  height: 60px;
+  background: grey;
+  position: fixed;
+  bottom: 20px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 }
