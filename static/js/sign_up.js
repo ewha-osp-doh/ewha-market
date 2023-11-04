@@ -1,6 +1,6 @@
 function checkDuplicate() {
-  // 아이디 중복 확인 로직을 구현하세요.
-  // 이 함수는 중복 확인 버튼을 눌렀을 때 호출됩니다.
+  // [TODO] 아이디 중복 확인 로직 구현
+  // 중복 확인 버튼 클릭 시 호출됩니다.
   // 중복이 아닌 경우 아이디 사용 가능 메시지를 표시하고,
   // 중복일 경우 아이디가 이미 사용 중이라고 알려줍니다.
   var duplicateCheck = document.getElementById("duplicateCheck");
@@ -9,7 +9,6 @@ function checkDuplicate() {
 }
 
 function validateForm() {
-  // 필수 정보 및 이메일 형식을 검증하는 로직을 구현하세요.
   var id = document.getElementById("id").value;
   var password = document.getElementById("password").value;
   var confirmPassword = document.getElementById("confirmPassword").value;
