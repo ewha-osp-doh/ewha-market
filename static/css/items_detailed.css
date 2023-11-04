@@ -1,15 +1,21 @@
-.review_panel{
-    margin: 20px
+.item_panel{
+    margin:20px;
 }
-.review_content{
+
+.item_sub_title{
     display: flex; /* 추가: flexbox 레이아웃 사용 */
     justify-content: space-between; /* 좌우로 배치 */
     padding-bottom: 15px;
     padding-top:15px;
 }
 
-
-.review_discription{
+.item_mid{
+    text-align: right;
     margin-left: 10px;
-    padding-top: 5px;
+}
+
+.item_discription{
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: 90px;
 }
