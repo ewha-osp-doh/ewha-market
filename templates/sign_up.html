@@ -30,70 +30,88 @@
     <header class="alt-header">
       <div class="alt-header__column">
         <a href="#">
-          <i class="fas fa-angle-left fa-3x"></i>
+          <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
         </a>
       </div>
       <div class="alt-header__column">
         <h1 class="alt-header__title">LOGO</h1>
       </div>
     </header>
-    <!-- [TODO] 폼 제출 post 연결 -->
-    <form action="" method="post" onsubmit="return validateForm()">
-      <label for="id">아이디:</label>
-      <input
-        type="text"
-        id="id"
-        name="id"
-        required
-        placeholder="아이디를 입력해주세요"
-      />
-      <button type="button" onclick="checkDuplicate()">중복 확인</button>
-      <div class="check-comment" id="check-id">*아이디 중복확인</div>
+    <main>
+      <!-- [TODO] 폼 제출 post 연결 -->
+      <form action="" method="post" onsubmit="return validateForm()">
+        <div class="customerInput">
+          <label for="id"><span>아이디</span><span>*</span></label
+          ><br />
+          <div id="idContent">
+            <input
+              type="text"
+              id="id"
+              name="id"
+              required
+              placeholder="아이디를 입력해주세요"
+            />
+            <button id="checkIdBtn" type="button" onclick="checkDuplicate()">
+              중복 확인
+            </button>
+          </div>
+          <div class="check-comment" id="check-id">*아이디 중복확인</div>
 
-      <label for="password">비밀번호:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        required
-        placeholder="비밀번호를 10자 이상 입력해주세요"
-      />
-      <div class="check-comment" id="check-pw">*10자 이상 입력</div>
+          <label for="password"><span>비밀번호</span><span>*</span></label
+          ><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="비밀번호를 10자 이상 입력해주세요"
+          />
+          <div class="check-comment" id="check-pw">*10자 이상 입력</div>
 
-      <label for="confirmPassword">비밀번호 확인:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        required
-        placeholder="비밀번호를 한번 더 입력해주세요"
-      />
-      <div class="check-comment" id="check-pw-re">*비밀번호 재입력</div>
+          <label for="confirmPassword"
+            ><span>비밀번호 확인</span><span>*</span></label
+          ><br />
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            placeholder="비밀번호를 한번 더 입력해주세요"
+          />
+          <div class="check-comment" id="check-pw-re">*비밀번호 재입력</div>
 
-      <label for="email">이메일:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        placeholder="ewhamarket@ewha.com"
-      />
-      <div class="check-comment" id="check-email">
-        이메일 형식에 맞게 써주세요
-      </div>
+          <label for="email"><span>이메일</span><span>*</span></label
+          ><br />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="ewhamarket@ewha.com"
+          />
+          <div class="check-comment" id="check-email">
+            이메일 형식에 맞게 써주세요
+          </div>
 
-      <label for="phone">핸드폰 번호:</label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        placeholder="'-' 없이 숫자만 입력하세요"
-      /><br /><br />
+          <label for="phone">핸드폰 번호</label><br />
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="'-' 없이 숫자만 입력하세요"
+          />
+        </div>
 
-      <input type="hidden" id="duplicateCheck" name="duplicateCheck" value="" />
+        <input
+          type="hidden"
+          id="duplicateCheck"
+          name="duplicateCheck"
+          value=""
+        />
 
-      <input type="submit" value="가입 완료하기" />
-    </form>
+        <input id="submitBtn" type="submit" value="가입 완료하기" />
+      </form>
+    </main>
     <script src="../static/js/sign_up.js"></script>
   </body>
 </html>
