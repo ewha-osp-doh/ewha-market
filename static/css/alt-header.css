@@ -18,3 +18,8 @@
   justify-self: end;
   align-self: center;
 }
+
+.alt-header__title {
+  font-size: 1.75rem;
+  font-weight: 500;
+}

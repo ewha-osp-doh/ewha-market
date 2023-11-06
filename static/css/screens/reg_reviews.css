@@ -2,9 +2,54 @@
 #productImage {
   display: none;
 }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.3rem;
+  margin-bottom: 2.6rem;
+}
 
 #imageWrapper {
-  display: inline-block;
+  width: 100%;
+  height: 16.375rem;
+  background-color: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+#imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.textContent {
+  padding: 0 1rem;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+}
+
+input {
+  border: none;
+  background-color: #e6e6e6;
+  height: 2rem;
+  width: 100%;
+}
+
+hr {
+  color: #bdbdbd;
+  width: 100%;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
 }
 
 .rate {
@@ -21,7 +66,7 @@
 }
 .rate > label:before {
   display: inline-block;
-  font-size: 1rem;
+  font-size: 2rem;
   padding: 0.3rem 0.2rem;
   margin: 0;
   cursor: pointer;
@@ -43,4 +88,18 @@
 .rate input:checked ~ .rate label:hover ~ label,
 .rate label:hover ~ input:checked ~ label {
   color: #f73c32 !important;
+}
+
+#reviewText {
+  background-color: #e6e6e6;
+  border: none;
+  overflow: hidden;
+  resize: none;
+}
+
+#submitBtn {
+  margin-top: 5.5rem;
+  border-radius: 2.4rem;
+  height: 3.75rem;
+  font-size: 1.25rem;
 }
