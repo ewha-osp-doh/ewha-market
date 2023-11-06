@@ -1,20 +1,19 @@
-
 /* 제목용 텍스트 */
-.Caption1Style{
-    font-size: 26pt;
+.Caption1Style {
+  font-size: 26pt;
 }
 
 /* 소제목, 버튼 텍스트로 사용 */
-.Caption2Style{
-    font-size: 20pt;
+.Caption2Style {
+  font-size: 20pt;
 }
 
 /* 내용설명/가격 등 */
-.Caption3Style{
-    font-size: 16pt;
+.Caption3Style {
+  font-size: 16pt;
 }
 
 /* 플레이스홀더, 아이디, 등 가장 작은 텍스트 */
-.Caption4Style{
-    font-size: 14pt;
+.Caption4Style {
+  font-size: 14pt;
 }
