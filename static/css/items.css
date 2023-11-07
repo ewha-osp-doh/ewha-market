@@ -1,0 +1,34 @@
+.item-overview-block{
+  display: flex;
+  flex-direction: column;
+  color: #0A5226;
+  margin: 30px;
+}
+.item-overview-row{
+  display: flex;
+  flex-direction: row;
+}
+.item-overview {
+  display: flex;
+  flex-direction: column;
+}
+.pagination {
+  text-align: center;
+  color: #0A5226;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  color: #0A5226;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #E53D7A;
+}
+
+.pagination .active {
+  color: #E53D7A;
+}
