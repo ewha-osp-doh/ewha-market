@@ -32,3 +32,7 @@
 .pagination .active {
   color: #E53D7A;
 }
+
+.title{
+  font-weight: bold;
+} 
