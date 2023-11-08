@@ -1,0 +1,84 @@
+.mp_header {
+    height: 220px;
+    position: relative;
+    background-color: grey;
+}
+
+.user_info {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+}
+
+.logout_button {
+    font-size: 10pt;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    background-color:lightgrey;
+    border:none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.mp_pane {
+    margin: 20px;
+   
+}
+
+.item_container{
+    flex-wrap: wrap;
+}
+
+.mp_item {
+    position:relative;
+    width: 100;
+    height: 100px;
+    /* background-color: rgb(255, 255, 255); */
+    margin-top: 15px;
+    display: flex;
+    justify-content: between;
+}
+
+.mp_img > img{
+    background-color: rgb(164, 164, 164);
+    margin: 10px;
+    margin-right: 20px;
+    height:80px;
+    width: 80px;
+    object-fit: cover;
+}
+
+
+.mp_txt{
+    margin-top: 15px;
+}
+
+.mp_title{
+    font-weight: 500;
+    font-size: 16pt;
+    text-align: left;
+}
+
+.mp_price{
+    font-size: 14pt;
+}
+
+.review_button{
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    border:none;
+    width: 60px;
+    height:25px;
+    border-radius: 10px;
+    text-align: center;
+    background-color:lightgrey;
+}
+
+.mp_disc{
+    margin-top: 5px;
+    font-size: 10pt;
+}
+

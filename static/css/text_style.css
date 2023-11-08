@@ -1,3 +1,7 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+* {
+  font-family: Pretendard,'Noto Sans KR', sans-serif;
+}
 /* 제목용 텍스트 */
 .Caption1Style {
   font-size: 26pt;
@@ -16,4 +20,11 @@
 /* 플레이스홀더, 아이디, 등 가장 작은 텍스트 */
 .Caption4Style {
   font-size: 14pt;
+}
+
+.header_text {
+  font-size: 20pt;
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
 }
