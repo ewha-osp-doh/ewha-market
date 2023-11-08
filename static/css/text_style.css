@@ -17,3 +17,10 @@
 .Caption4Style {
   font-size: 14pt;
 }
+
+.header_text {
+  font-size: 20pt;
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+}
