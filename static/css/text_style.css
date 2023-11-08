@@ -1,3 +1,7 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+* {
+  font-family: Pretendard,'Noto Sans KR', sans-serif;
+}
 /* 제목용 텍스트 */
 .Caption1Style {
   font-size: 26pt;
