@@ -44,6 +44,9 @@ input {
   height: 2rem;
   width: 100%;
 }
+input:focus {
+  outline: none;
+}
 
 hr {
   color: #bdbdbd;
@@ -95,11 +98,4 @@ hr {
   border: none;
   overflow: hidden;
   resize: none;
-}
-
-#submitBtn {
-  margin-top: 5.5rem;
-  border-radius: 2.4rem;
-  height: 3.75rem;
-  font-size: 1.25rem;
 }

@@ -19,7 +19,10 @@ function checkFile() {
       fileInput.value = "";
     } else {
       var imgPreview = document.getElementById("imagePreview");
+      var defaultIcon = document.getElementById("defaultIcon");
       imgPreview.src = URL.createObjectURL(file);
+      defaultIcon.style = "display: none";
+      imgPreview.style = "display:block";
     }
   }
 }
