@@ -1,0 +1,67 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 24px;
+}
+
+.main-content {
+    text-align: center;
+}
+
+.welcome-message h1 {
+    font-size: 26px;
+}
+
+.welcome-message input[type="text"] {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.welcome-message button {
+    margin-left: 10px;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-group {
+    margin: 20px 0;
+}
+
+.btn {
+    background-color: #eeeeee;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #dddddd;
+}
+
+.footer {
+    background-color: #f5f5f5;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

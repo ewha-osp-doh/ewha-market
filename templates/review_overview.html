@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리뷰 페이지</title>
+
+<link rel="stylesheet" href="../../ewha-market/static/css/status-bar.css" />
+<link rel="stylesheet" href="../../ewha-market/static/css/alt-header.css" />
+<link rel="stylesheet" href="../../ewha-market/static/css/screens/reg_items.css" />
+<link rel="stylesheet" href="../../ewha-market/static/css/items.css"/>
+<link rel="stylesheet" href="../../ewha-market/static/css/text_style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="allreview.css">
+
+</head>
+<body>
+ <!-- 상단 status-bar -->
+<div class="status-bar">
+    <div class="status-bar__column">
+      <span>No Service</span>
+      <i class="fas fa-wifi"></i>
+    </div>
+    <div class="status-bar__column">
+      <span>18:43</span>
+    </div>
+    <div class="status-bar__column">
+      <span>100%</span>
+      <i class="fas fa-battery-full fa-lg"></i>
+      <i class="fas fa-bolt"></i>
+    </div>
+</div>
+
+<!-- 상단 header -->
+<header class="alt-header">
+  <div class="alt-header__row"> <!-- 수정된 부분: 헤더 내부의 새로운 row 컨테이너 -->
+    <div class="alt-header__column">
+      <a href="#">
+        <i class="fas fa-angle-left fa-3x"></i>
+      </a>
+    </div>
+    <h1>리뷰 전체 보기</h1>
+  </div>
+</header>
+<!-- 여기까지 상단 header -->
+
+<div class="review-container">
+   <ul>
+      <li class="review">
+          <img src="../../ewha-market/static/assets/item_mock.svg"> 
+          <strong>제목이 들어갑니다.</strong> 
+          <p> 별점 </p> 
+          <p> 내용이 들어갑니다.</p>
+      </li>
+      <li class="review">
+          <img src="../../ewha-market/static/assets/item_mock.svg"> 
+          <strong>제목이 들어갑니다.</strong> 
+          <p> 별점 </p> 
+          <p> 내용이 들어갑니다.</p>
+      </li>
+      <li class="review">
+          <img src="../../ewha-market/static/assets/item_mock.svg"> 
+          <strong>제목이 들어갑니다.</strong> 
+          <p> 별점 </p> 
+          <p> 내용이 들어갑니다.</p>
+      </li>
+     
+   </ul>
+</div>
+
+<div class="pagination">
+    <a href="#" class="prev">이전</a>
+    <a href="#" class="page">1</a>
+    <a href="#" class="page">2</a>
+    <a href="#" class="page">3</a>
+    <a href="#" class="next">다음</a>
+</div>
+
+<script src="allreview.js"></script>
+</body>
+</html>
+
+
