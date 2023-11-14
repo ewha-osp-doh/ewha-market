@@ -16,7 +16,7 @@ class DBhandler:
             "addr": data['addr'],
             "email": data['email'],
             "category": data['category'],
-            "card": data['card']
+            "card": data['card'],
             "status": data['status'],
             "phone": data['phone'],
             "img_path": img_path
