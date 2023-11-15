@@ -25,10 +25,10 @@ class DBhandler:
 
 
     
-    def insert_user(self, data):
+    def insert_user(self, data, pw):
         user_info = {
             "id": data['id'],
-            "password": data['password'],
+            "password": pw,
             "email": data['email'],
             "phone": data['phone']
         }
