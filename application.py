@@ -7,6 +7,8 @@ import sys
 application = Flask(__name__)
 application.config["SECRET_KEY"] = "hello_osp"
 
+DB = DBhandler()
+
 
 @application.route("/")
 def hello():
@@ -26,7 +28,7 @@ def signup():
 @application.route("/signup_post", methods=['POST'])
 def register_user():
     data = request.form
-    pw = request.form['pw']
+    pw = request.form['password']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.insert_user(data, pw_hash):
         return render_template("login_.html")
@@ -34,7 +36,7 @@ def register_user():
         flash("user id already exist!")
         return render_template("sign_up.html")
 
-    
+
 @application.route("/submit_item")
 def reg_item_submit():
     name = request.args.get("name")
@@ -69,7 +71,7 @@ def reg_review():
     return render_template("reg_reviews.html")
 
 
-@application.route("/submit_items_post", methods=['POST']) 
+@application.route("/submit_items_post", methods=['POST'])
 def reg_item_submit_post():
     image_file = request.files["file"]
     image_file.save("static/image/{}".format(image_file.filename))
