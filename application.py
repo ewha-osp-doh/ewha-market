@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request
 from database import DBhandler
+
 import sys
 
+
 application = Flask(__name__)
+
 
 DB = DBhandler()
 
@@ -33,12 +36,15 @@ def reg_review():
 
 @application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
-    image_file = request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
-    data = request.form
-    DB.insert_item(data['name'], data, image_file.filename)
-    
-    return render_template("submit_item_result.html", data=data, img_path = "static/images/{}".format(image_file.filename))
+    data = {
+        "seller-id" : request.form.get("sellerId"),
+        "product-name" : request.form.get("productName"),
+        "product-price" : request.form.get("productPrice"),
+        "product-status" : request.form.get("condition"),
+        "product-description" : request.form.get("productDescription")
+    }
+    DB.insert_item(data['product-name'], data)
+    return render_template("submit_item_result.html", data=data)
 
 
 if __name__ == "__main__":
