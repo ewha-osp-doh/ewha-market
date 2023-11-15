@@ -39,7 +39,7 @@
       </div>
     </header>
     <main>
-      <form action="" method="post" onsubmit="return validateForm()">
+      <form action="/submit_items_post" method="post" onsubmit="return validateForm()">
         <label for="sellerId">판매자 ID</label>
         <!-- [TODO] 로그인 정보에서 가져올 수 있도록 하기 -->
         <input type="text" id="sellerId" name="sellerId" required /><br /><br />
@@ -79,7 +79,7 @@
         <label>지역</label>
         <div id="currentLocation">현재 위치를 가져오는 중...</div>
         <script>
-          getCurrentLocation();
+          // getCurrentLocation();
         </script>
         <br /><br />
 
