@@ -12,14 +12,13 @@ class DBhandler:
        
     def insert_item(self, name, data, img_path):
         item_info ={
-            "seller": data['seller'],
-            "addr": data['addr'],
-            "email": data['email'],
-            "category": data['category'],
+            "sellerId": data['sellerId'],
+            "productName": data['productName'],
+            "productPrice": data['productPrice'],
+            "currentLocation": data['currentLocation'],
             "card": data['card'],
-            "status": data['status'],
-            "phone": data['phone'],
-            "img_path": img_path
+            "productDescription": data['productDescription'],
+            "productImage": img_path
         }
         self.db.child("item").child(name).set(item_info)
         print(data, img_path)
