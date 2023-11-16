@@ -64,6 +64,10 @@ def login_user():
         flash("Wrong ID or PW!")
         return render_template("login.html")
 
+@application.route("/logout")
+def logout_user():
+    session.clear()
+    return redirect(url_for('view_list'))
 
 @application.route("/signup")
 def signup():
