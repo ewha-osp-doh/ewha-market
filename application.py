@@ -52,6 +52,18 @@ def reg_item_submit_post():
 def login():
     return render_template("Login.html")
 
+@application.route("/login_confirm", methods=['POST'])
+def login_user():
+    id = request.form['id']
+    pw = request.form['pw']
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    if DB.find_user(id_,pw_hash):
+        session['id']=id_
+        return redirect(url_for)
+    else:
+        flash("Wrong ID or PW!")
+        return render_template("login.html")
+
 
 @application.route("/signup")
 def signup():
