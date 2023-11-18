@@ -1,0 +1,73 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.3rem;
+  margin-bottom: 2.6rem;
+}
+.item-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 2.5rem;
+  list-style: none;
+}
+.item-overview li {
+  background-color: #0a5226;
+}
+.item .item-card {
+  display: flex;
+  flex-direction: column;
+  /* margin: 30px; */
+  /* width: 10%; */
+  background-color: #0a5226;
+}
+
+/* .item-card .thumbnail {
+  width: 30px;
+  height: 30px;
+} */
+
+.item_card div {
+  color: #0a5226;
+}
+
+.pagination {
+  text-align: center;
+  color: #0a5226;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  color: #0a5226;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #e53d7a;
+}
+
+.pagination .active {
+  color: #e53d7a;
+}
+
+.title {
+  font-weight: bold;
+}
+
+/* ㅈㅇㄴㄱㄴㄹ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pagination button {
+  margin: 0 5px;
+  cursor: pointer;
+}
+.pagination .current-page {
+  font-weight: bold;
+  text-decoration: underline;
+}

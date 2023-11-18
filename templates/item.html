@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="kor">
-<head>
+  <head>
     <title>상품 전체 보기</title>
     <link rel="stylesheet" href="../static/css/status-bar.css" />
     <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/screens/reg_items.css" />
-    <link rel="stylesheet" href="../static/css/items.css"/>
-    <link rel="stylesheet" href="../static/css/text_style.css">
+    <link rel="stylesheet" href="../static/css/screens/item.css" />
+    <link rel="stylesheet" href="../static/css/text_style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
     />
-</head>
-<body>
-      <!-- 상단 status-bar -->
-      <div class="status-bar">
-        <div class="status-bar__column">
-          <span>No Service</span>
-          <i class="fas fa-wifi"></i>
-        </div>
-        <div class="status-bar__column">
-          <span>18:43</span>
-        </div>
-        <div class="status-bar__column">
-          <span>100%</span>
-          <i class="fas fa-battery-full fa-lg"></i>
-          <i class="fas fa-bolt"></i>
-        </div>
+  </head>
+  <body>
+    <!-- 상단 status-bar -->
+    <div class="status-bar">
+      <div class="status-bar__column">
+        <span>No Service</span>
+        <i class="fas fa-wifi"></i>
       </div>
+      <div class="status-bar__column">
+        <span>18:43</span>
+      </div>
+      <div class="status-bar__column">
+        <span>100%</span>
+        <i class="fas fa-battery-full fa-lg"></i>
+        <i class="fas fa-bolt"></i>
+      </div>
+    </div>
     <!-- 상단 header -->
     <header class="alt-header">
       <div class="alt-header__column">
@@ -39,38 +38,16 @@
         <h1 class="alt-header__title">상품 전체 보기</h1>
       </div>
     </header>
-    <div class="item-overview">
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
+    <main>
+      <ul class="item-overview"></ul>
+
+      <div class="pagination">
+        <button id="prev">Previous</button>
+        <div id="page-numbers"></div>
+        <button id="next">Next</button>
       </div>
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-      </div>
-    </div>
-    <div class="pagination">
-      <a href="#" class="prev">이전</a>
-      <a href="#" class="page">1</a>
-      <a href="#" class="page">2</a>
-      <a href="#" class="page">3</a>
-      <a href="#" class="next">다음</a>
-  </div>
-</body>
+    </main>
+
+    <script src="../static/js/hw/item.js"></script>
+  </body>
 </html>
