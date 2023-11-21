@@ -86,6 +86,10 @@ def register_user():
         flash("user id already exist!")
         return render_template("Signup.html")
 
+@application.route("/check-session")
+def check_session():
+    user_id = session.get('id')
+    return jsonify(isLoggedIn=bool(user_id), userId=user_id)
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
