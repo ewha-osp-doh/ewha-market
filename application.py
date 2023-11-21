@@ -49,7 +49,7 @@ def reg_item_submit_post():
         # 파일을 어디에 저장할지 결정하고 저장합니다.
         img_path = "./static/images/" + file.filename
         file.save(img_path)
-        data['img_path'] = img_path
+        data['img_path'] = '../static/images/' +  file.filename
     
     DB.insert_item(data['product-name'], data)
     return render_template("submit_item_result.html", data=data)
