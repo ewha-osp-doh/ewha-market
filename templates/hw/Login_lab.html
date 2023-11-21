@@ -34,6 +34,12 @@
     <nav name="네비게이션 바">
         <div class="navbar__logo"><a href="">Ewha Market</a></div>
         <ul class="navbar__menu">
+                {% if session['id'] %}
+                <li><a href="/logout" class="navbar__login"><b>{{session['id']}}님 반갑습니다!</b> logout</a></li>
+                {% else %}
+                <li><a href="/login" class="navbar__login">login</a></li>
+                {% endif %}
+        <ul class="navbar__menu">
             <li><a href="/Login.html">Login</a></li>
             <li><a href="/list">List</a></li>
             <li><a href="/review">Review</a></li>
