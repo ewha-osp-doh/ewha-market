@@ -1,12 +1,10 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request
 from database import DBhandler
 
-import hashlib
 import sys
 
 
 application = Flask(__name__)
-application.config["SECRET_KEY"] = "hello_osp"
 
 
 DB = DBhandler()
@@ -38,37 +36,23 @@ def reg_review():
 
 @application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
+    file = request.files['productImage']
     data = {
         "seller-id" : request.form.get("sellerId"),
         "product-name" : request.form.get("productName"),
         "product-price" : request.form.get("productPrice"),
         "product-status" : request.form.get("condition"),
         "product-description" : request.form.get("productDescription")
-    }
+    } 
+    if 'productImage' in request.files:
+        file = request.files['productImage']
+        # 파일을 어디에 저장할지 결정하고 저장합니다.
+        img_path = "./static/images/" + file.filename
+        file.save(img_path)
+        data['img_path'] = img_path
+    
     DB.insert_item(data['product-name'], data)
     return render_template("submit_item_result.html", data=data)
-
-@application.route("/login")
-def login():
-    return render_template("Login.html")
-
-
-@application.route("/signup")
-def signup():
-    return render_template("Signup.html")
-
-
-@application.route("/signup_post", methods=['POST'])
-def register_user():
-    data=request.form
-    pw = request.form['pw']
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if DB.insert_user(data, pw_hash):
-        return render_template("Login.html")
-    else:
-        flash("user id already exist!")
-        return render_template("Signup.html")
-    
 
 
 if __name__ == "__main__":

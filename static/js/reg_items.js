@@ -1,8 +1,9 @@
 function uploadImage() {
-  document.getElementById("productImage").click();
+    document.getElementById("productImage").click();
 }
 
 function checkFile() {
+  console.log("파일 체크는 돼요");
   var fileInput = document.getElementById("productImage");
   var file = fileInput.files[0];
 
