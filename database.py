@@ -16,7 +16,6 @@ class DBhandler:
             "sellerId": data['seller-id'],
             "productName": data['product-name'],
             "productPrice": data['product-price'],
-            # "currentLocation": data['currentLocation'],
             "product-status": data['product-status'],
             "description": data['product-description'],
             "product-image": data['img_path']
@@ -55,3 +54,13 @@ class DBhandler:
                 if value['id'] == id_string:
                     return False
             return True
+    
+    def get_all_items(self):
+        items = self.db.child("item").get()
+        result = []
+
+        if items.val():
+            for item in items.each():
+                result.append(item.val())
+
+        return result

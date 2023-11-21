@@ -16,7 +16,8 @@ def hello():
 
 @application.route("/list")
 def view_list():
-    return render_template("list.html")
+    items = DB.get_all_items()
+    return render_template("list.html", items = items)
 
 
 @application.route("/review") 
