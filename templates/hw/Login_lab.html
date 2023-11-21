@@ -14,19 +14,6 @@
     </style>
     <script>
 
-        validateForm(){
-            var id = document.forms["loginForm"]["id"].value; //id값 전달
-            var pw = document.forms["loginForm"]["pw"].value; //pw값 전달
-
-            // 비어있으면 경고 메시지 표시
-            if (id === "" || pw === "") {
-                alert("아이디와 비밀번호를 모두 입력해주세요.");
-                // 폼 제출을 중단
-                return false;
-            }
-            //아닐 경우 서버에 있는  데이터와 비교해서 맞나 틀리나 확인.
-
-        }
     </script>
 </head>
 
@@ -42,15 +29,16 @@
         </ul>
     </nav>
 
-    <!-- {% extends "index.html" %}
+    {% extends "index.html" %}
     {% block section %}
-    {% with mesg = get_flashed_messages() %} {% if mesg !=[] %} -->
+    {% with mesg = get_flashed_messages() %} 
+    {% if mesg !=[] %}
     <script>alert("{{ mesg[0] }}")</script>
-    <!-- {% endif %}
-    {% endwith %} -->
+    {% endif %}
+    {% endwith %}
     <div name="container">
 
-        <form name="loginForm" action="/login_confirm" method="post" onsubmit="return validateForm()">
+        <form name="loginForm" action="/login_confirm" method="post">
             <p>ID : <input type="text" name="id" required></p>
             <p>password : <input type="password" name="pw" required></p>
             <p>아이디와 비밀번호를 입력하고 로그인버튼을 누르세요.<br>
