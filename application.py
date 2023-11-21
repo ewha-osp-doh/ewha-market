@@ -52,6 +52,7 @@ def reg_item_submit_post():
 def login():
     return render_template("login.html")
 
+
 @application.route("/login_confirm", methods=['POST']) 
 def login_user():
     id_=request.form['id']
@@ -59,7 +60,7 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest() 
     if DB.find_user(id_,pw_hash):
         session['id']=id_
-        return redirect(url_for('view_list')) 
+        return redirect(url_for('view_list'))
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
@@ -80,13 +81,11 @@ def register_user():
     pw = request.form['pw']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.insert_user(data, pw_hash):
-        return render_template("Login.html")
+        return render_template("Login_lab.html")
     else:
         flash("user id already exist!")
         return render_template("Signup.html")
-    
 
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
-    
