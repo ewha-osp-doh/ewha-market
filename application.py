@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from database import DBhandler
 
-import hashlib
 import sys
 
 
 application = Flask(__name__)
-application.config["SECRET_KEY"] = "hello_osp"
 
 
 DB = DBhandler()
@@ -18,7 +16,10 @@ def hello():
 
 @application.route("/list")
 def view_list():
-    return render_template("item.html")
+    items = DB.get_all_items()
+    items_per_page = 6
+    total_pages = (len(items) + items_per_page - 1) // items_per_page  # 페이지 수 계산
+    return render_template('item.html', items=items, totalPages=total_pages, currentPage = 1, itemsPerPage = 6)
 
 
 @application.route("/review") 
@@ -38,15 +39,24 @@ def reg_review():
 
 @application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
+    file = request.files['productImage']
     data = {
         "seller-id" : request.form.get("sellerId"),
         "product-name" : request.form.get("productName"),
         "product-price" : request.form.get("productPrice"),
         "product-status" : request.form.get("condition"),
         "product-description" : request.form.get("productDescription")
-    }
+    } 
+    if 'productImage' in request.files:
+        file = request.files['productImage']
+        # 파일을 어디에 저장할지 결정하고 저장합니다.
+        img_path = "./static/images/" + file.filename
+        file.save(img_path)
+        data['img_path'] = '../static/images/' +  file.filename
+    
     DB.insert_item(data['product-name'], data)
     return render_template("submit_item_result.html", data=data)
+
 
 @application.route("/login")
 def login():

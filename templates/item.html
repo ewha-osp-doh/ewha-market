@@ -4,73 +4,136 @@
     <title>상품 전체 보기</title>
     <link rel="stylesheet" href="../static/css/status-bar.css" />
     <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/screens/reg_items.css" />
     <link rel="stylesheet" href="../static/css/items.css"/>
     <link rel="stylesheet" href="../static/css/text_style.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
     />
+    <style>
+        /* 추가한 CSS 스타일 */
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin-right: 5px;
+        }
+
+        .item-overview-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px; /* Add margin between rows */
+        }
+
+        .item-overview-block {
+            width: 48%; /* 2%는 여백을 주기 위해 설정 */
+        }
+
+        .item-overview-block img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-      <!-- 상단 status-bar -->
-      <div class="status-bar">
+    <!-- 상단 status-bar -->
+    <div class="status-bar">
         <div class="status-bar__column">
-          <span>No Service</span>
-          <i class="fas fa-wifi"></i>
+            <span>No Service</span>
+            <i class="fas fa-wifi"></i>
         </div>
         <div class="status-bar__column">
-          <span>18:43</span>
+            <span>18:43</span>
         </div>
         <div class="status-bar__column">
-          <span>100%</span>
-          <i class="fas fa-battery-full fa-lg"></i>
-          <i class="fas fa-bolt"></i>
+            <span>100%</span>
+            <i class="fas fa-battery-full fa-lg"></i>
+            <i class="fas fa-bolt"></i>
         </div>
-      </div>
+    </div>
     <!-- 상단 header -->
     <header class="alt-header">
-      <div class="alt-header__column">
-        <a href="#">
-          <i class="fas fa-angle-left fa-3x"></i>
-        </a>
-      </div>
-      <div class="alt-header__column">
-        <h1 class="alt-header__title">상품 전체 보기</h1>
-      </div>
+        <div class="alt-header__column">
+            <a href="#">
+                <i class="fas fa-angle-left fa-3x"></i>
+            </a>
+        </div>
+        <div class="alt-header__column">
+            <h1 class="alt-header__title">상품 전체 보기</h1>
+        </div>
     </header>
-    <div class="item-overview">
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-      </div>
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-      </div>
+    <div class="item-overview" id="itemOverview">
+        <!-- Items will be dynamically added here -->
     </div>
-    <div class="pagination">
-      <a href="#" class="prev">이전</a>
-      <a href="#" class="page">1</a>
-      <a href="#" class="page">2</a>
-      <a href="#" class="page">3</a>
-      <a href="#" class="next">다음</a>
-  </div>
+    <div class="pagination" id="pagination">
+        <!-- Pagination links will be dynamically added here -->
+    </div>
+
+    <script>
+        // 한 페이지에 보여줄 아이템 수
+        var itemsPerPage = 6;
+
+        // 전체 아이템 목록
+        var allItems = {{ items | tojson | safe }};
+
+        // 전체 페이지 수 계산
+        var totalPages = Math.ceil(allItems.length / itemsPerPage);
+
+        // 현재 페이지를 저장할 변수
+        var currentPage = 1;
+
+        // 페이지네이션을 생성하는 함수
+        function generatePagination() {
+            var paginationHtml = '';
+            for (var i = 1; i <= totalPages; i++) {
+                paginationHtml += '<a href="#" class="page" onclick="changePage(' + i + ')">' + i + '</a>';
+            }
+            document.getElementById('pagination').innerHTML = paginationHtml;
+        }
+
+        // 특정 페이지의 아이템을 표시하는 함수
+        function displayItems(page) {
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+
+            var itemOverviewHtml = '';
+            for (var i = startIndex; i < endIndex && i < allItems.length;  i+=2 ) {
+                itemOverviewHtml += '<div class="item-overview-row">';
+                for (var j = 0; j < 2; j++) {
+                    var index = i + j;
+                    if (index < allItems.length) {
+                        itemOverviewHtml += '<div class="item-overview-block">';
+                        itemOverviewHtml += '<img src="' + allItems[index]['product-image'] + '" alt="' + allItems[index]['productName'] + '">';
+                        itemOverviewHtml += '<p class="title">' + allItems[index]['productName'] + '</p>';
+                        itemOverviewHtml += '<p>' + allItems[index]['productPrice'] + '원</p>';
+                        itemOverviewHtml += '</div>';
+                    }
+                }
+                itemOverviewHtml += '</div>';
+            }
+
+            document.getElementById('itemOverview').innerHTML = itemOverviewHtml;
+        }
+
+        // 페이지 변경 함수
+        function changePage(page) {
+            currentPage = page;
+            displayItems(currentPage);
+        }
+
+        // 페이지 로드시 초기 페이지네이션 생성 및 첫 페이지 아이템 표시
+        document.addEventListener("DOMContentLoaded", function() {
+            generatePagination();
+            displayItems(currentPage);  // 첫 번째 페이지를 표시
+        });
+    </script>
 </body>
 </html>
