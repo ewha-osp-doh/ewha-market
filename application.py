@@ -6,6 +6,7 @@ import sys
 
 
 application = Flask(__name__)
+application.config["SECRET_KEY"] = "hello_osp"
 
 
 DB = DBhandler()
@@ -69,8 +70,8 @@ def login_user():
     id_=request.form['id']
     pw=request.form['pw']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest() 
-    if DB.find_user(id_,pw_hash):
-        session['id']=id_
+    if DB.find_user(id_ ,pw_hash):
+        session['id'] = id_
         return redirect(url_for('view_list'))
     else:
         flash("Wrong ID or PW!")

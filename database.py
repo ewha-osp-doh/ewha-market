@@ -52,7 +52,7 @@ class DBhandler:
                 if value['id'] == id_string:
                     return False
             return True
-    
+       
     def get_all_items(self):
         items = self.db.child("item").get()
         result = []
@@ -60,6 +60,8 @@ class DBhandler:
         if items.val():
             for item in items.each():
                 result.append(item.val())
+
+        return result
 
 
     
