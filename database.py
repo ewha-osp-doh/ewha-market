@@ -8,7 +8,7 @@ class DBhandler:
             config = json.load(f)
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
-       
+        
     def insert_item(self, name, data):
         item_info ={
             "sellerId": data['seller-id'],
@@ -50,3 +50,15 @@ class DBhandler:
                 if value['id'] == id_string:
                     return False
             return True
+    
+    
+    def find_user(self, id_, pw_):
+        users = self.db.child("user").get() 
+        target_value=[]
+        for res in users.each():
+            value = res.val()
+            
+            if value['id'] == id_ and value['password'] == pw_:
+                return True 
+            
+        return False
