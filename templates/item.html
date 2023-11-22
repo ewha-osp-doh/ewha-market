@@ -40,30 +40,15 @@
       </div>
     </header>
     <div class="item-overview">
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-      </div>
-      <div class="item-overview-row">
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-        <div class="item-overview-block">
-          <img src = "../static/assets/item_mock.svg">
-          <p class="title">상품 이름</p>
-          <p>10000원</p>
-        </div>
-      </div>
+        {% for item in items %}
+            <div class="item-overview-row">
+                <div class="item-overview-block">
+                    <img src="{{ item['product-image'] }}" alt="{{ item['productName'] }}" width = 200 height = 200>
+                    <p class="title">{{ item['productName'] }}</p>
+                    <p>{{ item['productPrice'] }}원</p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     <div class="pagination">
       <a href="#" class="prev">이전</a>
