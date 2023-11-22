@@ -11,6 +11,7 @@
         <nav>
             <div class="navbar__logo"><a href="">Ewha Market</a></div>
               <ul class="navbar__menu">
+                <li><a href="/login" class="navbar__login">login</a></li>
                 {% if session['id'] %}
                 <li><a href="/logout" class="navbar__login"><b>{{session['id']}}님 반갑습니다!</b> logout</a></li>
                 {% else %}
