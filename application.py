@@ -17,8 +17,9 @@ def hello():
 @application.route("/list")
 def view_list():
     items = DB.get_all_items()
-    return render_template("item.html", items = items)
-
+    items_per_page = 6
+    total_pages = (len(items) + items_per_page - 1) // items_per_page  # 페이지 수 계산
+    return render_template('item.html', items=items, totalPages=total_pages, currentPage = 1, itemsPerPage = 6)
 
 @application.route("/review") 
 def view_review():

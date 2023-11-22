@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="kor">
-<head>
+  <head>
     <title>상품 전체 보기</title>
     <link rel="stylesheet" href="../static/css/status-bar.css" />
     <link rel="stylesheet" href="../static/css/alt-header.css" />
     <link rel="stylesheet" href="../static/css/screens/reg_items.css" />
+    <link rel="stylesheet" href="../static/css/items.css" />
+    <link rel="stylesheet" href="../static/css/text_style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <title>상품 전체 보기</title>
+    <link rel="stylesheet" href="../static/css/status-bar.css" />
+    <link rel="stylesheet" href="../static/css/alt-header.css" />
     <link rel="stylesheet" href="../static/css/items.css"/>
     <link rel="stylesheet" href="../static/css/text_style.css">
     <link
@@ -13,49 +25,105 @@
     />
 </head>
 <body>
-      <!-- 상단 status-bar -->
-      <div class="status-bar">
+    <!-- 상단 status-bar -->
+    <div class="status-bar">
         <div class="status-bar__column">
-          <span>No Service</span>
-          <i class="fas fa-wifi"></i>
+            <span>No Service</span>
+            <i class="fas fa-wifi"></i>
         </div>
         <div class="status-bar__column">
-          <span>18:43</span>
+            <span>18:43</span>
         </div>
         <div class="status-bar__column">
-          <span>100%</span>
-          <i class="fas fa-battery-full fa-lg"></i>
-          <i class="fas fa-bolt"></i>
+            <span>100%</span>
+            <i class="fas fa-battery-full fa-lg"></i>
+            <i class="fas fa-bolt"></i>
         </div>
-      </div>
+    </div>
     <!-- 상단 header -->
     <header class="alt-header">
-      <div class="alt-header__column">
-        <a href="#">
-          <i class="fas fa-angle-left fa-3x"></i>
-        </a>
-      </div>
-      <div class="alt-header__column">
-        <h1 class="alt-header__title">상품 전체 보기</h1>
-      </div>
+        <div class="alt-header__column">
+            <a href="#">
+                <i class="fas fa-angle-left fa-3x"></i>
+            </a>
+        </div>
+        <div class="alt-header__column">
+            <h1 class="alt-header__title">상품 전체 보기</h1>
+        </div>
     </header>
     <div class="item-overview">
-        {% for item in items %}
+        {% for i in range(0, items|length, 2) %}
             <div class="item-overview-row">
-                <div class="item-overview-block">
-                    <img src="{{ item['product-image'] }}" alt="{{ item['productName'] }}" width = 200 height = 200>
-                    <p class="title">{{ item['productName'] }}</p>
-                    <p>{{ item['productPrice'] }}원</p>
-                </div>
+                {% for j in range(2) %}
+                    {% set index = i + j %}
+                    {% if index < items|length %}
+                        <div class="item-overview-block">
+                            <img src="{{ items[index]['product-image'] }}" alt="{{ items[index]['productName'] }}" width="200" height="200">
+                            <p class="title">{{ items[index]['productName'] }}</p>
+                            <p>{{ items[index]['productPrice'] }}원</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endfor %}
     </div>
     <div class="pagination">
-      <a href="#" class="prev">이전</a>
-      <a href="#" class="page">1</a>
-      <a href="#" class="page">2</a>
-      <a href="#" class="page">3</a>
-      <a href="#" class="next">다음</a>
-  </div>
+        {% for page_num in range(1, totalPages + 1) %}
+            <a href="#" class="page" onclick="changePage({{ page_num }})">{{ page_num }}</a>
+        {% endfor %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // 페이지네이션을 처리하는 JavaScript 코드
+        // 한 페이지에 보여줄 아이템 수
+        var itemsPerPage = 6;
+
+        // 전체 아이템 목록
+        var allItems = {{ items | tojson | safe }};
+
+        // 전체 페이지 수 계산
+        var totalPages = Math.ceil(allItems.length / itemsPerPage);
+
+        // 현재 페이지를 저장할 변수
+        var currentPage = 1;
+
+        // 페이지네이션을 생성하는 함수
+        function generatePagination() {
+            // 페이지네이션을 생성하는 코드를 작성하세요.
+            var paginationHtml = '';
+            for (var i = 1; i <= totalPages; i++) {
+                paginationHtml += '<a href="#" class="page" onclick="changePage(' + i + ')">' + i + '</a>';
+            }
+            $('.pagination').html(paginationHtml);
+        }
+
+        // 특정 페이지의 아이템을 표시하는 함수
+        function displayItems(page) {
+            // 특정 페이지의 아이템을 표시하는 코드를 작성하세요.
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+
+            // 모든 행을 숨김
+            $('.item-overview-row').removeClass('active');
+
+            // 현재 페이지에 해당하는 행만 표시
+            for (var i = startIndex; i < endIndex && i < allItems.length; i++) {
+                $('.item-overview-row').eq(i).addClass('active');
+            }
+        }
+
+        // 페이지 변경 함수
+        function changePage(page) {
+            currentPage = page;
+            displayItems(currentPage);
+        }
+
+        // 페이지 로드시 초기 페이지네이션 생성 및 첫 페이지 아이템 표시
+        $(document).ready(function() {
+            generatePagination();
+            displayItems(currentPage);  // 첫 번째 페이지를 표시
+        });
+    </script>
 </body>
 </html>
