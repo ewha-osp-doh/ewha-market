@@ -1,18 +1,5 @@
 <!DOCTYPE html>
 <html lang="kor">
-  <head>
-    <title>상품 전체 보기</title>
-    <link rel="stylesheet" href="../static/css/status-bar.css" />
-    <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/screens/reg_items.css" />
-    <link rel="stylesheet" href="../static/css/items.css" />
-    <link rel="stylesheet" href="../static/css/text_style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-    />
-<!DOCTYPE html>
-<html lang="kor">
 <head>
     <title>상품 전체 보기</title>
     <link rel="stylesheet" href="../static/css/status-bar.css" />
@@ -23,6 +10,38 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
     />
+    <style>
+        /* 추가한 CSS 스타일 */
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin-right: 5px;
+        }
+
+        .item-overview-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px; /* Add margin between rows */
+        }
+
+        .item-overview-block {
+            width: 48%; /* 2%는 여백을 주기 위해 설정 */
+        }
+
+        .item-overview-block img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <!-- 상단 status-bar -->
@@ -51,31 +70,14 @@
             <h1 class="alt-header__title">상품 전체 보기</h1>
         </div>
     </header>
-    <div class="item-overview">
-        {% for i in range(0, items|length, 2) %}
-            <div class="item-overview-row">
-                {% for j in range(2) %}
-                    {% set index = i + j %}
-                    {% if index < items|length %}
-                        <div class="item-overview-block">
-                            <img src="{{ items[index]['product-image'] }}" alt="{{ items[index]['productName'] }}" width="200" height="200">
-                            <p class="title">{{ items[index]['productName'] }}</p>
-                            <p>{{ items[index]['productPrice'] }}원</p>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endfor %}
+    <div class="item-overview" id="itemOverview">
+        <!-- Items will be dynamically added here -->
     </div>
-    <div class="pagination">
-        {% for page_num in range(1, totalPages + 1) %}
-            <a href="#" class="page" onclick="changePage({{ page_num }})">{{ page_num }}</a>
-        {% endfor %}
+    <div class="pagination" id="pagination">
+        <!-- Pagination links will be dynamically added here -->
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        // 페이지네이션을 처리하는 JavaScript 코드
         // 한 페이지에 보여줄 아이템 수
         var itemsPerPage = 6;
 
@@ -90,27 +92,35 @@
 
         // 페이지네이션을 생성하는 함수
         function generatePagination() {
-            // 페이지네이션을 생성하는 코드를 작성하세요.
             var paginationHtml = '';
             for (var i = 1; i <= totalPages; i++) {
                 paginationHtml += '<a href="#" class="page" onclick="changePage(' + i + ')">' + i + '</a>';
             }
-            $('.pagination').html(paginationHtml);
+            document.getElementById('pagination').innerHTML = paginationHtml;
         }
 
         // 특정 페이지의 아이템을 표시하는 함수
         function displayItems(page) {
-            // 특정 페이지의 아이템을 표시하는 코드를 작성하세요.
             var startIndex = (page - 1) * itemsPerPage;
             var endIndex = startIndex + itemsPerPage;
 
-            // 모든 행을 숨김
-            $('.item-overview-row').removeClass('active');
-
-            // 현재 페이지에 해당하는 행만 표시
-            for (var i = startIndex; i < endIndex && i < allItems.length; i++) {
-                $('.item-overview-row').eq(i).addClass('active');
+            var itemOverviewHtml = '';
+            for (var i = startIndex; i < endIndex && i < allItems.length;  i+=2 ) {
+                itemOverviewHtml += '<div class="item-overview-row">';
+                for (var j = 0; j < 2; j++) {
+                    var index = i + j;
+                    if (index < allItems.length) {
+                        itemOverviewHtml += '<div class="item-overview-block">';
+                        itemOverviewHtml += '<img src="' + allItems[index]['product-image'] + '" alt="' + allItems[index]['productName'] + '">';
+                        itemOverviewHtml += '<p class="title">' + allItems[index]['productName'] + '</p>';
+                        itemOverviewHtml += '<p>' + allItems[index]['productPrice'] + '원</p>';
+                        itemOverviewHtml += '</div>';
+                    }
+                }
+                itemOverviewHtml += '</div>';
             }
+
+            document.getElementById('itemOverview').innerHTML = itemOverviewHtml;
         }
 
         // 페이지 변경 함수
@@ -120,7 +130,7 @@
         }
 
         // 페이지 로드시 초기 페이지네이션 생성 및 첫 페이지 아이템 표시
-        $(document).ready(function() {
+        document.addEventListener("DOMContentLoaded", function() {
             generatePagination();
             displayItems(currentPage);  // 첫 번째 페이지를 표시
         });
