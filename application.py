@@ -33,7 +33,14 @@ def reg_review_init(name):
 
 @application.route("/reg_review", methods=['POST']) 
 def reg_review():
-    data=request.form 등록된 리뷰 DB에 등록 
+    data=request.form
+    if 'productImage' in request.files:
+        file = request.files['productImage']
+        # 파일을 어디에 저장할지 결정하고 저장합니다.
+        img_path = "./static/images/" + file.filename
+        file.save(img_path)
+        data['img_path'] = '../static/images/' +  file.filename
+    
     DB.reg_review(data)
     return redirect(url_for('view_review'))
 
