@@ -23,11 +23,19 @@ def view_list():
     total_pages = (len(items) + items_per_page - 1) // items_per_page  # 페이지 수 계산
     return render_template('item.html', items=items, totalPages=total_pages, currentPage = 1, itemsPerPage = 6)
 
-
 @application.route("/review") 
 def view_review():
     return render_template("review.html")
 
+@application.route("/reg_review_init/<name>/") 
+def reg_review_init(name):
+    return render_template("reg_reviews.html", name=name)
+
+@application.route("/reg_review", methods=['POST']) 
+def reg_review():
+    data=request.form 등록된 리뷰 DB에 등록 
+    DB.reg_review(data)
+    return redirect(url_for('view_review'))
 
 @application.route("/reg_items", methods=['GET', 'POST']) 
 def reg_item():
