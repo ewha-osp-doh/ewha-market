@@ -39,7 +39,7 @@ def reg_review():
         # 파일을 어디에 저장할지 결정하고 저장합니다.
         img_path = "./static/images/" + file.filename
         file.save(img_path)
-        data['img_path'] = '../static/images/' +  file.filename
+        data['img_path'] = '../static/images/' + file.filename
     
     DB.reg_review(data)
     return redirect(url_for('view_review'))
