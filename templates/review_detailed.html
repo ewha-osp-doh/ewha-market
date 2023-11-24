@@ -31,43 +31,13 @@
   </div>
 
 
-  <!-- 리뷰 사진 부분 -->
-  <div class="pic" style="text-align: center;">
-    <i class="fas fa-camera fa-3x" style="color: #ffffff; margin-top: 110px;" width="50px" height="50px"></i>
-  </div>
-
-  <!-- 리뷰 내용 -->
-  <div class="review_panel">
-    <div class="Caption1Style" style="margin-bottom: 15px;"><b>리뷰 제목</b></div>
-    <hr>
-    <div class="review_content">
-      <!-- 거래 정보 -->
-      <div class="review_trade_info">
-        <div class="Caption4Style">리뷰자 아이디</div>
-        <br>
-        <div class="Caption4Style">상품 이름</div>
-      </div>
-      <!-- 별점 -->
-      <div class="star-rate">
-        <!-- 객체 사용한 별점 고려중 별점 어떻게 가져와서 나타낼지 고민하기 -->
-        <div>별점
-          <i class="fas fa-regular fa-star"></i><i class="fas fa-regular fa-star"></i><i
-            class="fas fa-regular fa-star"></i><i class="fas fa-regular fa-star"></i><i
-            class="fas fa-regular fa-star"></i>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <!-- 리뷰 상세 글 -->
-    <div class="review_discription">
-      <p class="Caption3style">이 상품은 판매자가 정말 친절해서 더 즐겁게 구매할 수 있었어요 짱짱 ㅎㅎ 이것은 상품에 대한 리뷰입니다 이것은 상품에 대한 리뷰입니다. 
-      이렇게 줄바꿈을 할 수 있으면 좋겠네요. 
-      <!-- 줄바꿈 어떻게 할지 생각해보기 pre태그 쓰니까 모양 깨짐 입력 차원에서 해결해야 할듯 -->
-      </p>
-    </div>
-  </div>
-
-
+<p>
+    review title is <b>{{data.title}}</b> and rate is {{data.point}} points out of 5 points
+    </p>
+    <img  src="../static/images/{{data.img_path}}", width=140, height=200/>
+    <p>
+        {{data.content}}
+    </p>
 </body>
 
 </html>
