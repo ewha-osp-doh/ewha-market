@@ -49,11 +49,6 @@ def reg_item():
     return render_template("reg_items.html")
 
 
-@application.route("/reg_reviews") 
-def reg_review():
-    return render_template("reg_reviews.html")
-
-
 @application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
     file = request.files['productImage']
