@@ -110,7 +110,8 @@
                 for (var j = 0; j < 2; j++) {
                     var index = i + j;
                     if (index < allItems.length) {
-                        itemOverviewHtml += '<div class="item-overview-block">';
+                        itemOverviewHtml += '<div class="item-overview-block" onclick="location.href=\'/view_detail/' + allItems[index]['key'] + '/\';" style="cur:pointer;">';
+                        itemOverviewHtml += '<div class="item-overview-block" onclick="location.href="/items_detailed/' +allItems[index]['productName']+ '/;" style="cur:pointer;">';
                         itemOverviewHtml += '<img src="' + allItems[index]['product-image'] + '" alt="' + allItems[index]['productName'] + '">';
                         itemOverviewHtml += '<p class="title">' + allItems[index]['productName'] + '</p>';
                         itemOverviewHtml += '<p>' + allItems[index]['productPrice'] + '원</p>';
