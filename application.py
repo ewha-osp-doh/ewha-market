@@ -25,7 +25,7 @@ def view_list():
 
 @application.route("/review") 
 def view_review():
-    return render_template("review.html")
+    return render_template("review_overview.html")
 
 @application.route("/reg_review_init/<name>/") 
 def reg_review_init(name):
@@ -33,7 +33,13 @@ def reg_review_init(name):
 
 @application.route("/reg_review", methods=['POST']) 
 def reg_review():
-    data=request.form
+    data = {
+        "title": request.form.get('reviewTitle'),
+        "point": request.form.get('rating'),
+        "content": request.form.get('reviewText'),
+        "authorId": request.form.get('reviewerId'),
+        "productName": request.form.get('productName')
+    }
     if 'productImage' in request.files:
         file = request.files['productImage']
         # 파일을 어디에 저장할지 결정하고 저장합니다.

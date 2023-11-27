@@ -78,13 +78,13 @@ class DBhandler:
 
     def reg_review(self, data):
         review_info = {
-            "title": data['reviewTitle'],
-            "point": data['rating'],
-            "content": data['reviewText'],
+            "title": data['title'],
+            "point": data['point'],
+            "content": data['content'],
             "img_path": data['img_path'],
-            "authorId": data['reviewerId']
+            "authorId": data['authorId']
         }
-        self.db.child("review").child(data['name']).set(review_info)
+        self.db.child("review").child(data['productName']).set(review_info)
         return True
     
     def get_item_byname(self, name): 

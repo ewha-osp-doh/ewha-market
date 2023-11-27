@@ -40,13 +40,13 @@
       </div>
     </header>
     <main>
-      <form action="" method="post" onsubmit="return validateForm()">
+      <form action="/reg_review" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
         <label for="productImage"></label>
         <input
           type="file"
           id="productImage"
           name="productImage"
-          accept=".jpg, .png"
+          accept=".jpg, .png, .jpeg"
           onchange="checkFile()"
           required
         />
