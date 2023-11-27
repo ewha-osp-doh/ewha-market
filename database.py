@@ -87,6 +87,10 @@ class DBhandler:
         self.db.child("review").child(data['productName']).set(review_info)
         return True
     
+    def get_reviews(self):
+        reviews = self.db.child("review").get().val()
+        return reviews
+    
     def get_item_byname(self, name): 
         items = self.db.child("item").get() 
         target_value="" 
