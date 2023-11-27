@@ -49,11 +49,6 @@ def reg_item():
     return render_template("reg_items.html")
 
 
-@application.route("/reg_reviews") 
-def reg_review():
-    return render_template("reg_reviews.html")
-
-
 @application.route("/submit_items_post", methods=['POST']) 
 def reg_item_submit_post():
     file = request.files['productImage']
@@ -117,6 +112,13 @@ def register_user():
 def check_session():
     user_id = session.get('id')
     return jsonify(isLoggedIn=bool(user_id), userId=user_id)
+
+@application.route("/view_detail/<name>/") 
+def view_item_detail(name):
+    print("###name:",name)
+    data = DB.get_item_byname(str(name)) 
+    print("####data:",data)
+    return render_template("items_detailed.html", name=name, data=data)
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
