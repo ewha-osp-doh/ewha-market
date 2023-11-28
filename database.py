@@ -98,15 +98,17 @@ class DBhandler:
             key_value = res.key()
             if key_value == name: 
                 target_value=res.val()
-            return target_value
+        return target_value
             
     def get_review_byname(self, name): 
         reviews = self.db.child("review").get() 
         target_value="" 
-        
-        for res in reviews.each(): 
-            if res.key() == name: 
+        print("###########",name)
+        for res in reviews.each():
+            key_value = res.key()
+            if key_value == name: 
                 target_value=res.val()
                 break
-            return target_value
+                
+        return target_value
         

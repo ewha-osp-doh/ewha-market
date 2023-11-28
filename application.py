@@ -153,6 +153,7 @@ def view_item_detail(name):
 @application.route("/review_detail/<name>/")
 def view_review_detail(name):
     review_data = DB.get_review_byname(name)
+    print(review_data)
     return render_template("review_detailed.html", review=review_data)
 
 
