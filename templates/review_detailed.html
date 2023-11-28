@@ -30,14 +30,14 @@
     </div>
   </div>
 
-
-<p>
-    review title is <b>{{data.title}}</b> and rate is {{data.point}} points out of 5 points
-    </p>
-    <img  src="../static/images/{{data.img_path}}", width=140, height=200/>
     <p>
-        {{data.content}}
+    review title is <b>{{review['title']}}</b> and rate is {{review['point']}} points out of 5 points
     </p>
+    <img src="../{{review['image_path']}}" width=140 height=200/>
+    <p>
+        {{review['content']}}
+    </p>
+    
 </body>
 
 </html>
