@@ -11,6 +11,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
     />
+       <style>
+      
+      .star {
+          cursor: pointer;
+      }
+           
+             
+      /* 노란색 별 아이콘 스타일 */
+      .fas.fa-star, .far.fa-star {
+          color: yellow;
+      }
+    </style>
   </head>
   <body>
     <!-- 상단 status-bar -->
@@ -78,21 +90,22 @@
           <!-- [TODO] 로그인 정보에서 직접 가져오기 -->
           <input type="text" id="reviewerId" name="reviewerId" required />
           <hr />
-
-          <label>별점</label><br />
-          <fieldset class="rate">
-    <span class="text-bold">별점을 선택해주세요</span>
-    <input type="radio" name="rating" value="5" id="rate1">
-    <label for="rate1">★★★★★</label>
-    <input type="radio" name="rating" value="4" id="rate2">
-    <label for="rate2">★★★★</label>
-    <input type="radio" name="rating" value="3" id="rate3">
-    <label for="rate3">★★★</label>
-    <input type="radio" name="rating" value="2" id="rate4">
-    <label for="rate4">★★</label>
-    <input type="radio" name="rating" value="1" id="rate5">
-    <label for="rate5">★</label>
-</fieldset>
+            
+       
+          <div class="mb-4">
+          <label for="rating">별점 등록</label><br />
+          <input type="hidden" id="rating" name="rating" value="0">
+            <div id="star-rating" class="flex">
+                <i class="far fa-star star text-yellow-400 text-2xl"></i>
+                <i class="far fa-star star text-yellow-400 text-2xl"></i>
+                <i class="far fa-star star text-yellow-400 text-2xl"></i>
+                <i class="far fa-star star text-yellow-400 text-2xl"></i>
+                <i class="far fa-star star text-yellow-400 text-2xl"></i>
+            </div>
+            <p class="text-gray-600 text-sm mt-2">별점을 선택해주세요</p>
+        </div>
+            
+            
           <br /><br />
           <label for="reviewText">리뷰 글</label><br />
           <textarea
@@ -106,6 +119,35 @@
         <input id="submitBtn" type="submit" value="등록하기" />
       </form>
     </main>
+    <script>
+      // 별점 관련 자바스크립트
+      const stars = document.querySelectorAll('.star');
+      let rating = 0;
+
+      function resetStars() {
+          stars.forEach(star => {
+              star.classList.remove('fas');
+              star.classList.add('far');
+          });
+      }
+
+      function handleStarClick(index) {
+          resetStars();
+          for (let i = 0; i <= index; i++) {
+              stars[i].classList.remove('far');
+              stars[i].classList.add('fas');
+          }
+          rating = index + 1;
+      }
+        
+    document.getElementById('rating').value = rating; 
+}
+
+
+      stars.forEach((star, index) => {
+          star.addEventListener('click', () => handleStarClick(index));
+      });
+    </script>
     <script src="../static/js/reg_reviews.js"></script>
   </body>
 </html>
