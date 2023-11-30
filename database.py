@@ -63,7 +63,10 @@ class DBhandler:
 
         return result
 
-
+    
+    def get_all_reviews(self ):
+        reviews = self.db.child("review").get().val()
+        return reviews
     
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
@@ -95,4 +98,16 @@ class DBhandler:
             key_value = res.key()
             if key_value == name: 
                 target_value=res.val()
+        return target_value
+    
+    def get_review_byname(self, name): 
+        reviews = self.db.child("review").get() 
+        target_value="" 
+        print("###########",name)
+        for res in reviews.each():
+            key_value = res.key()
+            if key_value == name: 
+                target_value=res.val()
+                break
+                
         return target_value

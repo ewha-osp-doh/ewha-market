@@ -23,9 +23,32 @@ def view_list():
     total_pages = (len(items) + items_per_page - 1) // items_per_page  # 페이지 수 계산
     return render_template('item.html', items=items, totalPages=total_pages, currentPage = 1, itemsPerPage = 6)
 
-@application.route("/review") 
+@application.route("/review")
 def view_review():
-    return render_template("review_overview.html")
+    page = request.args.get("page", 0, type=int)
+    per_page=6 # item count to display per page
+    per_row=3# item count to display per row
+    row_count=int(per_page/per_row)
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+    data = DB.get_all_reviews() #read the table
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    for i in range(row_count):#last row
+        if (i == row_count-1) and (tot_count%per_row != 0):
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
+        else: 
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    return render_template(
+        "review_overview.html",
+        datas=data.items(),
+        row1=locals()['data_0'].items(),
+        row2=locals()['data_1'].items(),
+        limit=per_page,
+        page=page,
+        page_count=int((item_counts/per_page)+1),
+        total=item_counts)
 
 @application.route("/reg_review_init/<name>/") 
 def reg_review_init(name):
@@ -125,6 +148,14 @@ def view_item_detail(name):
     data = DB.get_item_byname(str(name)) 
     print("####data:",data)
     return render_template("items_detailed.html", name=name, data=data)
+
+
+@application.route("/review_detail/<name>/")
+def view_review_detail(name):
+    review_data = DB.get_review_byname(name)
+    print(review_data)
+    return render_template("review_detailed.html", review=review_data)
+
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
