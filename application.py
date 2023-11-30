@@ -23,20 +23,36 @@ def view_list():
     total_pages = (len(items) + items_per_page - 1) // items_per_page  # 페이지 수 계산
     return render_template('item.html', items=items, totalPages=total_pages, currentPage = 1, itemsPerPage = 6)
 
-
 @application.route("/review") 
 def view_review():
-    return render_template("review.html")
+    return render_template("review_overview.html")
 
+@application.route("/reg_review_init/<name>/") 
+def reg_review_init(name):
+    return render_template("reg_reviews.html", name=name)
+
+@application.route("/reg_review", methods=['POST']) 
+def reg_review():
+    data = {
+        "title": request.form.get('reviewTitle'),
+        "point": request.form.get('rating'),
+        "content": request.form.get('reviewText'),
+        "authorId": request.form.get('reviewerId'),
+        "productName": request.form.get('productName')
+    }
+    if 'productImage' in request.files:
+        file = request.files['productImage']
+        # 파일을 어디에 저장할지 결정하고 저장합니다.
+        img_path = "./static/images/" + file.filename
+        file.save(img_path)
+        data['img_path'] = '../static/images/' + file.filename
+    
+    DB.reg_review(data)
+    return redirect(url_for('view_review'))
 
 @application.route("/reg_items", methods=['GET', 'POST']) 
 def reg_item():
     return render_template("reg_items.html")
-
-
-@application.route("/reg_reviews") 
-def reg_review():
-    return render_template("reg_reviews.html")
 
 
 @application.route("/submit_items_post", methods=['POST']) 
@@ -102,6 +118,13 @@ def register_user():
 def check_session():
     user_id = session.get('id')
     return jsonify(isLoggedIn=bool(user_id), userId=user_id)
+
+@application.route("/view_detail/<name>/") 
+def view_item_detail(name):
+    print("###name:",name)
+    data = DB.get_item_byname(str(name)) 
+    print("####data:",data)
+    return render_template("items_detailed.html", name=name, data=data)
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
