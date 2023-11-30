@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../static/css/text_style.css">
   <link rel="stylesheet" href="../static/css/screens/items_detailed.css">
   <link rel="stylesheet" href="../static/css/style.css">
-
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -40,6 +40,7 @@
   <div class="item_panel">
     <div name="item_head">
       <div class="Caption1Style" name="item_title"><b>{{data['productName']}}</b></div>
+        
       <div class="item_sub_title">
         <!-- 상품 상태 -->
         <div class="Caption3Style" style="margin-top:5px">{{data['productPrice']}}원</div>
@@ -65,5 +66,65 @@
     <button onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
   </div>
 </body>
+    
+    
+    <i class="fa fa-heart" id="heart"></i>
+    <p>
+    {% block section %}
+    <script>
+      function showHeart() {
+          console.log("showHeart called");
+          $.ajax({
+              type: 'GET',
+              url: '/show_heart/{{name}}/',
+              data: {},
+              success: function (response) {
+                  let my_heart = response['my_heart'];
+                  if (my_heart['interested'] == 'Y') {
+                      $("#heart").css("color", "red");
+                      $("#heart").attr("onclick", "unlike()");
+                  } else {
+                      $("#heart").css("color", "grey");
+                      $("#heart").attr("onclick", "like()");
+                  }
+              }
+          });
+      }
+        
+
+
+      function like() {
+          $.ajax({
+              type: 'POST',
+              url: '/like/{{name}}/',
+              data: {
+                  interested : "Y"
+              },
+              success: function (response) {
+                  alert(response['msg']);
+                  window.location.reload()
+              }
+          });
+      }
+
+      function unlike() {
+          $.ajax({
+              type: 'POST',
+              url: '/unlike/{{name}}/',
+              data: {
+                  interested : "N"
+              },
+              success: function (response) {
+                  alert(response['msg']);
+                  window.location.reload()
+              }
+          });
+      }
+        $(document).ready(function () {
+            showHeart();
+        });
+    </script>
+    {% endblock %}
+</p>
 
 </html>
