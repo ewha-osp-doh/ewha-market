@@ -10,20 +10,7 @@ class DBhandler:
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
 
-    def insert_item(self, name, data):
-        item_info ={
-            "sellerId": data['seller-id'],
-            "productName": data['product-name'],
-            "productPrice": data['product-price'],
-            "product-status": data['product-status'],
-            "description": data['product-description'],
-            "product-image": data['img_path']
-        }
-        self.db.child("item").child(name).set(item_info)
-        print(data)
-        return True
-
-
+    # User
     
     def insert_user(self, data, pw):
         user_info = {
@@ -37,7 +24,6 @@ class DBhandler:
             return True
         else:
             return False
-
     
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
@@ -52,22 +38,7 @@ class DBhandler:
                 if value['id'] == id_string:
                     return False
             return True
-       
-    def get_all_items(self):
-        items = self.db.child("item").get()
-        result = []
-
-        if items.val():
-            for item in items.each():
-                result.append(item.val())
-
-        return result
-
-    
-    def get_all_reviews(self ):
-        reviews = self.db.child("review").get().val()
-        return reviews
-    
+        
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
         target_value=[]
@@ -78,17 +49,32 @@ class DBhandler:
                 return True 
             
         return False
-
-    def reg_review(self, data):
-        review_info = {
-            "title": data['title'],
-            "point": data['point'],
-            "content": data['content'],
-            "img_path": data['img_path'],
-            "authorId": data['authorId']
+        
+        
+    # Item
+    
+    def insert_item(self, name, data):
+        item_info ={
+            "sellerId": data['seller-id'],
+            "productName": data['product-name'],
+            "productPrice": data['product-price'],
+            "product-status": data['product-status'],
+            "description": data['product-description'],
+            "product-image": data['img_path']
         }
-        self.db.child("review").child(data['productName']).set(review_info)
+        self.db.child("item").child(name).set(item_info)
+        print(data)
         return True
+       
+    def get_all_items(self):
+        items = self.db.child("item").get()
+        result = []
+
+        if items.val():
+            for item in items.each():
+                result.append(item.val())
+
+        return result
     
     def get_item_byname(self, name): 
         items = self.db.child("item").get() 
@@ -99,19 +85,7 @@ class DBhandler:
             if key_value == name: 
                 target_value=res.val()
         return target_value
-            
-    def get_review_byname(self, name): 
-        reviews = self.db.child("review").get() 
-        target_value="" 
-        print("###########",name)
-        for res in reviews.each():
-            key_value = res.key()
-            if key_value == name: 
-                target_value=res.val()
-                break
-
-        return target_value
-        
+    
     def get_heart_byname(self, uid, name):
         hearts = self.db.child("heart").child(uid).get()
         target_value=""
@@ -131,3 +105,33 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
+
+    
+    # Review
+    
+    def reg_review(self, data):
+        review_info = {
+            "title": data['title'],
+            "point": data['point'],
+            "content": data['content'],
+            "img_path": data['img_path'],
+            "authorId": data['authorId']
+        }
+        self.db.child("review").child(data['productName']).set(review_info)
+        return True
+      
+    def get_all_reviews(self ):
+        reviews = self.db.child("review").get().val()
+        return reviews
+    
+    def get_review_byname(self, name): 
+        reviews = self.db.child("review").get() 
+        target_value="" 
+        print("###########",name)
+        for res in reviews.each():
+            key_value = res.key()
+            if key_value == name: 
+                target_value=res.val()
+                break
+
+        return target_value
