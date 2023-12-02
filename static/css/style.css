@@ -4,7 +4,7 @@
 
 /* 네비게이션 바 스타일 */
 nav {
-  background-color: #0A5226;
+  background-color: #0a5226;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -46,7 +46,7 @@ nav {
 
 /* 타원형 빅 버튼(구매, 등록, 가입완료) */
 
-.button_container{
+.button_container {
   display: flex;
   justify-content: center;
 }
@@ -55,7 +55,7 @@ nav {
   text-align: center;
   font-size: 20px;
   border-radius: 37.5px;
-  border:none;
+  border: none;
   width: 90vw;
   height: 60px;
   background: grey;

@@ -6,42 +6,46 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="../static/css/status-bar.css" />
-    <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/submit_btn.css" />
-    <link rel="stylesheet" href="../static/css/screens/sign_up.css" />
+    <link rel="stylesheet" href="/static/css/status-bar.css" />
+    <link rel="stylesheet" href="/static/css/alt-header.css" />
+    <link rel="stylesheet" href="/static/css/screens/sign_up.css" />
   </head>
   <body>
     <!-- 상단 status-bar -->
     <div class="status-bar">
       <div class="status-bar__column">
-        <span>No Service</span>
-        <i class="fas fa-wifi"></i>
+        <span class="time">18:43</span>
       </div>
+      <div class="status-bar__column"></div>
       <div class="status-bar__column">
-        <span>18:43</span>
-      </div>
-      <div class="status-bar__column">
-        <span>100%</span>
-        <i class="fas fa-battery-full fa-lg"></i>
-        <i class="fas fa-bolt"></i>
+        <img src="../static/assets/phone-status.svg" alt="" />
       </div>
     </div>
     <!-- 상단 header -->
     <header class="alt-header">
       <div class="alt-header__column">
         <a href="#">
-          <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
+          <img src="../static/assets/left-arrow.svg" alt="" />
         </a>
       </div>
       <div class="alt-header__column">
-        <img src="../static/assets/logo_simple.svg" />
+        <img src="../static/assets/logo_txt.svg" />
       </div>
     </header>
     <main>
+      <h1>회원가입하기</h1>
       <!-- [TODO] 폼 제출 post 연결 -->
-      <form action="" method="post" onsubmit="return validateForm()">
+      <form
+        action="/signup_post"
+        method="post"
+        onsubmit="return validateForm();"
+      >
         <div class="customerInput">
+          <div class="content-wrapper"></div>
+          <div class="content-wrapper"></div>
+          <div class="content-wrapper"></div>
+          <div class="content-wrapper"></div>
+          <div class="content-wrapper"></div>
           <label for="id"><span>아이디</span><span>*</span></label
           ><br />
           <div id="idContent">
@@ -65,7 +69,7 @@
             id="password"
             name="password"
             required
-            placeholder="비밀번호를 10자 이상 입력해주세요"
+            placeholder="비밀번호를 입력해주세요"
           />
           <div class="check-comment" id="check-pw">*10자 이상 입력</div>
 
@@ -88,7 +92,7 @@
             id="email"
             name="email"
             required
-            placeholder="ewhamarket@ewha.com"
+            placeholder="예: ewhamarket@ewha.com"
           />
           <div class="check-comment" id="check-email">
             이메일 형식에 맞게 써주세요
@@ -99,7 +103,7 @@
             type="tel"
             id="phone"
             name="phone"
-            placeholder="'-' 없이 숫자만 입력하세요"
+            placeholder="'-' 없이 숫자만"
           />
         </div>
 
@@ -110,7 +114,7 @@
           value=""
         />
 
-        <input id="submitBtn" type="submit" value="가입 완료하기" />
+        <input id="submitBtn" type="submit" value="가입 완료하기" disabled />
       </form>
     </main>
     <script src="../static/js/sign_up.js"></script>

@@ -1,21 +1,49 @@
+html {
+  background-color: teal;
+}
+body {
+  padding: 0 15px;
+  margin: 0;
+  width: 375px;
+  background-color: white;
+}
 main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 1.3rem;
-  margin-bottom: 2.6rem;
+  padding: 37px 11px 30px 11px;
+}
+h1 {
+  color: #0a5226;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 112%;
+  text-align: start;
+  margin-bottom: 35px;
 }
 
 form {
-  width: 50%;
+  width: 100%;
 }
 
 label {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.75rem;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 14px;
 }
 
+input::placeholder {
+  color: #bababa;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.check-comment,
 label span:nth-child(2) {
   color: red;
 }
@@ -24,8 +52,7 @@ input {
   border: none;
   border-bottom: 1px solid #bababa;
   width: 100%;
-  margin-bottom: 1rem;
-  height: 2rem;
+  height: 34px;
 }
 
 input:focus {
@@ -33,31 +60,48 @@ input:focus {
   border-bottom: 1px solid #6e6e6e;
 }
 
-.customerInput {
-  padding: 0 1.3rem;
-}
-
 .check-comment {
   visibility: hidden;
+  margin-bottom: 23px;
 }
 
 #idContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 #id {
-  display: block;
-  margin: 0 0.75rem 0 auto;
+  width: 75%;
+  margin-bottom: 0;
 }
 
 #checkIdBtn {
-  font-size: 0.9rem;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 0.3rem;
-  padding: 0.5rem;
-  width: 6rem;
+  color: #000;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #fff;
+  padding: 8px 9.5px;
+}
+
+#submitBtn {
+  border: none;
+  margin-top: 64px;
+  border-radius: 37.5px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 600;
+}
+#submitBtn[disabled] {
+  background-color: #d6e9dd;
+  color: black;
+}
+#submitBtn:not([disabled]) {
+  background-color: #0a5226;
+  color: white;
 }
