@@ -3,6 +3,7 @@ function uploadImage() {
 }
 
 function checkFile() {
+  console.log("파일 체크는 돼요");
   var fileInput = document.getElementById("productImage");
   var file = fileInput.files[0];
 
@@ -35,15 +36,23 @@ function formatPrice() {
   }
 }
 
-function getCurrentLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      // [TODO] 현재 위치를 동 단위로 표시하는 로직 작성
-      document.getElementById("currentLocation").innerHTML =
-        latitude + "," + longitude;
-    });
+function changeStatus(status) {
+  var greatImg = document.getElementById("greatImg");
+  var goodImg = document.getElementById("goodImg");
+  var sosoImg = document.getElementById("sosoImg");
+
+  if (status === "great") {
+    greatImg.src = "../static/assets/great_active.svg";
+    goodImg.src = "../static/assets/good_inactive.svg";
+    sosoImg.src = "../static/assets/soso_inactive.svg";
+  } else if (status === "good") {
+    greatImg.src = "../static/assets/great_inactive.svg";
+    goodImg.src = "../static/assets/good_active.svg";
+    sosoImg.src = "../static/assets/soso_inactive.svg";
+  } else if (status === "soso") {
+    greatImg.src = "../static/assets/great_inactive.svg";
+    goodImg.src = "../static/assets/good_inactive.svg";
+    sosoImg.src = "../static/assets/soso_active.svg";
   }
 }
 
@@ -52,20 +61,38 @@ function validateForm() {
   var productName = document.getElementById("productName").value;
   var productImage = document.getElementById("productImage").value;
   var productPrice = document.getElementById("productPrice").value;
-  var condition = document.querySelector('input[name="condition"]:checked');
+  var sellerLocation = document.getElementById("currentLocation").value;
   var productDescription = document.getElementById("productDescription").value;
 
+  var condition = document.querySelector(
+    'input[name="condition"]:checked'
+  ).value;
+
+  var submitBtn = document.getElementById("submitBtn");
+
   if (
-    !sellerId ||
-    !productName ||
-    !productImage ||
-    !productPrice ||
-    !condition ||
-    !productDescription
+    sellerId == "" ||
+    productName == "" ||
+    productImage == "" ||
+    productPrice == "" ||
+    sellerLocation == "" ||
+    productDescription == "" ||
+    condition == null
   ) {
-    alert("모든 정보를 입력해주세요.");
-    return false;
+    // alert(
+    //   `${sellerId} ${productName} ${productImage} ${productPrice} ${sellerLocation} ${productDescription} ${condition}`
+    // );
+    submitBtn.setAttribute("disabled", true);
+  } else {
+    submitBtn.removeAttribute("disabled");
   }
 
   return true;
 }
+
+var inputs = document.querySelectorAll(
+  "input[type='text'], input[type='file'], input[type='radio']"
+);
+inputs.forEach(function (input) {
+  input.addEventListener("input", validateForm);
+});

@@ -1,21 +1,40 @@
+html {
+  background-color: teal;
+  width: 375px !important;
+}
+body {
+  padding: 0 15px;
+  margin: 0;
+  width: 375px;
+  background-color: white;
+}
+
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1.3rem;
-  margin-bottom: 1rem;
+  padding-top: 17px;
+  padding-bottom: 25px;
+}
+
+form {
+  width: 100%;
 }
 
 label {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.75rem;
+  color: #0a5226;
+  font-feature-settings: "case" on;
+  font-family: Noto Sans KR;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 175% */
 }
 
 input {
   border: none;
   background-color: #e6e6e6;
-  height: 2rem;
+  height: 44px;
   width: 100%;
 }
 
@@ -47,10 +66,50 @@ input:focus {
 
 #statusWrapper {
   display: flex;
+  padding: 0 37px;
+  justify-content: space-evenly;
 }
+
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  width: 50px; /* 이미지 너비에 맞게 조절 */
+  height: 50px; /* 이미지 높이에 맞게 조절 */
+  cursor: pointer;
+}
+
 #productDescription {
   background-color: #e6e6e6;
   border: none;
   overflow: hidden;
   resize: none;
+}
+#submitBtn {
+  border: none;
+  margin-top: 64px;
+  border-radius: 37.5px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #d6e9dd;
+}
+#submitBtn[disabled] {
+  background-color: #d6e9dd !important;
+  color: black !important;
+}
+#submitBtn:not([disabled]) {
+  background-color: #0a5226 !important;
+  color: white !important;
 }
