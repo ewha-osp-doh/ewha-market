@@ -18,6 +18,10 @@ def hello():
 def view_list():
     return render_template("list.html")
 
+@application.route("/sign_up")
+def view_sign_up():
+    return render_template("sign_up.html")
+
 
 @application.route("/review") 
 def view_review():
