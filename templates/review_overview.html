@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>리뷰 페이지</title>
@@ -9,74 +9,85 @@
     <link rel="stylesheet" href="../static/css/alt-header.css" />
     <link rel="stylesheet" href="../static/css/items.css" />
     <link rel="stylesheet" href="../static/css/text_style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <link rel="stylesheet" href="../static/css/screens/allreview.css" />
-  </head>
-  <body>
+</head>
+<body>
     <!-- 상단 status-bar -->
     <div class="status-bar">
-      <div class="status-bar__column">
-        <span>No Service</span>
-        <i class="fas fa-wifi"></i>
-      </div>
-      <div class="status-bar__column">
-        <span>18:43</span>
-      </div>
-      <div class="status-bar__column">
-        <span>100%</span>
-        <i class="fas fa-battery-full fa-lg"></i>
-        <i class="fas fa-bolt"></i>
-      </div>
+        <div class="status-bar__column">
+            <span>No Service</span>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="status-bar__column">
+            <span>18:43</span>
+        </div>
+        <div class="status-bar__column">
+            <span>100%</span>
+            <i class="fas fa-battery-full fa-lg"></i>
+            <i class="fas fa-bolt"></i>
+        </div>
     </div>
 
     <!-- 상단 header -->
-
     <header class="alt-header">
-      <div class="alt-header__column">
-        <a href="#">
-          <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
-        </a>
-      </div>
-      <div class="alt-header__column">
-        <h1 class="alt-header__title">리뷰 전체 보기</h1>
-      </div>
+        <div class="alt-header__column">
+            <a href="/">
+                <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
+            </a>
+        </div>
+        <div class="alt-header__column">
+            <h1 class="alt-header__title">리뷰 전체 보기</h1>
+        </div>
     </header>
     <!-- 여기까지 상단 header -->
 
-    <div class="review-container">
-      <ul>
-        <li class="review">
-          <img src="../static/assets/item_mock.svg" />
-          <strong>제목이 들어갑니다.</strong>
-          <p>별점</p>
-          <p>내용이 들어갑니다.</p>
-        </li>
-        <li class="review">
-          <img src="../static/assets/item_mock.svg" />
-          <strong>제목이 들어갑니다.</strong>
-          <p>별점</p>
-          <p>내용이 들어갑니다.</p>
-        </li>
-        <li class="review">
-          <img src="../static/assets/item_mock.svg" />
-          <strong>제목이 들어갑니다.</strong>
-          <p>별점</p>
-          <p>내용이 들어갑니다.</p>
-        </li>
-      </ul>
-    </div>
-
-    <div class="pagination">
-      <a href="#" class="prev">이전</a>
-      <a href="#" class="page">1</a>
-      <a href="#" class="page">2</a>
-      <a href="#" class="page">3</a>
-      <a href="#" class="next">다음</a>
-    </div>
-
-    <script src="../static/js/allreview.js"></script>
-  </body>
+    {% if total > 0 %}
+        <p>
+            현재까지 {{total}}개 리뷰 등록됨
+        </p>
+        <table>
+            <tr>
+                {% for key, value in row1 %}
+                    <td>제목: {{value.title}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for key, value in row1 %}
+                    <td onclick="location.href='/review_detail/{{key}}/';" style="cursor: pointer;">
+                        <img src="images/{{value.img_path}}" width=240 height=200/>
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for key, value in row2 %}
+                    <td>제목: {{value.title}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for key, value in row2 %}
+                    <td onclick="location.href='/review_detail/{{key}}/';" style="cursor:pointer;">
+                        <img src="images/{{value.img_path}}" width=240 height=200 />
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+        <!-- Codes for Pagination -->
+        <div class="page-wrap">
+            <div class="page-nation">
+                <ul>
+                    <li>
+                        {% for i in range(page_count) %}
+                            <a href="{{url_for('view_review', page=i)}}" style="color: black">{{i}}</a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <p>
+            등록된 리뷰가 없습니다.
+        </p>
+    {% endif %}
+</body>
 </html>

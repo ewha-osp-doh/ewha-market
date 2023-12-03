@@ -1,0 +1,26 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // 세션 상태 확인 함수
+    function checkSession() {
+        fetch('/check-session')
+            .then(response => response.json())
+            .then(data => {
+                updateNavbar(data.isLoggedIn, data.userId);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 네비게이션 바 업데이트 함수
+    function updateNavbar(isLoggedIn, userId) {
+        const loginButton = document.querySelector('.navbar__login');
+        if (isLoggedIn) {
+            loginButton.textContent = `${userId}님 반갑습니다! logout`;
+            loginButton.href = '/logout';
+        } else {
+            loginButton.textContent = 'login';
+            loginButton.href = '/login';
+        }
+    }
+
+    // 페이지 로드 시 세션 상태 확인
+    checkSession();
+});
