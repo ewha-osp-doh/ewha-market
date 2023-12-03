@@ -1,5 +1,5 @@
 function uploadImage() {
-  document.getElementById("productImage").click();
+    document.getElementById("productImage").click();
 }
 
 function checkFile() {
