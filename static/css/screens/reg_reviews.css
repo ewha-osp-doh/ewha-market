@@ -1,4 +1,13 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+html {
+  background-color: teal;
+}
+body {
+  padding: 0 15px;
+  margin: 0;
+  width: 375px;
+  background-color: white;
+}
 #productImage {
   display: none;
 }
@@ -6,8 +15,23 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1.3rem;
-  margin-bottom: 2.6rem;
+  padding-top: 17px;
+  padding-bottom: 37px;
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  color: #0a5226;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 175%;
+}
+input {
+  margin-bottom: 6px;
 }
 
 #imageWrapper {
@@ -51,51 +75,69 @@ input:focus {
 hr {
   color: #bdbdbd;
   width: 100%;
-  margin-top: 1.8rem;
-  margin-bottom: 0.8rem;
+  margin-top: 23px;
+  margin-bottom: 8px;
+}
+
+#reviewerId {
+  width: 155px;
+}
+
+fieldset input[type="radio"] {
+    display: none;
 }
 
 .rate {
-  display: inline-block;
-  border: 0;
-  margin-right: 15px;
+  border: none;
+
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  margin-inline-start: 0;
 }
-.rate > input {
-  display: none;
+
+.rate > label.active:before {
+  content: url("../../assets/star_active.svg");
 }
-.rate > label {
-  float: right;
-  color: #ddd;
-}
+
 .rate > label:before {
-  display: inline-block;
-  font-size: 2rem;
-  padding: 0.3rem 0.2rem;
-  margin: 0;
+  content: url("../../assets/star_inactive.svg");
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  font-family: FontAwesome;
-  content: "\f005 ";
+  display: inline-block; /* 별 이미지를 옆으로 정렬 */
 }
-.rate .half:before {
-  content: "\f089 ";
-  position: absolute;
-  padding-right: 0;
-}
-.rate input:checked ~ label,
-.rate label:hover,
-.rate label:hover ~ label {
-  color: #f73c32 !important;
-}
-.rate input:checked + .rate label:hover,
-.rate input input:checked ~ label:hover,
-.rate input:checked ~ .rate label:hover ~ label,
-.rate label:hover ~ input:checked ~ label {
-  color: #f73c32 !important;
+
+#ratingTxt {
+  display: none;
 }
 
 #reviewText {
-  background-color: #e6e6e6;
-  border: none;
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid #4da36f;
   overflow: hidden;
   resize: none;
+  padding: 14px;
+}
+#submitBtn {
+  border: none;
+  margin-top: 64px;
+  border-radius: 37.5px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #d6e9dd;
+}
+#submitBtn[disabled] {
+  background-color: #d6e9dd !important;
+  color: black !important;
+}
+#submitBtn:not([disabled]) {
+  background-color: #0a5226 !important;
+  color: white !important;
 }
