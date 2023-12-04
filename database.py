@@ -12,11 +12,14 @@ class DBhandler:
 
     # User
     
-    def insert_user(self, data, pw):
+    def insert_user(self, data, password):
+        phone = data.get('phone', None)
+
         user_info = {
             "id": data['id'],
-            "password": pw,
-            "nickname": data['nickname']
+            "password": password,
+            "email": data['email'],
+            "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
         if self.user_duplicate_check(str(data['id'])):
             self.db.child("user").push(user_info)
@@ -24,7 +27,7 @@ class DBhandler:
             return True
         else:
             return False
-    
+
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
 
