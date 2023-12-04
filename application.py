@@ -19,7 +19,7 @@ def hello():
 # 회원가입
 @application.route("/signup")
 def signup():
-    return render_template("Signup.html")
+    return render_template("sign_up.html")
 
 @application.route("/signup_post", methods=['POST'])
 def register_user():
@@ -30,7 +30,7 @@ def register_user():
         return render_template("login.html")
     else:
         flash("user id already exist!")
-        return render_template("Signup.html")
+        return render_template("sign_up.html")
 
 # 로그인
 @application.route("/login")
