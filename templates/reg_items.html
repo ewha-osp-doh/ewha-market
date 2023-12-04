@@ -2,10 +2,9 @@
 <html>
   <head>
     <title>상품 등록하기</title>
-    <link rel="stylesheet" href="../static/css/status-bar.css" />
-    <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/submit_btn.css" />
-    <link rel="stylesheet" href="../static/css/screens/reg_items.css" />
+    <link rel="stylesheet" href="/static/css/status-bar.css" />
+    <link rel="stylesheet" href="/static/css/alt-header.css" />
+    <link rel="stylesheet" href="/static/css/screens/reg_items.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
@@ -15,22 +14,17 @@
     <!-- 상단 status-bar -->
     <div class="status-bar">
       <div class="status-bar__column">
-        <span>No Service</span>
-        <i class="fas fa-wifi"></i>
+        <span class="time">18:43</span>
       </div>
+      <div class="status-bar__column"></div>
       <div class="status-bar__column">
-        <span>18:43</span>
-      </div>
-      <div class="status-bar__column">
-        <span>100%</span>
-        <i class="fas fa-battery-full fa-lg"></i>
-        <i class="fas fa-bolt"></i>
+        <img src="../static/assets/phone-status.svg" alt="" />
       </div>
     </div>
     <!-- 상단 header -->
     <header class="alt-header">
       <div class="alt-header__column">
-        <a href="#">
+        <a href="/">
           <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
         </a>
       </div>
@@ -39,8 +33,9 @@
       </div>
     </header>
     <main>
-      <form action="/submit_items_post" method="post" onsubmit="return validateForm()">
+      <form action="/submit_items_post" method="post" enctype = "multipart/form-data" onsubmit="return validateForm()">
         <label for="sellerId">판매자 ID</label>
+        <br />
         <!-- [TODO] 로그인 정보에서 가져올 수 있도록 하기 -->
         <input type="text" id="sellerId" name="sellerId" required /><br /><br />
 
@@ -57,7 +52,6 @@
           type="file"
           id="productImage"
           name="productImage"
-          accept=".jpg, .png"
           onchange="checkFile()"
           required
         />
@@ -77,49 +71,56 @@
         /><br /><br />
 
         <label>지역</label>
-        <div id="currentLocation">현재 위치를 가져오는 중...</div>
-        <script>
-          // getCurrentLocation();
-        </script>
+        <input type="text" id="currentLocation" name="productPrice" required />
+        <script></script>
         <br /><br />
 
-        <label for = "status">상태</label><br />
+        <label>상태</label><br />
         <div id="statusWrapper">
           <input
             type="radio"
             name="condition"
             value="상"
             id="condition1"
+            onchange="changeStatus('great')"
             required
-          /><label for="condition1">상</label>
+          /><label for="condition1"
+            ><img id="greatImg" src="../static/assets/great_inactive.svg"
+          /></label>
           <input
             type="radio"
             name="condition"
             value="중"
             id="condition2"
+            onchange="changeStatus('good')"
             required
-          /><label for="condition2">중</label>
+          /><label for="condition2"
+            ><img id="goodImg" src="../static/assets/good_inactive.svg"
+          /></label>
           <input
             type="radio"
             name="condition"
             value="하"
             id="condition3"
+            onchange="changeStatus('soso')"
             required
-          /><label for="condition3">하</label><br /><br />
+          /><label for="condition3"
+            ><img id="sosoImg" src="../static/assets/soso_inactive.svg"
+          /></label>
         </div>
         <br />
 
-        <label for="description">상세 내용</label><br />
+        <label for="productDescription">상세 내용</label><br />
         <textarea
           id="productDescription"
           name="productDescription"
           rows="12"
-          cols="50"
+          cols="46"
           required
         ></textarea
         ><br /><br />
 
-        <input id="submitBtn" type="submit" value="등록하기" />
+        <input id="submitBtn" type="submit" value="등록하기" disabled />
       </form>
     </main>
     <script src="../static/js/reg_items.js"></script>
