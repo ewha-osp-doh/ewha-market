@@ -55,3 +55,30 @@ function validateForm() {
 
   return true;
 }
+
+function checkInputs() {
+  var id = document.getElementById("id").value;
+  var password = document.getElementById("password").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var email = document.getElementById("email").value;
+
+  var submitBtn = document.getElementById("submitBtn");
+
+  if (
+    id !== "" &&
+    password.length !== "" &&
+    confirmPassword !== "" &&
+    email !== ""
+  ) {
+    submitBtn.removeAttribute("disabled");
+  } else {
+    submitBtn.setAttribute("disabled", true);
+  }
+}
+
+var inputs = document.querySelectorAll(
+  "input[type='text'], input[type='password'], input[type='email']"
+);
+inputs.forEach(function (input) {
+  input.addEventListener("input", checkInputs);
+});
