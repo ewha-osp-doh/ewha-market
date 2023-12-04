@@ -16,7 +16,7 @@ def hello():
 
 @application.route("/list")
 def view_list():
-    return render_template("list.html")
+    return render_template("item.html")
 
 
 @application.route("/review") 
