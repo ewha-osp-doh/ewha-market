@@ -56,7 +56,7 @@
               required
               placeholder="아이디를 입력해주세요"
             />
-            <button id="checkIdBtn" type="button" onclick="checkDuplicate()">
+            <button id="checkIdBtn" onclick="checkDuplicate()" >
               중복 확인
             </button>
           </div>
@@ -104,6 +104,7 @@
             id="phone"
             name="phone"
             placeholder="'-' 없이 숫자만"
+                 
           />
         </div>
 
@@ -118,5 +119,10 @@
       </form>
     </main>
     <script src="../static/js/sign_up.js"></script>
+      <script>function checkDuplicate() {
+    var duplicateCheck = document.getElementById("duplicateCheck");
+    duplicateCheck.setAttribute("value", "confirmed");
+    document.getElementById("check-id").style.visibility = "hidden";
+}</script>
   </body>
 </html>
