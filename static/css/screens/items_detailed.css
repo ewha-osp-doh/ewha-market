@@ -19,3 +19,19 @@
     margin-top: 15px;
     margin-bottom: 90px;
 }
+
+.item_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.review_button{
+    color: white;
+    background-color:#4DA36F ;
+    padding: 10px;
+    text-align:center;
+    margin-bottom: 5px;
+    font-size: 16;
+    border: none;
+    border-radius:30px;
+}
