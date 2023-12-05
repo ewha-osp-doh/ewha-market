@@ -1,10 +1,7 @@
-html {
-  background-color: teal;
-}
+
 body {
   padding: 0 15px;
   margin: 0;
-  width: 375px;
   background-color: white;
 }
 main {
