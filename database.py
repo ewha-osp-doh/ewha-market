@@ -114,6 +114,7 @@ class DBhandler:
     
     def reg_review(self, data):
         review_info = {
+            "productName": data['productName'],
             "title": data['title'],
             "point": data['point'],
             "content": data['content'],
