@@ -54,19 +54,23 @@
       <!-- 거래 정보 -->
       <div class="review_trade_info" style="color: grey;">
         <div class="Caption4Style" style="margin-bottom: 5px;">{{review['authorId']}}</div>
-        <div class="Caption4Style">{{['productName']}}</div>
+        <div class="Caption4Style">{{review['productName']}}</div>
       </div>
       <!-- 별점 -->
       <div class="starRate">
-        <div><img src="/static/assets/star-light.svg" style="width:36; height: 34;"/>     {{review['point']}}</div>
+        
+        <div style=" display: flex; justify-content:space-evenly;">
+          <div> <img src="/static/assets/star-light.svg" style="padding-top: 2px"/ > </div> 
+          <div><b>{{review['point']}}</b></div>
+        </div>
       </div>
     </div>
 
     <hr>
     <!-- 리뷰 상세 글 -->
     <div class="review_discription">
-      <p class="Caption3style">{{review['content']}}
-      </p>
+      <div style="font-size: 20">{{review['content']}}
+      </div>
     </div>
   </div>
 

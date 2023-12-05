@@ -19,18 +19,16 @@
 }
 
 .starRate {
-    width: 3.5625rem;
-    height: 1.8125rem;
+    width: 4rem;
+    height: 2rem;
     font-size: 16pt;
-    bottom: 10px;
-    right: 20px;
     background-color: #4DA36F;
     color: #DBEDE2;
     text-align: center;
     border: none;
     border-radius: 30px;
-    padding: 3px;
-
+    padding: 4px;
+   
 }
 
 hr{
