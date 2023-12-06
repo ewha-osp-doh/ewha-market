@@ -36,3 +36,10 @@
     border-radius:30px;
     width: 80px;
 }
+
+#heart{
+    width: 32px; 
+    height: 30px;
+    padding-top: 6px;
+    padding-bottom: 3px;
+}
