@@ -57,9 +57,9 @@ class DBhandler:
     def get_user_info(self, id_):
         user = self.db.child("user").order_by_child("id").equal_to(id_).get()
         user_info = {
-            "id": data['id'],
-            "email": data['email']
-            "phone": data['phone']
+            "id": user['id'],
+            "email": user['email'],
+            "phone": user['phone']
         }
         print(user_info)
         return user_info
@@ -169,3 +169,20 @@ class DBhandler:
         result = self.db.child("item").order_by_child("sellerId").equal_to(seller).limit_to_first(3).get()
         return result
     
+    # heart
+    def get_top_2_hearts_byname(self, uid):
+        hearts = self.db.child("heart").child(uid).get()
+        target_values = []
+
+        if hearts.val() is None:
+            return target_values
+        # Create a list of tuples containing key-value pairs
+        heart_list = [(res.key(), res.val()) for res in hearts.each()]
+        # Sort the list based on the values in descending order
+        sorted_hearts = sorted(heart_list, key=lambda x: x[1], reverse=True)
+        # Extract the top 2 values
+        top_2_hearts = sorted_hearts[:2]
+        # Check if the requested name is in the top 2 hearts
+        for key, value in top_2_hearts:
+            target_values.append(value)
+        return target_values
