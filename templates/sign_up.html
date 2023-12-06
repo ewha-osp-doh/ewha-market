@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>SignUp</title>
     <link
       rel="stylesheet"
@@ -24,7 +27,7 @@
     <!-- 상단 header -->
     <header class="alt-header">
       <div class="alt-header__column">
-        <a href="#">
+        <a href="/login">
           <img src="../static/assets/left-arrow.svg" alt="" />
         </a>
       </div>
@@ -56,7 +59,7 @@
               required
               placeholder="아이디를 입력해주세요"
             />
-            <button id="checkIdBtn" type="button" onclick="checkDuplicate()">
+            <button id="checkIdBtn" onclick="checkDuplicate()" >
               중복 확인
             </button>
           </div>
@@ -104,6 +107,7 @@
             id="phone"
             name="phone"
             placeholder="'-' 없이 숫자만"
+                 
           />
         </div>
 
@@ -118,5 +122,10 @@
       </form>
     </main>
     <script src="../static/js/sign_up.js"></script>
+      <script>function checkDuplicate() {
+    var duplicateCheck = document.getElementById("duplicateCheck");
+    duplicateCheck.setAttribute("value", "confirmed");
+    document.getElementById("check-id").style.visibility = "hidden";
+}</script>
   </body>
 </html>
