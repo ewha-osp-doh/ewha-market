@@ -11,9 +11,6 @@
   <link rel="stylesheet" href="/static/css/screens/items_detailed.css">
   <link rel="stylesheet" href="/static/css/style.css">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script>var productId = "{{ name }}"; // 상품의 ID</script>
-    <script src="/static/js/items_detailed.js"></script>
-    
 </head>
 
 <body>
@@ -47,7 +44,7 @@
     <div name="item_head">
       <div class="item_title" name="item_title">
           <b  class="Caption1Style">{{data['productName']}}</b>
-          <img id="heart" name="좋아요" src="/static/assets/heart-inactive.svg"/>
+          <img id="heart" name="좋아요" src="/static/assets/heart-inactive.svg" style="padding-left:5px;"/>
     
         </div>
         
@@ -55,10 +52,11 @@
         <!-- 상품 상태 -->
         <div class="Caption3Style">{{data['productPrice']}}원</div>
         <!-- <img id="status-icon" src="/static/assets/flower.svg"/> -->
-          <div id="statusSet" style="visibility: hidden;">
-            <img id="statusView" src="/static/assets/flower.svg"/>
+          <div id="statusSet" style="color: white; font-size: 0.2pt;">
               {{data['product-status']}}
           </div><!-- 상태 보여줘야 됨!! -->
+          <img id="statusView" src="/static/assets/flower.svg" width="40px" height="40px"/>
+          <!-- 상태가 될 대상 -->
       </div>
     </div>
     <hr>
@@ -76,6 +74,29 @@
   <div class="button_container">
     <button class="oval_button" type="button" >구매하기</button>
   </div>
+    
+   <script>
+    function statusSetting(){
+    var status = document.getElementById("statusSet");
+    var statusView = document.getElementById("statusView");
+        
+    console.log("상탯값은: "+status.innerText);
+    
+    if (status.innerText === '상') {
+         // 아이콘을 활성화 상태로 변경
+            statusView.src = "/static/assets/great_active.svg";
+            
+      } else if (status.innerText === '중'){
+       // 아이콘을 비활성화 상태로 변경
+           statusView.src = "/static/assets/good_active.svg";
+      } else if (status.innerText === '하'){
+      // 아이콘을 비활성화 상태로 변경
+            statusView.src = "/static/assets/soso_active.svg";
+      }
+}
+
+statusSetting();
+    </script>
 </body>
     
     
