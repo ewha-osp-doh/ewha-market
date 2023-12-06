@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="/static/css/screens/items_detailed.css">
   <link rel="stylesheet" href="/static/css/style.css">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="items_detailed.js"></script>
+    <script>var productId = "{{ name }}"; // 상품의 ID</script>
+    <script src="/static/js/items_detailed.js"></script>
+    
 </head>
 
 <body>
@@ -52,8 +54,11 @@
       <div class="item_sub_title">
         <!-- 상품 상태 -->
         <div class="Caption3Style">{{data['productPrice']}}원</div>
-        <i class="fas fa-laugh fa-2x"></i> <!-- 상태 보여줘야 됨!! -->
-        <!-- <i class="fas fa-meh fa-2x"></i>   평범한 얼굴 아이콘 -->
+        <!-- <img id="status-icon" src="/static/assets/flower.svg"/> -->
+          <div id="statusSet" style="visibility: hidden;">
+            <img id="statusView" src="/static/assets/flower.svg"/>
+              {{data['product-status']}}
+          </div><!-- 상태 보여줘야 됨!! -->
       </div>
     </div>
     <hr>
