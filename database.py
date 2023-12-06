@@ -169,3 +169,10 @@ class DBhandler:
         result = self.db.child("item").order_by_child("sellerId").equal_to(seller).limit_to_first(3).get()
         return result
     
+    
+    # 회원탈퇴
+    def withdraw_user(self, id_):
+        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
+        print("user:", user)
+        user.remove()
+        return True

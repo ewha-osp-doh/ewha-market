@@ -213,5 +213,13 @@ def view_mypage():
     return render_template("mypage.html", user=user_info, registered=registered_item)
 
 
+# 회원탈퇴
+@application.route("/withdrawal")
+def withdraw():
+    user_id = session['id']
+    DB.withdraw_user(user_id)
+    return jsonify({'msg': '탈퇴 완료'})
+
+
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
