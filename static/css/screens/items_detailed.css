@@ -28,10 +28,11 @@
 .review_button{
     color: white;
     background-color:#4DA36F ;
-    padding: 10px;
+    padding: 7px;
     text-align:center;
     margin-bottom: 5px;
-    font-size: 16;
+    font-size: 12pt;
     border: none;
     border-radius:30px;
+    width: 80px;
 }

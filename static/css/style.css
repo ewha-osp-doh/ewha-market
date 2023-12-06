@@ -64,12 +64,3 @@ nav {
   bottom: 20px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 }
-
-i {
-    position: absolute;
-    top: 40px; 
-    color: white;
-    margin-left: 15px;
-    z-index: 999;
-    left: 0px;
-}

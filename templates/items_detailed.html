@@ -33,9 +33,11 @@
   <!-- 리뷰 사진 부분 -->
      <div class="pic">
     <img class="detailed-pic" src="../{{data['product-image']}}">
+         <a>
     <i class="fas fa-angle-left fa-3x"
         style="position: absolute; top: 40px; color: white; margin-left: 15px; z-index: 999; left: 0px;"></i>
-    </div>
+    </a>
+ </div>
 
 
   <!-- 상품 제목 및 기본 정보 -->
@@ -44,6 +46,7 @@
       <div class="item_title" name="item_title">
           <b  class="Caption1Style">{{data['productName']}}</b>
           <i class="fa fa-heart" id="heart"></i>
+    
         </div>
         
       <div class="item_sub_title">
@@ -55,7 +58,7 @@
     </div>
     <hr>
     <div name="item_mid" class="item_mid">
-      <div class="Caption3Style" style="margin-top: 20px;">{{data['sellerId']}}</div>
+      <div class="Caption4Style" style="margin-top: 20px;">{{data['sellerId']}}</div>
       <div class="Caption4Style" style="margin-top: 10px; margin-bottom: 10px;">판매자 지역</div>
       <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
     </div>
@@ -72,7 +75,6 @@
     
     
    
-    <p>
     {% block section %}
     <script>
       function showHeart() {
@@ -128,6 +130,5 @@
         });
     </script>
     {% endblock %}
-</p>
 
 </html>
