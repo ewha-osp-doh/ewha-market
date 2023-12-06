@@ -22,6 +22,9 @@ class DBhandler:
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
         
+        self.db.child("user").push(user_info)
+        print(data)
+        
         '''
         if self.user_duplicate_check(str(data['id'])):
             self.db.child("user").push(user_info)
