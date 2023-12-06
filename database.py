@@ -52,8 +52,18 @@ class DBhandler:
                 return True 
             
         return False
-        
-        
+
+    
+    def get_user_info(self, id_):
+        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
+        user_info = {
+            "id": data['id'],
+            "email": data['email']
+            "phone": data['phone']
+        }
+        print(user_info)
+        return user_info
+
     # Item
     
     def insert_item(self, name, data):

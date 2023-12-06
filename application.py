@@ -200,14 +200,18 @@ def view_review_detail(name):
 # 마이페이지
 @application.route("/mypage")
 def view_mypage():
+    user_id = session['id']
+    
     #회원정보
+    user_info = DB.get_user_info(user_id)
     
     #구매내역
     
     #등록내역
-    registered_item = DB.get_users_registered_item(session['id'])
+    registered_item = DB.get_users_registered_item(user_id)
     print(registered_item)
-    return render_template("mypage.html", registered=registered_item)
+    return render_template("mypage.html", user=user_info, registered=registered_item)
+
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
