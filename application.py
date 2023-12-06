@@ -197,6 +197,17 @@ def view_review_detail(name):
     return render_template("review_detailed.html", review=review_data)
 
 
+# 마이페이지
+@application.route("/mypage")
+def view_mypage():
+    #회원정보
+    
+    #구매내역
+    
+    #등록내역
+    registered_item = DB.get_users_registered_item(session['id'])
+    print(registered_item)
+    return render_template("mypage.html", registered=registered_item)
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)

@@ -139,3 +139,23 @@ class DBhandler:
                 break
 
         return target_value
+    
+    # def get_users_registered_item(self, seller):
+    #     items = self.db.child("item").get()
+    #     result = []
+    #     length = 0
+    #     print("###########", seller)
+    #     for item in items.each(): 
+    #         sellerId = item.sellerId
+    #         if sellerId == seller: 
+    #             result.append(item.val())
+    #             length += 1
+    #         if length >= 3:
+    #             break
+    #     return result
+    
+    def get_users_registered_item(self, seller):
+        print("###########", seller)
+        result = self.db.child("item").order_by_child("sellerId").equal_to(seller).limit_to_first(3).get()
+        return result
+    
