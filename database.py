@@ -11,7 +11,7 @@ class DBhandler:
         self.db = firebase.database()
 
     # User
-    
+
     def insert_user(self, data, password):
         phone = data.get('phone', None)
 
@@ -21,32 +21,22 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-        
+
         self.db.child("user").push(user_info)
         print(data)
-        
-        '''
-        if self.user_duplicate_check(str(data['id'])):
-            self.db.child("user").push(user_info)
-            print(data)
-            return True
-        else:
-            return False
-        '''
-        
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
         print("users###", users.val())
-        
+
         for res in users.each():
             value = res.val()
-            
-            if value['id'] == id_string:
+
+            if value['id'] == id_string: #중복 아이디 있으면 false
                 return False
-        
-        return True
-        
+
+        return True #중복 아이디 없으면 true
+
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
         target_value=[]
