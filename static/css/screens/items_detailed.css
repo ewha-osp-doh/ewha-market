@@ -19,3 +19,27 @@
     margin-top: 15px;
     margin-bottom: 90px;
 }
+
+.item_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.review_button{
+    color: white;
+    background-color:#4DA36F ;
+    padding: 7px;
+    text-align:center;
+    margin-bottom: 5px;
+    font-size: 12pt;
+    border: none;
+    border-radius:30px;
+    width: 80px;
+}
+
+#heart{
+    width: 32px; 
+    height: 30px;
+    padding-top: 6px;
+    padding-bottom: 3px;
+}
