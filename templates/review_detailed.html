@@ -32,18 +32,13 @@
 
     
     <!-- 본문 코드 시작 -->
-    <!-- <p>
-    review title is <b>{{review['title']}}</b> and rate is {{review['point']}} points out of 5 points
-    </p>
-    <img src="../{{review['img_path']}}" width=140 height=200/>
-    <p>
-        {{review['content']}}
-    </p> -->
-    
+
     <div class="pic">
     <img class="detailed-pic" src="../{{review['img_path']}}">
+        <a href="/">
     <i class="fas fa-angle-left fa-3x"
-        style="position: absolute; top: 40px; color: white; margin-top: 10px; margin-left: 10px; z-index: 2;"></i>
+        style="position: absolute; top: 40px; color: white; margin-left: 15px; z-index: 999; left: 0px;"></i>
+      </a>
     </div>
 
   <!-- 리뷰 내용 -->
@@ -54,19 +49,23 @@
       <!-- 거래 정보 -->
       <div class="review_trade_info" style="color: grey;">
         <div class="Caption4Style" style="margin-bottom: 5px;">{{review['authorId']}}</div>
-        <div class="Caption4Style">{{['productName']}}</div>
+        <div class="Caption4Style">{{review['productName']}}</div>
       </div>
       <!-- 별점 -->
       <div class="starRate">
-        <div><img src="/static/assets/star-light.svg" style="width:36; height: 34;"/>     {{review['point']}}</div>
+        
+        <div style=" display: flex; justify-content:space-evenly;">
+          <div> <img src="/static/assets/star-light.svg" style="padding-top: 2px"/ > </div> 
+          <div><b>{{review['point']}}</b></div>
+        </div>
       </div>
     </div>
 
     <hr>
     <!-- 리뷰 상세 글 -->
     <div class="review_discription">
-      <p class="Caption3style">{{review['content']}}
-      </p>
+      <div style="font-size: 20">{{review['content']}}
+      </div>
     </div>
   </div>
 
