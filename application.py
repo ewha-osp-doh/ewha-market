@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from database import DBhandler
+from flask import jsonify
 
 import hashlib
 import sys
-
 
 application = Flask(__name__)
 application.config["SECRET_KEY"] = "hello_osp"
@@ -31,11 +31,23 @@ def register_user():
     data=request.form
     password = request.form['password']
     pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    if DB.insert_user(data, pw_hash):
-        return render_template("login.html")
+    DB.insert_user(data, pw_hash)
+
+    return render_template("login.html")
+
+    
+@application.route("/check_id", methods=['POST'])
+def check_duplicate():
+    data = request.get_json()
+    if data and 'id' in data:
+        id = data['id']
+        if DB.user_duplicate_check(id):
+            return jsonify({'message': 'ID available'}), 200
+        else:
+            return jsonify({'message': 'ID already exists'}), 409
     else:
-        flash("user id already exist!")
-        return render_template("sign_up.html")
+        return jsonify({'message': 'Invalid data format'}), 400
+
 
 # 로그인
 @application.route("/login")
@@ -53,11 +65,6 @@ def login_user():
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
-
-@application.route("/sign_up")
-def view_sign_up():
-    return render_template("sign_up.html")
-
 
 # 로그아웃
 @application.route("/logout")
