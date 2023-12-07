@@ -18,7 +18,7 @@ def hello():
 
 # 메인 페이지
 @application.route("/mainpage")
-def hello():
+def mainpage():
     return render_template("mainpage.html")
 
 # 회원가입
