@@ -16,6 +16,11 @@ DB = DBhandler()
 def hello():
     return render_template("index.html")
 
+# 메인 페이지
+@application.route("/mainpage")
+def mainpage():
+    return render_template("mainpage.html")
+    
 # 회원가입
 @application.route("/signup")
 def signup():
