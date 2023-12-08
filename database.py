@@ -11,7 +11,7 @@ class DBhandler:
         self.db = firebase.database()
 
     # User
-
+    
     def insert_user(self, data, password):
         phone = data.get('phone', None)
 
@@ -21,22 +21,27 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-
-        self.db.child("user").push(user_info)
-        print(data)
+        if self.user_duplicate_check(str(data['id'])):
+            self.db.child("user").push(user_info)
+            print(data)
+            return True
+        else:
+            return False
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
+
         print("users###", users.val())
+        if str(users.val()) == "None": # first registration
+            return True
+        else:
+            for res in users.each():
+                value = res.val()
 
-        for res in users.each():
-            value = res.val()
-
-            if value['id'] == id_string: #중복 아이디 있으면 false
-                return False
-
-        return True #중복 아이디 없으면 true
-
+                if value['id'] == id_string:
+                    return False
+            return True
+        
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
         target_value=[]
@@ -186,9 +191,8 @@ class DBhandler:
         # Create a list of tuples containing key-value pairs
         heart_list = [(res.key(), res.val()) for res in hearts.each()]
         # Sort the list based on the values in descending order
-        sorted_hearts = sorted(heart_list, key=lambda x: x[1], reverse=True)
-        # Extract the top 2 values
-        top_2_hearts = sorted_hearts[:2]
+        
+        top_2_hearts = heart_list[:2]
         # Check if the requested name is in the top 2 hearts
         for key, value in top_2_hearts:
             target_values.append(value)
