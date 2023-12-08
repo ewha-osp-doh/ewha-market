@@ -69,7 +69,8 @@ input:focus {
 }
 
 #id {
-  width: 75%;
+  max-width: 232px;
+    width: 100%;
   margin-bottom: 0;
 }
 
