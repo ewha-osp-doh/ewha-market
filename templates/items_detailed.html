@@ -5,12 +5,12 @@
   <title>Items_Detailed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-  <link rel="stylesheet" href="../static/css/status-bar.css" />
-  <link rel="stylesheet" href="../static/css/detailed_pic.css">
-  <link rel="stylesheet" href="../static/css/text_style.css">
-  <link rel="stylesheet" href="../static/css/screens/items_detailed.css">
-  <link rel="stylesheet" href="../static/css/style.css">
-
+  <link rel="stylesheet" href="/static/css/status-bar.css" />
+  <link rel="stylesheet" href="/static/css/picture.css">
+  <link rel="stylesheet" href="/static/css/text_style.css">
+  <link rel="stylesheet" href="/static/css/screens/items_detailed.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -31,40 +31,145 @@
   </div>
 
   <!-- 리뷰 사진 부분 -->
-  <div class="pic" style="text-align: center;">
-    <i class="fas fa-camera fa-3x" style="color: #ffffff; margin-top: 110px;" width="50px" height="50px"></i>
-  </div>
+     <div class="pic">
+    <img class="detailed-pic" src="../{{data['product-image']}}">
+      <a href="/list">
+          <i class="fas fa-arrow-left fa-lg" 
+             style="position: absolute; top: 40px; color: white; margin-left: 15px; z-index: 999; left: 0px;">
+          </i>
+        </a>
+ </div>
 
 
   <!-- 상품 제목 및 기본 정보 -->
   <div class="item_panel">
     <div name="item_head">
-      <div class="Caption1Style" name="item_title"><b>상품 이름</b></div>
+      <div class="item_title" name="item_title">
+          <b  class="Caption1Style">{{data['productName']}}</b>
+          <img id="heart" name="좋아요" src="/static/assets/heart-inactive.svg" style="padding-left:5px;"/>
+    
+        </div>
+        
       <div class="item_sub_title">
         <!-- 상품 상태 -->
-        <div class="Caption3Style" style="margin-top:5px">000,000원</div>
-        <i class="fas fa-laugh fa-2x"></i> <!-- 웃는 얼굴 아이콘 -->
-        <!-- <i class="fas fa-meh fa-2x"></i>   평범한 얼굴 아이콘 -->
+        <div class="Caption3Style">{{data['productPrice']}}원</div>
+        <!-- <img id="status-icon" src="/static/assets/flower.svg"/> -->
+          <div id="statusSet" style="color: white; font-size: 0.2pt;">
+              {{data['product-status']}}
+          </div><!-- 상태 보여줘야 됨!! -->
+          <img id="statusView" src="/static/assets/flower.svg" width="40px" height="40px"/>
+          <!-- 상태가 될 대상 -->
       </div>
     </div>
     <hr>
     <div name="item_mid" class="item_mid">
-      <div class="Caption3Style" style="margin-top: 20px;">판매자 이름</div>
-      <div class="Caption3Style" style="margin-top: 10px; margin-bottom: 20px;">판매자 지역</div>
+      <div class="Caption4Style" style="margin-top: 20px;">{{data['sellerId']}}</div>
+      <div class="Caption4Style" style="margin-top: 10px; margin-bottom: 10px;">판매자 지역</div>
+      <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
     </div>
     <hr>
     <div class="item_discription">
-      <p class="Caption3style">미숫가루가 먹고 싶어서 샀는데 너무 양이 많아서 다 못 먹을 것 같아서 한 봉지 팝니다. 1키로그램이고 25년 2월까지 유통기한이라서 넉넉합니다 맛있어서
-        추천드립니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다. 이것은 상품설명입니다.
-        줄바꿈을 할 수 있으면 좋겠네요.
-        <!-- 줄바꿈 어떻게 할지 생각해보기 pre태그 쓰니까 모양 깨짐 입력 차원에서 해결해야 할듯 -->
-      </p>
+      <p class="Caption3style">{{data['description']}}
     </div>
   </div>
 
   <div class="button_container">
-    <button class="oval_button" type="button" >구매하기</button>
+    <button class="oval_button" type="button" onclick="alert('구매가 완료되었습니다!')" >구매하기</button>
   </div>
+    
+   <script>
+    function statusSetting(){
+    var status = document.getElementById("statusSet");
+    var statusView = document.getElementById("statusView");
+        
+    console.log("상탯값은: "+status.innerText);
+    
+    if (status.innerText === '상') {
+         // 아이콘을 활성화 상태로 변경
+            statusView.src = "/static/assets/great_active.svg";
+            
+      } else if (status.innerText === '중'){
+       // 아이콘을 비활성화 상태로 변경
+           statusView.src = "/static/assets/good_active.svg";
+      } else if (status.innerText === '하'){
+      // 아이콘을 비활성화 상태로 변경
+            statusView.src = "/static/assets/soso_active.svg";
+      }
+}
+
+statusSetting();
+    </script>
 </body>
+    
+    
+   
+    {% block section %}
+        <script>
+
+            function setHeartIcon(iconPath) {
+        $("#heart").attr("src", iconPath);
+    }
+
+        function showHeart() {
+        console.log("showHeart called");
+        $.ajax({
+            type: 'GET',
+            url: '/show_heart/{{name}}/',
+            data: {},
+            success: function (response) {
+                let my_heart = response['my_heart'];
+                if (my_heart['interested'] == 'Y') {
+                    setHeartIcon('/static/assets/heart-active.svg');
+                    $("#heart").attr("onclick", "unlike()");
+                } else {
+                    setHeartIcon('/static/assets/heart-inactive.svg');
+                    $("#heart").attr("onclick", "like()");
+                }
+            }
+        });
+    }
+
+
+    function like() {
+        $.ajax({
+            type: 'POST',
+            url: '/like/{{name}}/',
+            data: {
+                interested: "Y"
+            },
+            success: function (response) {
+                console.log("liked");
+            alert(response['msg']);
+            setHeartIcon('/static/assets/heart-active.svg'); // 좋아요 클릭 시 이미지 변경
+            $("#heart").attr("onclick", "unlike()"); // 하트 아이콘 클릭 시 unlike() 함수 호출
+            }
+        });
+    }
+
+    function unlike() {
+        $.ajax({
+            type: 'POST',
+            url: '/unlike/{{name}}/',
+            data: {
+                interested: "N"
+            },
+            success: function (response) {
+                console.log("unliked");
+            alert(response['msg']);
+            setHeartIcon('/static/assets/heart-inactive.svg'); // 좋아요 취소 클릭 시 이미지 변경
+            $("#heart").attr("onclick", "like()"); // 하트 아이콘 클릭 시 like() 함수 호출
+                
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        showHeart();
+    });
+
+    </script>
+
+
+    {% endblock %}
 
 </html>

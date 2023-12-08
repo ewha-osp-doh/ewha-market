@@ -5,11 +5,11 @@
   <title>Review_Detailed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-  <link rel="stylesheet" href="../static/css/status-bar.css" />
-  <link rel="stylesheet" href="../static/css/detailed_pic.css">
-  <link rel="stylesheet" href="../static/css/text_style.css">
-  <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="stylesheet" href="../static/css/screens/review_detailed.css">
+  <link rel="stylesheet" href="/static/css/status-bar.css" />
+  <link rel="stylesheet" href="/static/css/picture.css">
+  <link rel="stylesheet" href="/static/css/text_style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/screens/review_detailed.css">
 
 </head>
 
@@ -30,44 +30,48 @@
     </div>
   </div>
 
+    
+    <!-- 본문 코드 시작 -->
 
-  <!-- 리뷰 사진 부분 -->
-  <div class="pic" style="text-align: center;">
-    <i class="fas fa-camera fa-3x" style="color: #ffffff; margin-top: 110px;" width="50px" height="50px"></i>
-  </div>
+    <div class="pic">
+    <img class="detailed-pic" src="../{{review['img_path']}}">
+        <a href="/review">
+    <i class="fas fa-arrow-left fa-lg" 
+             style="position: absolute; top: 40px; color: white; margin-left: 15px; z-index: 999; left: 0px;">
+          </i>
+      </a>
+    </div>
 
   <!-- 리뷰 내용 -->
   <div class="review_panel">
-    <div class="Caption1Style" style="margin-bottom: 15px;"><b>리뷰 제목</b></div>
+    <div class="Caption1Style" style="margin-bottom: 15px;"><b>{{review['title']}}</b></div>
     <hr>
     <div class="review_content">
       <!-- 거래 정보 -->
-      <div class="review_trade_info">
-        <div class="Caption4Style">리뷰자 아이디</div>
-        <br>
-        <div class="Caption4Style">상품 이름</div>
+      <div class="review_trade_info" style="color: grey;">
+        <div class="Caption4Style" style="margin-bottom: 5px;">{{review['authorId']}}</div>
+        <div class="Caption4Style">{{review['productName']}}</div>
       </div>
       <!-- 별점 -->
-      <div class="star-rate">
-        <!-- 객체 사용한 별점 고려중 별점 어떻게 가져와서 나타낼지 고민하기 -->
-        <div>별점
-          <i class="fas fa-regular fa-star"></i><i class="fas fa-regular fa-star"></i><i
-            class="fas fa-regular fa-star"></i><i class="fas fa-regular fa-star"></i><i
-            class="fas fa-regular fa-star"></i>
+      <div class="starRate">
+        
+        <div style=" display: flex; justify-content:space-evenly;">
+          <div> <img src="/static/assets/star-light.svg" style="padding-top: 2px"/ > </div> 
+          <div><b>{{review['point']}}</b></div>
         </div>
       </div>
     </div>
+
     <hr>
     <!-- 리뷰 상세 글 -->
     <div class="review_discription">
-      <p class="Caption3style">이 상품은 판매자가 정말 친절해서 더 즐겁게 구매할 수 있었어요 짱짱 ㅎㅎ 이것은 상품에 대한 리뷰입니다 이것은 상품에 대한 리뷰입니다. 
-      이렇게 줄바꿈을 할 수 있으면 좋겠네요. 
-      <!-- 줄바꿈 어떻게 할지 생각해보기 pre태그 쓰니까 모양 깨짐 입력 차원에서 해결해야 할듯 -->
-      </p>
+      <div style="font-size: 20">{{review['content']}}
+      </div>
     </div>
   </div>
 
-
+    
+    
 </body>
 
 </html>

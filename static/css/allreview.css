@@ -1,0 +1,67 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+}
+.alt-header__row {
+  display: flex; /* Flexbox를 사용 */
+  align-items: center; /* 세로축(center) 기준으로 중앙 정렬 */
+  justify-content: flex-start; /* 가로축(start) 기준으로 왼쪽 정렬 */
+}
+.review-container {
+  display: flex;
+  flex-direction: column; /* 아이템들을 세로로 배치 */
+  padding: 5px;
+  margin-top: 10px;
+}
+.review-item {
+ display: flex;
+ align-items: center;
+  background: white;
+  margin-bottom: 10px; /* 아이템 사이의 마진 */
+  padding: 10px;
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+}
+.review-image {
+  width: 120px;
+  height: 120px;
+  background: #ccc;
+  margin-right: 20px;
+  border-radius: 20px;
+}
+.review-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 세로 방향으로 중앙 정렬 */
+  flex-grow: 1;
+}
+.review-title {
+  font-weight: bold; /* 굵은 글씨 */
+  font-size: 25px; /* 글씨 크기 20px */
+  /* 기타 스타일링 속성 */
+}
+.review-star-rating .fas,
+.review-star-rating .far {
+  color: gold; /* 별의 색상 */
+  font-size: 20px; /* 별의 크기 */
+}
+.review-star-rating {
+  margin-bottom: 10px; /* 별점과 내용 사이의 간격을 10px로 설정 */
+}
+.review-content {
+  white-space: pre-wrap; /* 줄바꿈과 공백을 유지하도록 설정 */
+}
+        .pagenation {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .pagenation a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin-right: 5px;
+        }

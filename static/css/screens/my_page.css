@@ -1,22 +1,31 @@
 .mp_header {
     height: 220px;
     position: relative;
-    background-color: grey;
+    background-color: #4DA36F;
 }
 
 .user_info {
     margin-top: 30px;
     margin-left: 20px;
     margin-bottom: 10px;
-
+    color: white;
 }
 
 .logout_button {
     font-size: 10pt;
+    font-size: 10pt;
     position: absolute;
     bottom: 10px;
     right: 20px;
-    background-color:lightgrey;
+    background-color:#B5DCC4;
+    color: #4DA36F;
+    border:none;
+    border-radius: 10px;
+    padding: 5px;
+    bottom: 10px;
+    right: 20px;
+    background-color:#B5DCC4;
+    color: #4DA36F;
     border:none;
     border-radius: 10px;
     padding: 5px;
@@ -42,12 +51,13 @@
 }
 
 .mp_img > img{
-    background-color: rgb(164, 164, 164);
+    background-color: #4DA36F;
     margin: 10px;
     margin-right: 20px;
     height:80px;
     width: 80px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 
@@ -57,7 +67,7 @@
 
 .mp_title{
     font-weight: 500;
-    font-size: 16pt;
+    font-size: 20pt;
     text-align: left;
 }
 
@@ -74,7 +84,8 @@
     height:25px;
     border-radius: 10px;
     text-align: center;
-    background-color:lightgrey;
+    background-color:#4DA36F;
+    color: white;
 }
 
 .mp_disc{
@@ -82,3 +93,16 @@
     font-size: 10pt;
 }
 
+.withdrawl{
+    border: none;
+    background-color: white;
+    color: #E53D7A;
+    margin: 10px;
+    margin-bottom: 20px;
+    text-decoration: underline;
+    float: right;
+}
+
+hr{
+    margin: 10px;
+}

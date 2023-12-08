@@ -1,15 +1,36 @@
-.review_panel{
+.review_panel {
     margin: 20px
 }
-.review_content{
-    display: flex; /* 추가: flexbox 레이아웃 사용 */
-    justify-content: space-between; /* 좌우로 배치 */
+
+.review_content {
+    display: flex;
+    padding: 5px;
+    /* 추가: flexbox 레이아웃 사용 */
+    justify-content: space-between;
+    /* 좌우로 배치 */
     padding-bottom: 15px;
-    padding-top:15px;
+    padding-top: 15px;
 }
 
 
-.review_discription{
+.review_discription {
     margin-left: 10px;
     margin-top: 15px;
+}
+
+.starRate {
+    width: 4rem;
+    height: 2rem;
+    font-size: 16pt;
+    background-color: #4DA36F;
+    color: #DBEDE2;
+    text-align: center;
+    border: none;
+    border-radius: 30px;
+    padding: 4px;
+   
+}
+
+hr{
+    margin: 5px;
 }

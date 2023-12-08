@@ -1,12 +1,12 @@
-function checkDuplicate() {
-  // [TODO] 아이디 중복 확인 로직 구현
-  // 중복 확인 버튼 클릭 시 호출됩니다.
-  // 중복이 아닌 경우 아이디 사용 가능 메시지를 표시하고,
-  // 중복일 경우 아이디가 이미 사용 중이라고 알려줍니다.
-  var duplicateCheck = document.getElementById("duplicateCheck");
-  duplicateCheck.setAttribute("value", "confirmed");
-  document.getElementById("check-id").style.visibility = "hidden";
-}
+
+
+
+// function checkDuplicate() {
+//     console.log("checkDuplicate!!");
+//     var duplicateCheck = document.getElementById("duplicateCheck");
+//     duplicateCheck.setAttribute("value", "confirmed");
+//     document.getElementById("check-id").style.visibility = "hidden";
+// }
 
 function validateForm() {
   var id = document.getElementById("id").value;
@@ -55,3 +55,30 @@ function validateForm() {
 
   return true;
 }
+
+function checkInputs() {
+  var id = document.getElementById("id").value;
+  var password = document.getElementById("password").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var email = document.getElementById("email").value;
+
+  var submitBtn = document.getElementById("submitBtn");
+
+  if (
+    id !== "" &&
+    password.length !== "" &&
+    confirmPassword !== "" &&
+    email !== ""
+  ) {
+    submitBtn.removeAttribute("disabled");
+  } else {
+    submitBtn.setAttribute("disabled", true);
+  }
+}
+
+var inputs = document.querySelectorAll(
+  "input[type='text'], input[type='password'], input[type='email']"
+);
+inputs.forEach(function (input) {
+  input.addEventListener("input", checkInputs);
+});

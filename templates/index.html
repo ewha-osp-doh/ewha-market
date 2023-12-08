@@ -11,10 +11,20 @@
         <nav>
             <div class="navbar__logo"><a href="">Ewha Market</a></div>
             <ul class="navbar__menu">
+            {% if not session['id'] %}
+            <li><a href="/login" class="navbar__login">login</a></li>
+            {% endif %}
+            {% if session['id'] %}
+            <li><a href="/logout"><b>{{ session['id'] }}</b>님 반갑습니다! logout</a></li>
+            {% endif %}
                 <li><a href="/list">List</a></li>
                 <li><a href="/review">Review</a></li>
                 <li><a href="/reg_items">Register Items</a></li>
                 <li><a href="">Register Reviews</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="/mypage">My Page</a></li>
+                <li><a href="/mainpage">main</a></li>
+                <li><a href="/mypage">MyPage</a></li>
             </ul>
         </nav>
     </body>

@@ -30,19 +30,51 @@ function checkFile() {
 
 // 별점
 const stars = document.querySelectorAll('.rate input[type="radio"]');
-const ratingText = document.getElementById("ratingText");
+const ratingText = document.getElementById("ratingTxt");
 
-stars.forEach((star) => {
-  star.addEventListener("change", updateRating);
+stars.forEach((star, index) => {
+  star.addEventListener("change", () => updateRating(index));
 });
 
-function updateRating() {
-  const checkedStars = document.querySelectorAll(
-    '.rate input[type="radio"]:checked'
-  );
-  const rating = Array.from(checkedStars).reduce(
-    (total, star) => total + parseFloat(star.value),
-    0
-  );
-  ratingText.textContent = `별점: ${rating}`;
+function updateRating(checkedIndex) {
+  stars.forEach((star, index) => {
+    const starLabel = star.nextElementSibling;
+    if (index <= checkedIndex) {
+      starLabel.classList.add("active");
+    } else {
+      starLabel.classList.remove("active");
+    }
+  });
+
+  ratingText.innerHTML = `별점: ${checkedIndex + 1}`;
 }
+
+// 제출 버튼 활성화
+function validateForm() {
+  var productImage = document.getElementById("productImage").value;
+  var reviewTitle = document.getElementById("reviewTitle").value;
+  var productName = document.getElementById("productName").value;
+  var condition = document.querySelector('input[name="rating"]:checked');
+
+  var submitBtn = document.getElementById("submitBtn");
+
+  if (
+    productImage !== "" &&
+    reviewTitle !== "" &&
+    productName !== "" &&
+    condition !== null
+  ) {
+    submitBtn.removeAttribute("disabled");
+  } else {
+    submitBtn.setAttribute("disabled", true);
+  }
+
+  return true;
+}
+
+var inputs = document.querySelectorAll(
+  "input[type='text'], input[type='file'], input[type='radio']"
+);
+inputs.forEach(function (input) {
+  input.addEventListener("input", validateForm);
+});
