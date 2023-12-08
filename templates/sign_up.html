@@ -124,6 +124,30 @@
     </main>
     <script src="../static/js/sign_up.js"></script>
       <script>
+<<<<<<< HEAD
+          function checkDuplicate() {
+              console.log("checkDuplicate Clicked");
+              var idInput= document.getElementById("id").value;
+              var duplicateCheck = document.getElementById("duplicateCheck");
+              
+              $.ajax({
+                  type : 'POST',
+                  url : '/check_id',
+                        data : {
+                            id:idInput                       <!--{key : "value"}-->
+                        },
+                        success : function(result){
+                            duplicateCheck.setAttribute("value", "confirmed");
+                            document.getElementById("check-id").style.visibility = "hidden";
+                        },
+                        error : function(xtr,status,error){
+                            duplicateCheck.setAttribute("value", "");
+                        }
+                });
+          }
+                
+      </script>
+=======
         function checkDuplicate() {
             console.log("checkDuplicate Clicked");
             var idInput = document.getElementById("id").value;
@@ -145,5 +169,6 @@
         }
     </script>
 
+>>>>>>> 886d3fdfd133b051847d4f3ed9102ea8f253ee34
   </body>
 </html>
