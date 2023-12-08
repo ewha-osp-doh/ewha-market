@@ -22,7 +22,7 @@
     font-weight: 600;
     border: none;
     border-radius: 20px;
-    padding-left: 22px;
+    padding-left: 20px;
     background-color: white;
     color: #0a5226;
     width: 165px;
@@ -41,6 +41,8 @@
   bottom: 10px;
   height: 65.53px;
   width: 68px;
+  padding-bottom:5px;
+  padding-right:5px;
 }
 
 .welcome-message h1 {
