@@ -12,32 +12,40 @@ class DBhandler:
 
     # User
     
-    def insert_user(self, data, pw):
+    def insert_user(self, data, password):
+        phone = data.get('phone', None)
+
         user_info = {
             "id": data['id'],
-            "password": pw,
-            "nickname": data['nickname']
+            "password": password,
+            "email": data['email'],
+            "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
+        
+        self.db.child("user").push(user_info)
+        print(data)
+        
+        '''
         if self.user_duplicate_check(str(data['id'])):
             self.db.child("user").push(user_info)
             print(data)
             return True
         else:
             return False
-    
+        '''
+        
+
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
-
         print("users###", users.val())
-        if str(users.val()) == "None": # first registration
-            return True
-        else:
-            for res in users.each():
-                value = res.val()
-
-                if value['id'] == id_string:
-                    return False
-            return True
+        
+        for res in users.each():
+            value = res.val()
+            
+            if value['id'] == id_string:
+                return False
+        
+        return True
         
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
@@ -111,6 +119,7 @@ class DBhandler:
     
     def reg_review(self, data):
         review_info = {
+            "productName": data['productName'],
             "title": data['title'],
             "point": data['point'],
             "content": data['content'],

@@ -24,14 +24,28 @@ def signup():
 @application.route("/signup_post", methods=['POST'])
 def register_user():
     data=request.form
-    pw = request.form['pw']
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    password = request.form['password']
+    pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    DB.insert_user(data, pw_hash)
+    
+    return render_template("login.html")
+
+    '''
     if DB.insert_user(data, pw_hash):
         return render_template("login.html")
     else:
         flash("user id already exist!")
         return render_template("sign_up.html")
-
+    '''
+    
+@application.rout("/check_id", methods=['POST'])
+def check_duplicate():
+    id=request.form['id']
+    if DB.user_duplicate_check(id):
+        return True
+    else
+        return False
+    
 # 로그인
 @application.route("/login")
 def login():
@@ -48,11 +62,6 @@ def login_user():
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
-
-@application.route("/sign_up")
-def view_sign_up():
-    return render_template("sign_up.html")
-
 
 # 로그아웃
 @application.route("/logout")

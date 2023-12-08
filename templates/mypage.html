@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/screens/my_page.css">
 
-
+<script></script>
 </head>
 
 <body>
   <!-- 상단 status-bar -->
-  <div class="status-bar">
+  <div class="status-bar" style="background-color: #4DA36F">
     <div class="status-bar__column">
       <span>No Service</span>
       <i class="fas fa-wifi"></i>
@@ -39,11 +39,11 @@
     <header class="alt-header">
       <div class="alt-header__column">
         <a href="#">
-          <i class="fas fa-angle-left fa-3x"></i>
+          <i class="fas fa-angle-left fa-3x" style="color: white; margin-left: 10px;"></i>
         </a>
       </div>
       <div class="alt-header__column">
-        <div class="header_text" style="color:white">마이 페이지</h1>
+        <div class="header_text" style="color:white">마이 페이지</div>
         </div>
     </header>
 
@@ -60,15 +60,16 @@
 
     <!-- 최근 구매 상품 -->
     <div name="recently_bought">
-      <div class="Caption2Style"><b>내가 최근에 구매한 상품</b></div>
+      <div class="Caption2Style"  style="color: #0A5226">
+        <img src="../static/assets/flower.svg" />
+        <b>내가 최근에 구매한 상품</b></div>
       <hr>
     <!-- 내용  -->
       <!-- 아이템 하나    -->
       <div name="rb_item" class="item_container">
         <div class="mp_item">
           <!-- 사진 -->
-          <div class="mp_img"> <img
-              src="https://i.namu.wiki/i/vnQavQ42P79sRSPC_Gyv3JUScxMIdTMhoMvwPd2gZHywb5Q1RYrNa55t9UL0NlFU-zATYa-D3yoH-LMwrH_7t_yRAuDV6KQ9A-JjMBLi8lLSHu3BEThGdkYBIJJVIsL-aXr95E9kShV4G5CTV8mkNw.svg">
+          <div class="mp_img"> <img/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
@@ -84,8 +85,8 @@
       <div name="rb_item" class="item_container">
         <div class="mp_item">
           <!-- 사진 -->
-          <div class="mp_img"> <img
-              src="https://i.namu.wiki/i/vnQavQ42P79sRSPC_Gyv3JUScxMIdTMhoMvwPd2gZHywb5Q1RYrNa55t9UL0NlFU-zATYa-D3yoH-LMwrH_7t_yRAuDV6KQ9A-JjMBLi8lLSHu3BEThGdkYBIJJVIsL-aXr95E9kShV4G5CTV8mkNw.svg">
+          <div class="mp_img">
+            <img/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
@@ -106,14 +107,16 @@
 
     <!--최근 등록 상품-->
     <div name="recently_uploaded">
-      <div class="Caption2Style"><b>내가 최근에 등록한 상품</b></div>
+      <div class="Caption2Style" style="color: #0A5226">
+        <img src="../static/assets/flower.svg" />
+        <b>내가 최근에 등록한 상품</b>
+      </div>
       <hr>
 
       <div  name="rr_item" class="item_container">
         <div class="mp_item">
           <!-- 사진 -->
-          <div class="mp_img"> <img
-              src="https://i.namu.wiki/i/vnQavQ42P79sRSPC_Gyv3JUScxMIdTMhoMvwPd2gZHywb5Q1RYrNa55t9UL0NlFU-zATYa-D3yoH-LMwrH_7t_yRAuDV6KQ9A-JjMBLi8lLSHu3BEThGdkYBIJJVIsL-aXr95E9kShV4G5CTV8mkNw.svg">
+          <div class="mp_img"><img/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
@@ -129,8 +132,7 @@
       <div  name="rr_item" class="item_container">
         <div class="mp_item">
           <!-- 사진 -->
-          <div class="mp_img"> <img
-              src="https://i.namu.wiki/i/vnQavQ42P79sRSPC_Gyv3JUScxMIdTMhoMvwPd2gZHywb5Q1RYrNa55t9UL0NlFU-zATYa-D3yoH-LMwrH_7t_yRAuDV6KQ9A-JjMBLi8lLSHu3BEThGdkYBIJJVIsL-aXr95E9kShV4G5CTV8mkNw.svg">
+          <div class="mp_img"> <img/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
@@ -142,8 +144,13 @@
           </div>
         </div>
       </div>
-
     </div>
+    
+    <br><hr>
+    <div>
+      <button class="withdrawl" onclick="alert('정말 탈퇴하시겠습니까?')">회원 탈퇴하기</button>
+    </div>
+    
   </div>
 
 </body>
