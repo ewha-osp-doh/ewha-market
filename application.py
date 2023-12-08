@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from database import DBhandler
 from flask import jsonify
+from math import ceil
 
 import hashlib
 import sys
@@ -176,29 +177,23 @@ def reg_review():
 @application.route("/review")
 def view_review():
     page = request.args.get("page", 0, type=int)
-    per_page=6 # item count to display per page
-    per_row=3# item count to display per row
-    row_count=int(per_page/per_row)
-    start_idx=per_page*page
-    end_idx=per_page*(page+1)
-    data = DB.get_all_reviews() #read the table
+    per_page = 3  # 페이지 당 표시할 리뷰 수
+    start_idx = per_page * page
+    end_idx = start_idx + per_page
+    data = DB.get_all_reviews()  # 리뷰 데이터 가져오기
     item_counts = len(data)
-    data = dict(list(data.items())[start_idx:end_idx])
-    tot_count = len(data)
-    for i in range(row_count):#last row
-        if (i == row_count-1) and (tot_count%per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else: 
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    page_count = ceil(item_counts / per_page)  # 올림 처리하여 페이지 수 계산
+    data = dict(list(data.items())[start_idx:end_idx])  # 현재 페이지에 해당하는 데이터 슬라이싱
+
+    # 페이지에 표시할 리뷰 데이터를 템플릿으로 전달
     return render_template(
         "review_overview.html",
-        datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
-        limit=per_page,
+        reviews=data.items(),
         page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        page_count=page_count,
+        total=item_counts
+    )
+
 
 
 # 리뷰 상세 조회
