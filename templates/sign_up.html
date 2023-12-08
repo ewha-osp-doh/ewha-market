@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/static/css/status-bar.css" />
     <link rel="stylesheet" href="/static/css/alt-header.css" />
     <link rel="stylesheet" href="/static/css/screens/sign_up.css" />
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body>
     <!-- 상단 status-bar -->
@@ -122,10 +123,26 @@
       </form>
     </main>
     <script src="../static/js/sign_up.js"></script>
-      <script>function checkDuplicate() {
-    var duplicateCheck = document.getElementById("duplicateCheck");
-    duplicateCheck.setAttribute("value", "confirmed");
-    document.getElementById("check-id").style.visibility = "hidden";
-}</script>
+      <script>
+        function checkDuplicate() {
+            console.log("checkDuplicate Clicked");
+            var idInput = document.getElementById("id").value;
+            var duplicateCheck = document.getElementById("duplicateCheck");
+
+            $.ajax({
+                type: 'POST',
+                url: '/check_id',
+                data: JSON.stringify({ "id": idInput }),  // JSON.stringify를 사용하여 JSON 형식으로 변환
+                contentType: 'application/json',  // Content-Type을 명시
+                success: function(result){
+                    duplicateCheck.setAttribute("value", "confirmed");
+                    document.getElementById("check-id").style.visibility = "hidden";
+                },
+                error: function(xhr, status, error){
+                    duplicateCheck.setAttribute("value", "");
+                }
+            });
+        }
+    </script>
   </body>
 </html>

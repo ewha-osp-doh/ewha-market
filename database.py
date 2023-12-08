@@ -55,14 +55,19 @@ class DBhandler:
 
     
     def get_user_info(self, id_):
-        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
-        user_info = {
-            "id": user['id'],
-            "email": user['email'],
-            "phone": user['phone']
-        }
-        print(user_info)
-        return user_info
+        users = self.db.child("user").get()
+        for res in users.each():
+            value = res.val()
+            if value['id'] == id_:
+                user_info = {
+                    "id": value['id'],
+                    "email": value['email'],
+                    "phone": value['phone']
+                }
+                print(user_info)
+                return user_info
+        
+        return False
 
     # Item
     
@@ -150,24 +155,24 @@ class DBhandler:
 
         return target_value
     
-    # def get_users_registered_item(self, seller):
-    #     items = self.db.child("item").get()
-    #     result = []
-    #     length = 0
-    #     print("###########", seller)
-    #     for item in items.each(): 
-    #         sellerId = item.sellerId
-    #         if sellerId == seller: 
-    #             result.append(item.val())
-    #             length += 1
-    #         if length >= 3:
-    #             break
-    #     return result
-    
     def get_users_registered_item(self, seller):
+        items = self.db.child("item").get()
+        result = []
+        length = 0
         print("###########", seller)
-        result = self.db.child("item").order_by_child("sellerId").equal_to(seller).limit_to_first(3).get()
+        for item in items.each(): 
+            sellerId = item.sellerId
+            if sellerId == seller: 
+                result.append(item.val())
+                length += 1
+            if length >= 3:
+                break
         return result
+    
+    # def get_users_registered_item(self, seller):
+    #     print("###########", seller)
+    #     result = self.db.child("item").order_by_child("sellerId").equal_to(seller).get()
+    #     return result
     
     
     # 회원탈퇴
@@ -186,9 +191,8 @@ class DBhandler:
         # Create a list of tuples containing key-value pairs
         heart_list = [(res.key(), res.val()) for res in hearts.each()]
         # Sort the list based on the values in descending order
-        sorted_hearts = sorted(heart_list, key=lambda x: x[1], reverse=True)
-        # Extract the top 2 values
-        top_2_hearts = sorted_hearts[:2]
+        
+        top_2_hearts = heart_list[:2]
         # Check if the requested name is in the top 2 hearts
         for key, value in top_2_hearts:
             target_values.append(value)
