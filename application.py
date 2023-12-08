@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from database import DBhandler
-from flask import jsonify
-from math import ceil
 
 import hashlib
 import sys
+
 
 application = Flask(__name__)
 application.config["SECRET_KEY"] = "hello_osp"
@@ -17,11 +16,6 @@ DB = DBhandler()
 def hello():
     return render_template("index.html")
 
-# 메인 페이지
-@application.route("/mainpage")
-def mainpage():
-    return render_template("mainpage.html")
-    
 # 회원가입
 @application.route("/signup")
 def signup():
@@ -32,23 +26,11 @@ def register_user():
     data=request.form
     password = request.form['password']
     pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    DB.insert_user(data, pw_hash)
-
-    return render_template("login.html")
-
-    
-@application.route("/check_id", methods=['POST'])
-def check_duplicate():
-    data = request.get_json()
-    if data and 'id' in data:
-        id = data['id']
-        if DB.user_duplicate_check(id):
-            return jsonify({'message': 'ID available'}), 200
-        else:
-            return jsonify({'message': 'ID already exists'}), 409
+    if DB.insert_user(data, pw_hash):
+        return render_template("login.html")
     else:
-        return jsonify({'message': 'Invalid data format'}), 400
-
+        flash("user id already exist!")
+        return render_template("sign_up.html")
 
 # 로그인
 @application.route("/login")
@@ -66,6 +48,11 @@ def login_user():
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
+
+@application.route("/sign_up")
+def view_sign_up():
+    return render_template("sign_up.html")
+
 
 # 로그아웃
 @application.route("/logout")
@@ -177,23 +164,29 @@ def reg_review():
 @application.route("/review")
 def view_review():
     page = request.args.get("page", 0, type=int)
-    per_page = 3  # 페이지 당 표시할 리뷰 수
-    start_idx = per_page * page
-    end_idx = start_idx + per_page
-    data = DB.get_all_reviews()  # 리뷰 데이터 가져오기
+    per_page=6 # item count to display per page
+    per_row=3# item count to display per row
+    row_count=int(per_page/per_row)
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+    data = DB.get_all_reviews() #read the table
     item_counts = len(data)
-    page_count = ceil(item_counts / per_page)  # 올림 처리하여 페이지 수 계산
-    data = dict(list(data.items())[start_idx:end_idx])  # 현재 페이지에 해당하는 데이터 슬라이싱
-
-    # 페이지에 표시할 리뷰 데이터를 템플릿으로 전달
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    for i in range(row_count):#last row
+        if (i == row_count-1) and (tot_count%per_row != 0):
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
+        else: 
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
     return render_template(
         "review_overview.html",
-        reviews=data.items(),
+        datas=data.items(),
+        row1=locals()['data_0'].items(),
+        row2=locals()['data_1'].items(),
+        limit=per_page,
         page=page,
-        page_count=page_count,
-        total=item_counts
-    )
-
+        page_count=int((item_counts/per_page)+1),
+        total=item_counts)
 
 
 # 리뷰 상세 조회
