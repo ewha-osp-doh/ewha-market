@@ -1,93 +1,165 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>리뷰 페이지</title>
 
-    <link rel="stylesheet" href="../static/css/status-bar.css" />
-    <link rel="stylesheet" href="../static/css/alt-header.css" />
-    <link rel="stylesheet" href="../static/css/items.css" />
-    <link rel="stylesheet" href="../static/css/text_style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <link rel="stylesheet" href="../static/css/screens/allreview.css" />
-</head>
-<body>
+    <link rel="stylesheet" href="/static/css/status-bar.css" />
+    <link rel="stylesheet" href="/static/css/alt-header.css" />
+    <link rel="stylesheet" href="/static/css/items.css" />
+    <link rel="stylesheet" href="/static/css/text_style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/allreview.css" />
+  </head>
+  <body>
     <!-- 상단 status-bar -->
     <div class="status-bar">
-        <div class="status-bar__column">
-            <span>No Service</span>
-            <i class="fas fa-wifi"></i>
-        </div>
-        <div class="status-bar__column">
-            <span>18:43</span>
-        </div>
-        <div class="status-bar__column">
-            <span>100%</span>
-            <i class="fas fa-battery-full fa-lg"></i>
-            <i class="fas fa-bolt"></i>
-        </div>
+      <div class="status-bar__column">
+        <span>No Service</span>
+        <i class="fas fa-wifi"></i>
+      </div>
+      <div class="status-bar__column">
+        <span>18:43</span>
+      </div>
+      <div class="status-bar__column">
+        <span>100%</span>
+        <i class="fas fa-battery-full fa-lg"></i>
+        <i class="fas fa-bolt"></i>
+      </div>
     </div>
 
     <!-- 상단 header -->
     <header class="alt-header">
-        <div class="alt-header__column">
-            <a href="/">
-                <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
-            </a>
-        </div>
-        <div class="alt-header__column">
-            <h1 class="alt-header__title">리뷰 전체 보기</h1>
-        </div>
+      <div class="alt-header__column">
+        <a href="/">
+          <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
+        </a>
+      </div>
+      <div class="alt-header__column">
+        <h1 class="alt-header__title" style="color: 0A5226">리뷰 전체 보기</h1>
+      </div>
     </header>
     <!-- 여기까지 상단 header -->
 
     {% if total > 0 %}
-        <p>
-            현재까지 {{total}}개 리뷰 등록됨
-        </p>
-        <table>
-            <tr>
-                {% for key, value in row1 %}
-                    <td>제목: {{value.title}}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row1 %}
-                    <td onclick="location.href='/review_detail/{{key}}/';" style="cursor: pointer;">
-                        <img src="images/{{value.img_path}}" width=240 height=200/>
-                    </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row2 %}
-                    <td>제목: {{value.title}}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row2 %}
-                    <td onclick="location.href='/review_detail/{{key}}/';" style="cursor:pointer;">
-                        <img src="images/{{value.img_path}}" width=240 height=200 />
-                    </td>
-                {% endfor %}
-            </tr>
-        </table>
-        <!-- Codes for Pagination -->
-        <div class="page-wrap">
-            <div class="page-nation">
-                <ul>
-                    <li>
-                        {% for i in range(page_count) %}
-                            <a href="{{url_for('view_review', page=i)}}" style="color: black">{{i}}</a>
-                        {% endfor %}
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <p>현재까지 {{total}}개 리뷰 등록됨</p>
+
+    <div class="review-container">
+      {% for key, value in row1 %}
+   
+      <div
+  class="review-item"
+  onclick="location.href='/review_detail/{{key}}/';"
+  style="cursor: pointer"
+>
+  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
+              <div class="review-text">
+  <div class="review-title">{{value.title}}</div>
+                   <div>{{ value.authorId }}님</div>
+  <div class="review-star-rating">
+  {% for i in range(5) %}
+    {% if i < value.point|int %}
+      <i class="fas fa-star"></i> <!-- 채워진 별 -->
     {% else %}
-        <p>
-            등록된 리뷰가 없습니다.
-        </p>
+      <i class="far fa-star"></i> <!-- 빈 별 -->
     {% endif %}
-</body>
+  {% endfor %}
+</div>
+ 
+  <div class="review-content">{{ value.content }}</div>
+      </div>
+</div>
+        
+
+        
+      {% endfor %} 
+      
+      
+      {% for key, value in row2 %}
+      
+          <div
+  class="review-item"
+  onclick="location.href='/review_detail/{{key}}/';"
+  style="cursor: pointer"
+>
+  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
+              <div class="review-text">
+  <div class="review-title">{{value.title}}</div>
+                   <div>{{ value.authorId }}님</div>
+  <div class="review-star-rating">
+  {% for i in range(5) %}
+    {% if i < value.point|int %}
+      <i class="fas fa-star"></i> <!-- 채워진 별 -->
+    {% else %}
+      <i class="far fa-star"></i> <!-- 빈 별 -->
+    {% endif %}
+  {% endfor %}
+</div>
+ 
+  <div class="review-content">{{ value.content }}</div>
+      </div>
+</div>
+        
+
+        
+      {% endfor %} 
+    
+    
+    {% for key, value in row3 %}
+   
+    
+    
+         <div
+  class="review-item"
+  onclick="location.href='/review_detail/{{key}}/';"
+  style="cursor: pointer"
+>
+  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
+              <div class="review-text">
+  <div class="review-title">{{value.title}}</div>
+                   <div>{{ value.authorId }}님</div>
+  <div class="review-star-rating">
+  {% for i in range(5) %}
+    {% if i < value.point|int %}
+      <i class="fas fa-star"></i> <!-- 채워진 별 -->
+    {% else %}
+      <i class="far fa-star"></i> <!-- 빈 별 -->
+    {% endif %}
+  {% endfor %}
+</div>
+ 
+  <div class="review-content">{{ value.content }}</div>
+      </div>
+</div>
+        
+
+        
+      {% endfor %} 
+    
+    
+    
+
+    <!-- Codes for Pagination -->
+    <div class="page-wrap">
+      <div class="pagenation">
+        <ul>
+          <li>
+            {% for i in range(page_count) %}
+            <a href="{{url_for('view_review', page=i)}}" 
+              >{{i}}</a
+            >
+            {% endfor %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% else %}
+    <p>등록된 리뷰가 없습니다.</p>
+
+    {% endif %}
+  </body>
 </html>

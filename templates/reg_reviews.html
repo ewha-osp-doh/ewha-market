@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리뷰 작성하기</title>
     <link rel="stylesheet" href="/static/css/status-bar.css" />
     <link rel="stylesheet" href="/static/css/alt-header.css" />
@@ -24,9 +26,9 @@
     <!-- 상단 header -->
     <header class="alt-header">
       <div class="alt-header__column">
-        <a href="/">
+        <div onclick="window.history.back()">
           <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
-        </a>
+        </div>
       </div>
       <div class="alt-header__column">
         <h1 class="alt-header__title">리뷰 작성하기</h1>
