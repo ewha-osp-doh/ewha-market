@@ -15,20 +15,15 @@
     />
     <link rel="stylesheet" href="/static/css/allreview.css" />
   </head>
-  <body>
+  <body class="bg-white" style="width: 375px; height: 812px">
     <!-- 상단 status-bar -->
     <div class="status-bar">
       <div class="status-bar__column">
-        <span>No Service</span>
-        <i class="fas fa-wifi"></i>
+        <span class="time">9:41</span>
       </div>
+      <div class="status-bar__column"></div>
       <div class="status-bar__column">
-        <span>18:43</span>
-      </div>
-      <div class="status-bar__column">
-        <span>100%</span>
-        <i class="fas fa-battery-full fa-lg"></i>
-        <i class="fas fa-bolt"></i>
+        <img src="../static/assets/phone-status.svg" alt="" />
       </div>
     </div>
 
@@ -46,7 +41,7 @@
     <!-- 여기까지 상단 header -->
 
     {% if total > 0 %}
-    <p>현재까지 {{total}}개 리뷰 등록됨</p>
+    
 
     <div class="review-container">
       {% for key, value in row1 %}

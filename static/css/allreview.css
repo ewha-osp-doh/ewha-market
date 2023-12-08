@@ -28,6 +28,7 @@ body {
   height: 120px;
   background: #ccc;
   margin-right: 20px;
+  border-radius: 20px;
 }
 .review-text {
   display: flex;
