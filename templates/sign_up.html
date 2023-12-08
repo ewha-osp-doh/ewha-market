@@ -124,6 +124,7 @@
     </main>
     <script src="../static/js/sign_up.js"></script>
       <script>
+<<<<<<< HEAD
           function checkDuplicate() {
               console.log("checkDuplicate Clicked");
               var idInput= document.getElementById("id").value;
@@ -146,5 +147,28 @@
           }
                 
       </script>
+=======
+        function checkDuplicate() {
+            console.log("checkDuplicate Clicked");
+            var idInput = document.getElementById("id").value;
+            var duplicateCheck = document.getElementById("duplicateCheck");
+
+            $.ajax({
+                type: 'POST',
+                url: '/check_id',
+                data: JSON.stringify({ "id": idInput }),  // JSON.stringify를 사용하여 JSON 형식으로 변환
+                contentType: 'application/json',  // Content-Type을 명시
+                success: function(result){
+                    duplicateCheck.setAttribute("value", "confirmed");
+                    document.getElementById("check-id").style.visibility = "hidden";
+                },
+                error: function(xhr, status, error){
+                    duplicateCheck.setAttribute("value", "");
+                }
+            });
+        }
+    </script>
+
+>>>>>>> 886d3fdfd133b051847d4f3ed9102ea8f253ee34
   </body>
 </html>
