@@ -1,0 +1,24 @@
+div{
+    align-content: center;
+}
+
+#start_button{
+    font-size: 20px;
+    text-align: center;
+    
+    width: 300px;
+    height: 70px;
+    
+    color: #E53D7A;
+    background-color:white;
+    border-color: #E53D7A;
+}
+
+#handLogo{
+    margin-bottom:2.2 rem;
+    
+}
+
+#TxtLogo{
+     margin-top:4.1 rem;
+}
