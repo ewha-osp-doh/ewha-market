@@ -21,26 +21,20 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-        if self.user_duplicate_check(str(data['id'])):
-            self.db.child("user").push(user_info)
-            print(data)
-            return True
-        else:
-            return False
+        self.db.child("user").push(user_info)
+        #print(data)
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
+        #print("users###", users.val())
 
-        print("users###", users.val())
-        if str(users.val()) == "None": # first registration
-            return True
-        else:
-            for res in users.each():
-                value = res.val()
+        for res in users.each():
+            value = res.val()
 
-                if value['id'] == id_string:
-                    return False
-            return True
+            if value['id'] == id_string: #중복 아이디 있으면 false
+                return False
+
+        return True #중복 아이디 없으면 true
         
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
