@@ -11,7 +11,7 @@ class DBhandler:
         self.db = firebase.database()
 
     # User
-
+    
     def insert_user(self, data, password):
         phone = data.get('phone', None)
 
@@ -21,13 +21,12 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-
         self.db.child("user").push(user_info)
-        print(data)
+        #print(data)
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
-        print("users###", users.val())
+        #print("users###", users.val())
 
         for res in users.each():
             value = res.val()
@@ -36,7 +35,7 @@ class DBhandler:
                 return False
 
         return True #중복 아이디 없으면 true
-
+        
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
         target_value=[]
@@ -47,8 +46,23 @@ class DBhandler:
                 return True 
             
         return False
+
+    
+    def get_user_info(self, id_):
+        users = self.db.child("user").get()
+        for res in users.each():
+            value = res.val()
+            if value['id'] == id_:
+                user_info = {
+                    "id": value['id'],
+                    "email": value['email'],
+                    "phone": value['phone']
+                }
+                print(user_info)
+                return user_info
         
-        
+        return False
+
     # Item
     
     def insert_item(self, name, data):
@@ -134,3 +148,41 @@ class DBhandler:
                 break
 
         return target_value
+    
+    # 등록내역 조회
+    def get_users_registered_item(self, seller):
+        items = self.db.child("item").get()
+        result = []
+        length = 0
+        print("###########", seller)
+        for res in items.each(): 
+            item = res.val()
+            if item['sellerId'] == seller: 
+                result.append(item.val())
+                length += 1
+            if length >= 2:
+                break
+        return result
+    
+    # 회원탈퇴
+    def withdraw_user(self, id_):
+        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
+        print("user:", user)
+        user.remove()
+        return True
+    # heart
+    def get_top_2_hearts_byname(self, uid):
+        hearts = self.db.child("heart").child(uid).get()
+        target_values = []
+
+        if hearts.val() is None:
+            return target_values
+        # Create a list of tuples containing key-value pairs
+        heart_list = [(res.key(), res.val()) for res in hearts.each()]
+        # Sort the list based on the values in descending order
+        
+        top_2_hearts = heart_list[:2]
+        # Check if the requested name is in the top 2 hearts
+        for key, value in top_2_hearts:
+            target_values.append(value)
+        return target_values
