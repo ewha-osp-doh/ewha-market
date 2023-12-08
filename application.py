@@ -209,6 +209,30 @@ def view_review_detail(name):
     return render_template("review_detailed.html", review=review_data)
 
 
+# 마이페이지
+@application.route("/mypage")
+def view_mypage():
+    user_id = session['id']
+    
+    #회원정보
+    user_info = DB.get_user_info(user_id)
+    
+    #좋아요 내역
+    user_like = DB.get_top_2_hearts_byname(user_id)
+    
+    #등록내역
+    registered_item = DB.get_users_registered_item(user_id)
+    print(registered_item)
+    return render_template("mypage.html", user=user_info, user_like = user_like, registered=registered_item)
+
+
+# 회원탈퇴
+@application.route("/withdrawal")
+def withdraw():
+    user_id = session['id']
+    DB.withdraw_user(user_id)
+    return jsonify({'msg': '탈퇴 완료'})
+
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
