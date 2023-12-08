@@ -17,11 +17,12 @@
     position: relative;
     justify-content: center;
     align-items: flex-start;
-    font-size: 20px;
+    padding-top: 35px;
+    font-size: 24px;
     font-weight: 600;
     border: none;
     border-radius: 20px;
-    padding-left: 10px;
+    padding-left: 22px;
     background-color: white;
     color: #0a5226;
     width: 165px;
@@ -42,12 +43,16 @@
   width: 68px;
 }
 
-
 .welcome-message h1 {
     font-size: 25px;
     font-weight: 700;
     align-items: flex-start;
 }
+
+.user-display-color {
+  color: #038900; /* 색상 값 */
+}
+
 .button-group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
