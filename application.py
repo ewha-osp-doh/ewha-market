@@ -176,28 +176,32 @@ def reg_review():
 @application.route("/review")
 def view_review():
     page = request.args.get("page", 0, type=int)
-    per_page=6 # item count to display per page
-    per_row=3# item count to display per row
-    row_count=int(per_page/per_row)
-    start_idx=per_page*page
-    end_idx=per_page*(page+1)
-    data = DB.get_all_reviews() #read the table
+    per_page = 3  # item count to display per page
+    per_row = 3  # item count to display per row
+    row_count = int(per_page / per_row)
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+    data = DB.get_all_reviews()  # read the table
     item_counts = len(data)
     data = dict(list(data.items())[start_idx:end_idx])
     tot_count = len(data)
-    for i in range(row_count):#last row
-        if (i == row_count-1) and (tot_count%per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else: 
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    row_data = {}
+    for i in range(row_count):
+        if (i == row_count - 1) and (tot_count % per_row != 0):
+            row_key = 'data_{}'.format(i)
+            row_data[row_key] = dict(list(data.items())[i * per_row:]).items()
+        else:
+            row_key = 'data_{}'.format(i)
+            if i * per_row < tot_count:
+                row_data[row_key] = dict(list(data.items())[i * per_row:(i + 1) * per_row]).items()
+
     return render_template(
         "review_overview.html",
         datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
+        row_data=row_data,  # row1과 row2 대신 사용
         limit=per_page,
         page=page,
-        page_count=int((item_counts/per_page)+1),
+        page_count=int((item_counts / per_page) + 1),
         total=item_counts)
 
 
