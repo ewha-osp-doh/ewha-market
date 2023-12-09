@@ -83,7 +83,8 @@ def check_session():
 # 상품 등록
 @application.route("/reg_items", methods=['GET', 'POST']) 
 def reg_item():
-    return render_template("reg_items.html")
+    user_id = session.get('id')
+    return render_template("reg_items.html", userId=user_id)
 
 
 @application.route("/submit_items_post", methods=['POST']) 
@@ -104,8 +105,7 @@ def reg_item_submit_post():
         data['img_path'] = '../static/images/' +  file.filename
     
     DB.insert_item(data['product-name'], data)
-    return render_template("submit_item_result.html", data=data)
-
+    return redirect(url_for('view_list'))
 
 # 상품 전체 조회
 @application.route("/list")
@@ -150,7 +150,8 @@ def unlike(name):
 # 리뷰 등록
 @application.route("/reg_review_init/<name>/") 
 def reg_review_init(name):
-    return render_template("reg_reviews.html", name=name)
+    user_id = session.get('id')
+    return render_template("reg_reviews.html", name=name, userId = user_id)
 
 @application.route("/reg_review", methods=['POST']) 
 def reg_review():

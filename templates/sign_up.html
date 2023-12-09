@@ -125,7 +125,6 @@
     <script src="../static/js/sign_up.js"></script>
       <script>
         function checkDuplicate() {
-            console.log("checkDuplicate Clicked");
             var idInput = document.getElementById("id").value;
             var duplicateCheck = document.getElementById("duplicateCheck");
 
@@ -135,11 +134,14 @@
                 data: JSON.stringify({ "id": idInput }),  // JSON.stringify를 사용하여 JSON 형식으로 변환
                 contentType: 'application/json',  // Content-Type을 명시
                 success: function(result){
+                    // console.log("result success = "+result);
                     duplicateCheck.setAttribute("value", "confirmed");
                     document.getElementById("check-id").style.visibility = "hidden";
                 },
                 error: function(xhr, status, error){
+                    // console.log("result error = "+status);
                     duplicateCheck.setAttribute("value", "");
+                    alert("중복된 아이디입니다.");
                 }
             });
         }
