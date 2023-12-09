@@ -14,7 +14,12 @@ DB = DBhandler()
 
 @application.route("/")
 def hello():
-    return render_template("index.html")
+    return render_template("intro.html")
+
+# 인트로페이지
+@application.route("/intro")
+def intro():
+    return render_template("intro.html")
 
 # 메인 페이지
 @application.route("/mainpage")
