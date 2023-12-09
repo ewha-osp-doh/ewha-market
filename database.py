@@ -58,7 +58,7 @@ class DBhandler:
                     "email": value['email'],
                     "phone": value['phone']
                 }
-                print(user_info)
+                #print(user_info)
                 return user_info
         
         return False
@@ -154,7 +154,7 @@ class DBhandler:
         items = self.db.child("item").get()
         result = []
         length = 0
-        print("###########", seller)
+        #print("###########", seller)
         for res in items.each(): 
             item = res.val()
             if item['sellerId'] == seller: 
@@ -166,10 +166,15 @@ class DBhandler:
     
     # 회원탈퇴
     def withdraw_user(self, id_):
-        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
-        print("user:", user)
-        user.remove()
+        users = self.db.child("user").get()
+        for res in users.each():
+            key = res.key()
+            value = res.val()
+            if value['id'] == id_:
+                #print("user:", value)
+                self.db.child("user").child(key).remove()
         return True
+    
     # heart
     def get_top_2_hearts_byname(self, uid):
         hearts = self.db.child("heart").child(uid).get()

@@ -228,7 +228,7 @@ def view_mypage():
     
     #등록내역
     registered_item = DB.get_users_registered_item(user_id)
-    print(registered_item)
+    #print(registered_item)
     return render_template("mypage.html", user=user_info, user_like = user_like, registered=registered_item)
 
 
