@@ -1,89 +1,101 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>리뷰 페이지</title>
-
-    <link rel="stylesheet" href="/static/css/status-bar.css" />
-    <link rel="stylesheet" href="/static/css/alt-header.css" />
-    <link rel="stylesheet" href="/static/css/items.css" />
-    <link rel="stylesheet" href="/static/css/text_style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/static/css/allreview.css" />
-  </head>
-  <body class="bg-white" style="width: 375px; height: 812px">
-    <!-- 상단 status-bar -->
-    <div class="status-bar">
-      <div class="status-bar__column">
-        <span class="time">9:41</span>
-      </div>
-      <div class="status-bar__column"></div>
-      <div class="status-bar__column">
-        <img src="../static/assets/phone-status.svg" alt="" />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>리뷰 페이지</title>
+  <link rel="stylesheet" href="/static/css/status-bar.css" />
+  <link rel="stylesheet" href="/static/css/alt-header.css" />
+  <link rel="stylesheet" href="/static/css/items.css" />
+  <link rel="stylesheet" href="/static/css/text_style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+  <link rel="stylesheet" href="/static/css/allreview.css" />
+</head>
+<body class="bg-white" style="width: 375px; height: 812px">
+  <!-- 상단 status-bar -->
+  <div class="status-bar">
+    <div class="status-bar__column">
+      <span class="time">9:41</span>
     </div>
-
-    <!-- 상단 header -->
-    <header class="alt-header">
-      <div class="alt-header__column" style="margin-left: 15px;">
-        <a href="/">
-          <img src="../static/assets/left-arrow.svg" alt="" />
-        </a>
-      </div>
-      <div class="alt-header__column">
-        <h1 class="alt-header__title" style="color: 0A5226">리뷰 전체 보기</h1>
-      </div>
-    </header>
-    <!-- 여기까지 상단 header -->
-
-     {% if total > 0 %}
-    <div class="review-container">
-      {% for row in row_data.values() %}
-        {% for key, value in row %}
-          <div
-            class="review-item"
-            onclick="location.href='/review_detail/{{key}}/';"
-            style="cursor: pointer">
-            <img src="images/{{value.img_path}}" alt="{{value.title}}" class="review-image"/>
-            <div class="review-text">
-              <div class="review-title">{{value.title}}</div>
-              <div>{{ value.authorId }}님</div>
-              <div class="review-star-rating">
-                {% for i in range(5) %}
-                  {% if i < value.point|int %}
-                    <i class="fas fa-star"></i> <!-- 채워진 별 -->
-                  {% else %}
-                    <i class="far fa-star"></i> <!-- 빈 별 -->
-                  {% endif %}
-                {% endfor %}
-              </div>
-              <div class="review-content">{{ value.content }}</div>
-            </div>
-          </div>
-        {% endfor %}
-      {% endfor %}
+    <div class="status-bar__column"></div>
+    <div class="status-bar__column">
+      <img src="../static/assets/phone-status.svg" alt="" />
     </div>
+  </div>
 
-<!-- Codes for Pagination -->
-<div class="page-wrap">
-  <ul class="pagination" style="list-style: none;">
-    {% for i in range(1, page_count + 1) %}
-    <li>
-      <a href="{{url_for('view_review', page=i-1)}}"
-        class="{{ 'active' if current_page == i-1 else '' }}">
-        {{ i }}
+  <!-- 상단 header -->
+  <header class="alt-header">
+    <div class="alt-header__column" style="margin-left: 15px;">
+      <a href="/">
+        <img src="../static/assets/left-arrow.svg" alt="" />
       </a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-    {% else %}
-    <p>등록된 리뷰가 없습니다.</p>
+    </div>
+    <div class="alt-header__column">
+      <h1 class="alt-header__title" style="color: 0A5226">리뷰 전체 보기</h1>
+    </div>
+  </header>
+  <!-- 여기까지 상단 header -->
 
-    {% endif %}
-  </body>
+  {% if total > 0 %}
+  <div class="review-container">
+    {% for row in row_data.values() %}
+      {% for key, value in row %}
+        <div
+          class="review-item"
+          onclick="location.href='/review_detail/{{key}}/';"
+          style="cursor: pointer">
+          <img src="images/{{value.img_path}}" alt="{{value.title}}" class="review-image"/>
+          <div class="review-text">
+            <div class="review-title">{{value.title}}</div>
+            <div>{{ value.authorId }}님</div>
+            <div class="review-star-rating">
+              {% for i in range(5) %}
+                {% if i < value.point|int %}
+                  <i class="fas fa-star"></i> <!-- 채워진 별 -->
+                {% else %}
+                  <i class="far fa-star"></i> <!-- 빈 별 -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="review-content">{{ value.content }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  <!-- Codes for Pagination -->
+  <div class="page-wrap">
+    <ul class="pagination" style="list-style: none;">
+      <!-- 이전 페이지 링크 -->
+      {% if current_page > 1 %}
+      <li>
+        <a href="{{ url_for('view_review', page=current_page-1) }}">&lt;</a>
+      </li>
+      {% endif %}
+
+      <!-- 페이지 번호 링크 -->
+      {% for i in range(1, page_count + 1) %}
+      <li>
+        <a href="{{ url_for('view_review', page=i) }}"
+           class="{{ 'active' if current_page == i else '' }}">
+          {{ i }}
+        </a>
+      </li>
+      {% endfor %}
+
+      <!-- 다음 페이지 링크 -->
+      {% if current_page < page_count %}
+      <li>
+        <a href="{{ url_for('view_review', page=current_page+1) }}">&gt;</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% else %}
+  <p>등록된 리뷰가 없습니다.</p>
+  {% endif %}
+</body>
 </html>
+
