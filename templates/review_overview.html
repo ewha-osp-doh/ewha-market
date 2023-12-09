@@ -67,22 +67,20 @@
         {% endfor %}
       {% endfor %}
     </div>
-    
 
-    <!-- Codes for Pagination -->
-    <div class="page-wrap">
-      <div class="pagination" style="list-style: none;">
-        <ul>
-          <li>
-            {% for i in range(page_count) %}
-            <a href="{{url_for('view_review', page=i)}}" 
-              >{{i}}</a
-            >
-            {% endfor %}
-          </li>
-        </ul>
-      </div>
-    </div>
+<!-- Codes for Pagination -->
+<div class="page-wrap">
+  <ul class="pagination" style="list-style: none;">
+    {% for i in range(1, page_count + 1) %}
+    <li>
+      <a href="{{url_for('view_review', page=i-1)}}"
+        class="{{ 'active' if current_page == i-1 else '' }}">
+        {{ i }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
     {% else %}
     <p>등록된 리뷰가 없습니다.</p>
 
