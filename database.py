@@ -21,20 +21,26 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-        self.db.child("user").push(user_info)
-        #print(data)
+        if self.user_duplicate_check(str(data['id'])):
+            self.db.child("user").push(user_info)
+            print(data)
+            return True
+        else:
+            return False
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
-        #print("users###", users.val())
 
-        for res in users.each():
-            value = res.val()
+        print("users###", users.val())
+        if str(users.val()) == "None": # first registration
+            return True
+        else:
+            for res in users.each():
+                value = res.val()
 
-            if value['id'] == id_string: #중복 아이디 있으면 false
-                return False
-
-        return True #중복 아이디 없으면 true
+                if value['id'] == id_string:
+                    return False
+            return True
         
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
@@ -58,7 +64,7 @@ class DBhandler:
                     "email": value['email'],
                     "phone": value['phone']
                 }
-                #print(user_info)
+                print(user_info)
                 return user_info
         
         return False
@@ -149,45 +155,50 @@ class DBhandler:
 
         return target_value
     
-    # 등록내역 조회
     def get_users_registered_item(self, seller):
         items = self.db.child("item").get()
         result = []
         length = 0
-        #print("###########", seller)
-        for res in items.each(): 
-            item = res.val()
-            if item['sellerId'] == seller: 
+        print("###########", seller)
+        for item in items.each(): 
+            sellerId = item.sellerId
+            if sellerId == seller: 
                 result.append(item.val())
                 length += 1
-            if length >= 2:
+            if length >= 3:
                 break
         return result
     
+    # def get_users_registered_item(self, seller):
+    #     print("###########", seller)
+    #     result = self.db.child("item").order_by_child("sellerId").equal_to(seller).get()
+    #     return result
+    
+    
     # 회원탈퇴
     def withdraw_user(self, id_):
-        users = self.db.child("user").get()
-        for res in users.each():
-            key = res.key()
-            value = res.val()
-            if value['id'] == id_:
-                #print("user:", value)
-                self.db.child("user").child(key).remove()
+        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
+        print("user:", user)
+        user.remove()
         return True
-    
     # heart
     def get_top_2_hearts_byname(self, uid):
         hearts = self.db.child("heart").child(uid).get()
-        target_values = []
+        target_product = []
 
         if hearts.val() is None:
-            return target_values
+            return target_product
         # Create a list of tuples containing key-value pairs
         heart_list = [(res.key(), res.val()) for res in hearts.each()]
         # Sort the list based on the values in descending order
         
         top_2_hearts = heart_list[:2]
-        # Check if the requested name is in the top 2 hearts
-        for key, value in top_2_hearts:
-            target_values.append(value)
-        return target_values
+        
+        print("########### target_heart : ", top_2_hearts)
+        for name, _ in top_2_hearts:
+            # Assuming that the name is the key for the product in "products" node
+            product_info = self.db.child("item").child(name).get()
+            if product_info.val() is not None:
+                target_product.append(product_info.val())
+        print("####### target product : ", target_product)
+        return target_product

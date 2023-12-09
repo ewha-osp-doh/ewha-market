@@ -14,12 +14,7 @@ DB = DBhandler()
 
 @application.route("/")
 def hello():
-    return render_template("intro.html")
-
-# 인트로페이지
-@application.route("/intro")
-def intro():
-    return render_template("intro.html")
+    return render_template("index.html")
 
 # 메인 페이지
 @application.route("/mainpage")
@@ -66,7 +61,7 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest() 
     if DB.find_user(id_ ,pw_hash):
         session['id'] = id_
-        return redirect(url_for('mainpage'))
+        return redirect(url_for('view_list'))
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
@@ -75,7 +70,7 @@ def login_user():
 @application.route("/logout")
 def logout_user():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('view_list'))
 
 
 # 세션 체크
@@ -88,8 +83,7 @@ def check_session():
 # 상품 등록
 @application.route("/reg_items", methods=['GET', 'POST']) 
 def reg_item():
-    user_id = session.get('id')
-    return render_template("reg_items.html", userId=user_id)
+    return render_template("reg_items.html")
 
 
 @application.route("/submit_items_post", methods=['POST']) 
@@ -110,7 +104,8 @@ def reg_item_submit_post():
         data['img_path'] = '../static/images/' +  file.filename
     
     DB.insert_item(data['product-name'], data)
-    return redirect(url_for('view_list'))
+    return render_template("submit_item_result.html", data=data)
+
 
 # 상품 전체 조회
 @application.route("/list")
@@ -155,8 +150,7 @@ def unlike(name):
 # 리뷰 등록
 @application.route("/reg_review_init/<name>/") 
 def reg_review_init(name):
-    user_id = session.get('id')
-    return render_template("reg_reviews.html", name=name, userId = user_id)
+    return render_template("reg_reviews.html", name=name)
 
 @application.route("/reg_review", methods=['POST']) 
 def reg_review():
@@ -225,11 +219,11 @@ def view_mypage():
     
     #좋아요 내역
     user_like = DB.get_top_2_hearts_byname(user_id)
-    
-    #등록내역
-    registered_item = DB.get_users_registered_item(user_id)
-    #print(registered_item)
-    return render_template("mypage.html", user=user_info, user_like = user_like, registered=registered_item)
+
+#     #등록내역
+#     registered_item = DB.get_users_registered_item(user_id)
+#     print(registered_item)
+    return render_template("mypage.html", user=user_info, user_like = user_like)
 
 
 # 회원탈퇴
@@ -238,7 +232,6 @@ def withdraw():
     user_id = session['id']
     DB.withdraw_user(user_id)
     return jsonify({'msg': '탈퇴 완료'})
-
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
