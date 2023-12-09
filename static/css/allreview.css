@@ -56,16 +56,38 @@ body {
 .review-content {
   white-space: pre-wrap; /* 줄바꿈과 공백을 유지하도록 설정 */
 }
-        .pagenation {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        .pagenation a {
-            color: #333;
-            padding: 10px 15px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            margin-right: 5px;
-        }
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 39px;
+  margin-bottom: 36px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.pagination a {
+  /* display: inline-block; */
+  margin: 5px;
+  color: #0a5226;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 155.556% */
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #e53d7a;
+}
+
+.pagination .active {
+  color: #e53d7a;
+  font-family: Noto Sans KR;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 155.556% */
+}
