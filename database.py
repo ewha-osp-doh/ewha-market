@@ -178,7 +178,7 @@ class DBhandler:
     # 회원탈퇴
     def withdraw_user(self, id_):
         user = self.db.child("user").order_by_child("id").equal_to(id_).get()
-        print("user:", user)
+        print("@@@@@@@@@@@@@user:", user)
         user.remove()
         return True
     # heart

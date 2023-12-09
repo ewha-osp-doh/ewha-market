@@ -231,7 +231,9 @@ def view_mypage():
 def withdraw():
     user_id = session['id']
     DB.withdraw_user(user_id)
-    return jsonify({'msg': '탈퇴 완료'})
+    return redirect(url_for('login'))
+    # return jsonify({'msg': '탈퇴 완료'})
+   
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)
