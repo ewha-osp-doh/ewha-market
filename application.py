@@ -188,12 +188,21 @@ def view_review():
     end_idx = start_idx + per_page
     data = dict(list(data.items())[start_idx:end_idx])
 
-    # 페이지 당 표시할 리뷰 처리
+    # 페이지 당 표시할 리뷰 처리 및 리뷰 등록자 아이디 처리
     row_data = {}
     for i in range(per_page):
         if i * per_row < len(data):
             row_key = 'data_{}'.format(i)
-            row_data[row_key] = dict(list(data.items())[i * per_row:(i + 1) * per_row]).items()
+            row_items = dict(list(data.items())[i * per_row:(i + 1) * per_row])
+
+            # 각 리뷰 아이템에 대해 등록자 아이디 처리
+            for key, value in row_items.items():
+                author_id = value['authorId']
+                # 첫 두 글자를 제외한 나머지를 *로 대체
+                masked_id = author_id[:2] + '*' * (len(author_id) - 2)
+                value['authorId'] = masked_id
+            
+            row_data[row_key] = row_items.items()
 
     # 페이지네이션을 위한 페이지 수 계산
     page_count = (item_counts // per_page) + (1 if item_counts % per_page else 0)
@@ -206,6 +215,7 @@ def view_review():
         page_count=page_count,
         total=item_counts
     )
+
 
 
 # 리뷰 상세 조회
