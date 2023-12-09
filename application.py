@@ -172,17 +172,19 @@ def reg_review():
     return redirect(url_for('view_review'))
 
 
-# 리뷰 전체 조회
+#리뷰 전체 조회
 @application.route("/review")
 def view_review():
     # 페이지 번호 처리 (1부터 시작)
-    page = request.args.get("page", 1, type=int) - 1
+    page = request.args.get("page", 1, type=int)
     per_page = 3  # 페이지 당 리뷰 수
     per_row = 3  # 행 당 리뷰 수
 
     data = DB.get_all_reviews()  # DB에서 리뷰 가져오기
     item_counts = len(data)
-    start_idx = per_page * page
+
+    # 1부터 시작하는 페이지 번호를 0부터 시작하는 인덱스로 변환
+    start_idx = per_page * (page - 1)
     end_idx = start_idx + per_page
     data = dict(list(data.items())[start_idx:end_idx])
 
@@ -195,7 +197,6 @@ def view_review():
 
     # 페이지네이션을 위한 페이지 수 계산
     page_count = (item_counts // per_page) + (1 if item_counts % per_page else 0)
-    page = int(request.args.get('page', 0))
     return render_template(
         "review_overview.html",
         int=int,
