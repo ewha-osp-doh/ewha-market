@@ -29,9 +29,9 @@
 
     <!-- 상단 header -->
     <header class="alt-header">
-      <div class="alt-header__column">
+      <div class="alt-header__column" style="margin-left: 15px;">
         <a href="/">
-          <i class="fas fa-arrow-left fa-lg" style="color: black"></i>
+          <img src="../static/assets/left-arrow.svg" alt="" />
         </a>
       </div>
       <div class="alt-header__column">
@@ -40,118 +40,47 @@
     </header>
     <!-- 여기까지 상단 header -->
 
-    {% if total > 0 %}
-    
-
+     {% if total > 0 %}
     <div class="review-container">
-      {% for key, value in row1 %}
-   
-      <div
-  class="review-item"
-  onclick="location.href='/review_detail/{{key}}/';"
-  style="cursor: pointer"
->
-  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
-              <div class="review-text">
-  <div class="review-title">{{value.title}}</div>
-                   <div>{{ value.authorId }}님</div>
-  <div class="review-star-rating">
-  {% for i in range(5) %}
-    {% if i < value.point|int %}
-      <i class="fas fa-star"></i> <!-- 채워진 별 -->
-    {% else %}
-      <i class="far fa-star"></i> <!-- 빈 별 -->
-    {% endif %}
-  {% endfor %}
-</div>
- 
-  <div class="review-content">{{ value.content }}</div>
-      </div>
-</div>
-        
-
-        
-      {% endfor %} 
-      
-      
-      {% for key, value in row2 %}
-      
+      {% for row in row_data.values() %}
+        {% for key, value in row %}
           <div
-  class="review-item"
-  onclick="location.href='/review_detail/{{key}}/';"
-  style="cursor: pointer"
->
-  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
-              <div class="review-text">
-  <div class="review-title">{{value.title}}</div>
-                   <div>{{ value.authorId }}님</div>
-  <div class="review-star-rating">
-  {% for i in range(5) %}
-    {% if i < value.point|int %}
-      <i class="fas fa-star"></i> <!-- 채워진 별 -->
-    {% else %}
-      <i class="far fa-star"></i> <!-- 빈 별 -->
-    {% endif %}
-  {% endfor %}
-</div>
- 
-  <div class="review-content">{{ value.content }}</div>
-      </div>
-</div>
-        
-
-        
-      {% endfor %} 
-    
-    
-    {% for key, value in row3 %}
-   
-    
-    
-         <div
-  class="review-item"
-  onclick="location.href='/review_detail/{{key}}/';"
-  style="cursor: pointer"
->
-  <img src="images/{{value.img_path}}" alt="{{value.title}}"   class="review-image"/>
-              <div class="review-text">
-  <div class="review-title">{{value.title}}</div>
-                   <div>{{ value.authorId }}님</div>
-  <div class="review-star-rating">
-  {% for i in range(5) %}
-    {% if i < value.point|int %}
-      <i class="fas fa-star"></i> <!-- 채워진 별 -->
-    {% else %}
-      <i class="far fa-star"></i> <!-- 빈 별 -->
-    {% endif %}
-  {% endfor %}
-</div>
- 
-  <div class="review-content">{{ value.content }}</div>
-      </div>
-</div>
-        
-
-        
-      {% endfor %} 
-    
-    
-    
-
-    <!-- Codes for Pagination -->
-    <div class="page-wrap">
-      <div class="pagenation">
-        <ul>
-          <li>
-            {% for i in range(page_count) %}
-            <a href="{{url_for('view_review', page=i)}}" 
-              >{{i}}</a
-            >
-            {% endfor %}
-          </li>
-        </ul>
-      </div>
+            class="review-item"
+            onclick="location.href='/review_detail/{{key}}/';"
+            style="cursor: pointer">
+            <img src="images/{{value.img_path}}" alt="{{value.title}}" class="review-image"/>
+            <div class="review-text">
+              <div class="review-title">{{value.title}}</div>
+              <div>{{ value.authorId }}님</div>
+              <div class="review-star-rating">
+                {% for i in range(5) %}
+                  {% if i < value.point|int %}
+                    <i class="fas fa-star"></i> <!-- 채워진 별 -->
+                  {% else %}
+                    <i class="far fa-star"></i> <!-- 빈 별 -->
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="review-content">{{ value.content }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
     </div>
+
+<!-- Codes for Pagination -->
+<div class="page-wrap">
+  <ul class="pagination" style="list-style: none;">
+    {% for i in range(1, page_count + 1) %}
+    <li>
+      <a href="{{url_for('view_review', page=i-1)}}"
+        class="{{ 'active' if current_page == i-1 else '' }}">
+        {{ i }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
     {% else %}
     <p>등록된 리뷰가 없습니다.</p>
 

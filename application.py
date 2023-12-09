@@ -175,30 +175,36 @@ def reg_review():
 # 리뷰 전체 조회
 @application.route("/review")
 def view_review():
-    page = request.args.get("page", 0, type=int)
-    per_page=6 # item count to display per page
-    per_row=3# item count to display per row
-    row_count=int(per_page/per_row)
-    start_idx=per_page*page
-    end_idx=per_page*(page+1)
-    data = DB.get_all_reviews() #read the table
+    # 페이지 번호 처리 (1부터 시작)
+    page = request.args.get("page", 1, type=int) - 1
+    per_page = 3  # 페이지 당 리뷰 수
+    per_row = 3  # 행 당 리뷰 수
+
+    data = DB.get_all_reviews()  # DB에서 리뷰 가져오기
     item_counts = len(data)
+    start_idx = per_page * page
+    end_idx = start_idx + per_page
     data = dict(list(data.items())[start_idx:end_idx])
-    tot_count = len(data)
-    for i in range(row_count):#last row
-        if (i == row_count-1) and (tot_count%per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else: 
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+
+    # 페이지 당 표시할 리뷰 처리
+    row_data = {}
+    for i in range(per_page):
+        if i * per_row < len(data):
+            row_key = 'data_{}'.format(i)
+            row_data[row_key] = dict(list(data.items())[i * per_row:(i + 1) * per_row]).items()
+
+    # 페이지네이션을 위한 페이지 수 계산
+    page_count = (item_counts // per_page) + (1 if item_counts % per_page else 0)
+    page = int(request.args.get('page', 0))
     return render_template(
         "review_overview.html",
-        datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
-        limit=per_page,
+        int=int,
         page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        row_data=row_data,
+        current_page=page,
+        page_count=page_count,
+        total=item_counts
+    )
 
 
 # 리뷰 상세 조회
