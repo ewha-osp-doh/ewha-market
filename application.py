@@ -219,10 +219,11 @@ def view_mypage():
     
     #좋아요 내역
     user_like = DB.get_top_2_hearts_byname(user_id)
+    print(user_like[0])
 
-#     #등록내역
-#     registered_item = DB.get_users_registered_item(user_id)
-#     print(registered_item)
+    #등록내역
+    registered_item = DB.get_users_registered_item(user_id)
+    print(registered_item)
     return render_template("mypage.html", user=user_info, user_like = user_like)
 
 

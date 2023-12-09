@@ -67,16 +67,16 @@
       <div name="rb_item" class="item_container">
         <div class="mp_item">
           <!-- 사진 -->
-          <div class="mp_img"> <img/>
+          <div class="mp_img"> <img src="{{user_like[0]['product-image']}}"/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
             <div class="mp_txt">
-              <div class="mp_title"></div>
-              <div class="mp_price">0,000원</div>
+              <div class="mp_title">{{user_like[0]['description']}}</div>
+              <div class="mp_price">{{user_like[0]['productPrice']}}원</div>
             </div>
             <!-- <button class="review_button" type="button">리뷰쓰기</button> -->
-               <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
+               <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{user_like[0]['description']}}/';"> 리뷰등록  </button>
           </div>
         </div>
       </div>
@@ -85,15 +85,15 @@
         <div class="mp_item">
           <!-- 사진 -->
           <div class="mp_img">
-            <img/>
+            <img src="{{user_like[1]['product-image']}}"/>
           </div>
           <!--글씨로 내용-->
           <div class="rb_contets">
             <div class="mp_txt">
-              <div class="mp_title">상품명</div>
-              <div class="mp_price">0,000원</div>
+              <div class="mp_title">{{user_like[1]['description']}}</div>
+              <div class="mp_price">{{user_like[1]['productPrice']}}원</div>
             </div>
-              <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
+              <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{user_like[1]['description']}}/';"> 리뷰등록  </button>
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@
           <!--글씨로 내용-->
           <div class="rb_contets">
             <div class="mp_txt">
-              <div class="mp_title">상품명</div>
+              <div class="mp_title">{{user_info[0][]}}</div>
               <div class="mp_price">0,000원</div>
               <div class="mp_disc">이 상품에 대한 설명</div>
             </div>
