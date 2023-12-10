@@ -53,8 +53,12 @@ body {
 .review-star-rating {
   margin-bottom: 10px; /* 별점과 내용 사이의 간격을 10px로 설정 */
 }
+
 .review-content {
-  white-space: pre-wrap; /* 줄바꿈과 공백을 유지하도록 설정 */
+  text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 250px; /* 적절한 너비 설정 */
 }
 
 .pagination {
