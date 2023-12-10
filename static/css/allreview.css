@@ -47,7 +47,7 @@ body {
 }
 .review-star-rating .fas,
 .review-star-rating .far {
-  color: gold; /* 별의 색상 */
+  color: #0A5226; /* 별의 색상 */
   font-size: 20px; /* 별의 크기 */
 }
 .review-star-rating {
