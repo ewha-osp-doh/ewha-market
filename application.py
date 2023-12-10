@@ -61,7 +61,7 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest() 
     if DB.find_user(id_ ,pw_hash):
         session['id'] = id_
-        return redirect(url_for('view_list'))
+        return redirect(url_for('mainpage'))
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
