@@ -155,20 +155,20 @@ class DBhandler:
 
         return target_value
     
+    # 등록내역 조회
     def get_users_registered_item(self, seller):
         items = self.db.child("item").get()
         result = []
         length = 0
         print("###########", seller)
-        for item in items.each(): 
-            sellerId = item.sellerId
-            if sellerId == seller: 
-                result.append(item.val())
+        for res in items.each(): 
+            item = res.val()
+            if item['sellerId'] == seller: 
+                result.append(item)
                 length += 1
-            if length >= 3:
+            if length >= 2:
                 break
         return result
-    
     # def get_users_registered_item(self, seller):
     #     print("###########", seller)
     #     result = self.db.child("item").order_by_child("sellerId").equal_to(seller).get()
