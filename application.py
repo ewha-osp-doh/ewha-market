@@ -14,7 +14,7 @@ DB = DBhandler()
 
 @application.route("/")
 def hello():
-    return render_template("index.html")
+    return redirect(url_for('login'))
 
 # 메인 페이지
 @application.route("/mainpage")
@@ -126,7 +126,6 @@ def view_item_detail(name):
 
 
 # 좋아요 조회
-
 @application.route('/show_heart/<name>/', methods=['GET'])
 def show_heart(name):
     my_heart = DB.get_heart_byname(session['id'],name)
@@ -145,6 +144,12 @@ def like(name):
 def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '안좋아요 완료!'})
+
+# 구매하기
+@application.route('/purchase/<name>/', methods=['POST'])
+def purchase(name):
+    DB.buy_item(session['id'],name)
+    return jsonify({'msg': '구매 완료!'})
 
 
 # 리뷰 등록
@@ -233,6 +238,9 @@ def view_mypage():
     #회원정보
     user_info = DB.get_user_info(user_id)
     
+    #구매내역
+    user_purchase = DB.get_users_purchase(user_id)
+    
     #좋아요 내역
     user_like = DB.get_top_2_hearts_byname(user_id)
     print(user_like[0])
@@ -240,7 +248,7 @@ def view_mypage():
     #등록내역
     registered_item = DB.get_users_registered_item(user_id)
     print(registered_item)
-    return render_template("mypage.html", user=user_info, user_like = user_like, user_register=registered_item)
+    return render_template("mypage.html", user=user_info, user_purchase=user_purchase, user_like = user_like, user_register=registered_item)
 
 
 # 회원탈퇴

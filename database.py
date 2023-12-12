@@ -86,8 +86,8 @@ class DBhandler:
         self.db.child("item").child(name).set(item_info)
         print(data)
         return True
-    
-    
+
+
     def get_all_items(self):
         items = self.db.child("item").get()
         result = []
@@ -102,7 +102,6 @@ class DBhandler:
 
         sorted_result = sorted(result, key=lambda x: x['datetime'], reverse=True)
         return sorted_result
-
 
 
     def get_item_byname(self, name): 
@@ -135,6 +134,11 @@ class DBhandler:
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
 
+    def buy_item(self, user_id, item):
+        purchase_info = {
+            "sold": "Y"
+        }
+        self.db.child("purchase").child(user_id).child(item).set(purchase_info)
     
     # Review
     
@@ -180,11 +184,6 @@ class DBhandler:
             if length >= 2:
                 break
         return result
-    # def get_users_registered_item(self, seller):
-    #     print("###########", seller)
-    #     result = self.db.child("item").order_by_child("sellerId").equal_to(seller).get()
-    #     return result
-    
     
     # 회원탈퇴
     def withdraw_user(self, id_):
@@ -218,3 +217,16 @@ class DBhandler:
                 target_product.append(product_info.val())
         print("####### target product : ", target_product)
         return target_product
+    
+    # 구매 내역
+    def get_users_purchase(self, buyer):
+        result = []
+        purchases = self.db.child("purchase").child(buyer).get()
+        purchase_list = [res.key() for res in purchases.each()]
+        top_2_purchases = purchase_list[:2]
+        
+        for name in top_2_purchases:
+            item = self.db.child("item").child(name).get()
+            if item.val() is not None:
+                result.append(item.val())
+        return result
