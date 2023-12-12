@@ -14,7 +14,7 @@ DB = DBhandler()
 
 @application.route("/")
 def hello():
-    return redirect(url_for('login'))
+    return render_template("intro.html")
 
 # 메인 페이지
 @application.route("/mainpage")
