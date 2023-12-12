@@ -81,7 +81,11 @@ class DBhandler:
             "product-status": data['product-status'],
             "description": data['product-description'],
             "product-image": data['img_path'],
+<<<<<<< HEAD
             "timestamp": datetime.now().timestamp()  # 등록 시간을 timestamp로 추가
+=======
+            "location": data['location']
+>>>>>>> 8347e471a3b4e8736a5e3c01e8ed22221b374437
         }
         self.db.child("item").child(name).set(item_info)
         print(data)
