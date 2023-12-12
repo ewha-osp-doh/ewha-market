@@ -1,6 +1,8 @@
 import json
 import pyrebase
 
+from datetime import datetime
+
 
 class DBhandler:
     def __init__(self):
@@ -79,22 +81,30 @@ class DBhandler:
             "product-status": data['product-status'],
             "description": data['product-description'],
             "product-image": data['img_path'],
-            "location": data['location']
+            "location": data['location'],
+            "timestamp": datetime.now().timestamp()  # 등록 시간을 timestamp로 추가
         }
         self.db.child("item").child(name).set(item_info)
         print(data)
         return True
-       
+
+
     def get_all_items(self):
         items = self.db.child("item").get()
         result = []
 
         if items.val():
             for item in items.each():
-                result.append(item.val())
+                if 'timestamp' in item.val():
+                    timestamp = item.val()['timestamp']
+                    dt = datetime.fromtimestamp(timestamp)
+                    item.val()['datetime'] = dt.strftime("%Y-%m-%d %H:%M:%S")
+                    result.append(item.val())
 
-        return result
-    
+        sorted_result = sorted(result, key=lambda x: x['datetime'], reverse=True)
+        return sorted_result
+
+
     def get_item_byname(self, name): 
         items = self.db.child("item").get() 
         target_value="" 
