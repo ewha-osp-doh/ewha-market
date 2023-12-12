@@ -74,7 +74,9 @@
   </div>
 
   <div class="button_container">
-    <button class="oval_button" type="button" onclick="alert('구매가 완료되었습니다!')" >구매하기</button>
+    <button class="oval_button" type="button" onclick="purchaseProduct('{{data['productName']}}')">구매하기</button>
+    <!-- <button class="oval_button" method="post" type="button" action="/purchase/<name>" onclick="alert('구매가 완료되었습니다!')" >구매하기</button> -->
+
   </div>
     
    <script>
@@ -96,6 +98,31 @@
             statusView.src = "/static/assets/soso_active.svg";
       }
 }
+       
+    function purchaseProduct(productName) {
+        var data = {
+            productName: productName,
+        };
+        fetch('/purchase', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('성공:', data);
+        alert('구매가 완료되었습니다!');
+        // 서버 응답을 여기서 처리할 수 있습니다.
+    })
+    .catch((error) => {
+        console.error('에러:', error);
+    });
+        
+    }
+
+
 
 statusSetting();
     </script>
