@@ -78,7 +78,8 @@ class DBhandler:
             "productPrice": data['product-price'],
             "product-status": data['product-status'],
             "description": data['product-description'],
-            "product-image": data['img_path']
+            "product-image": data['img_path'],
+            "location": data['location']
         }
         self.db.child("item").child(name).set(item_info)
         print(data)

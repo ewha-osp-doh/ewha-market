@@ -94,7 +94,8 @@ def reg_item_submit_post():
         "product-name" : request.form.get("productName"),
         "product-price" : request.form.get("productPrice"),
         "product-status" : request.form.get("condition"),
-        "product-description" : request.form.get("productDescription")
+        "product-description" : request.form.get("productDescription"),
+        "location": request.form.get("currentLocation")
     } 
     if 'productImage' in request.files:
         file = request.files['productImage']
