@@ -128,7 +128,7 @@ class DBhandler:
         purchase_info = {
             "sold": "Y"
         }
-        self.db.child("purchase").chile(user_id).child(item).set(purchase_info)
+        self.db.child("purchase").child(user_id).child(item).set(purchase_info)
     
     # Review
     

@@ -149,7 +149,7 @@ def unlike(name):
 @application.route('/purchase/<name>/', methods=['POST'])
 def purchase(name):
     DB.buy_item(session['id'],name)
-    return redirect(url_for('view_list'))
+    return jsonify({'msg': '구매 완료!'})
 
 
 # 리뷰 등록
