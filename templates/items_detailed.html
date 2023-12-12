@@ -74,7 +74,8 @@
   </div>
 
   <div class="button_container">
-    <button class="oval_button" type="button" onclick="purchaseProduct('{{data['productName']}}')">구매하기</button>
+    <!-- <button class="oval_button" type="button" onclick="purchaseProduct('{{data['productName']}}')">구매하기</button> -->
+       <button class="oval_button" type="button" onclick="location.href='/purchase/{{data['productName']}}/';">구매하기</button>
     <!-- <button class="oval_button" method="post" type="button" action="/purchase/<name>" onclick="alert('구매가 완료되었습니다!')" >구매하기</button> -->
 
   </div>
