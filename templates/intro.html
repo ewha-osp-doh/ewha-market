@@ -5,11 +5,12 @@
   <title>Welcome to Ewha Market!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-  <link rel="stylesheet" href="/static/css/status-bar.css" />
-  <link rel="stylesheet" href="/static/css/picture.css">
-  <link rel="stylesheet" href="/static/css/text_style.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/screens/intro.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+  <link rel="stylesheet" href="../static/css/status-bar.css" />
+  <link rel="stylesheet" href="../static/css/picture.css">
+  <link rel="stylesheet" href="../static/css/text_style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/screens/intro.css">
 
 </head>
 
@@ -26,12 +27,12 @@
     </div>
     <!-- 본문 코드 시작 -->
     
-    <div>
+    <div class="introPane" style="margin-top: 10.3rem;">
         <div> <img id="handLogo" src="../static/assets/introHandLogo.svg"/> </div>
         <div> <img id="TxtLogo" src="../static/assets/introTxtLogo.svg"/> </div>
 
-        <div>이화인을 위한 중고거래 플랫폼</div>
-        <button id="start_button" name="이화마켓 시작하기" onclick="location.href='/logout'">이화마켓 시작하기</button>
+        <div class ="subtitle">이화인을 위한 중고거래 플랫폼</div>
+        <button id="start_button" name="이화마켓 시작하기" onclick="location.href='/login'">이화마켓 시작하기</button>
     
     </div>
     

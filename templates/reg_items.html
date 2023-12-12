@@ -39,7 +39,7 @@
         <label for="sellerId">판매자 ID</label>
         <br />
         <!-- [TODO] 로그인 정보에서 가져올 수 있도록 하기 -->
-        <input type="text" id="sellerId" name="sellerId" value="{{ userId }}" required /><br /><br />
+        <input type="text" id="sellerId" name="sellerId" value="{{ user }}" required /><br /><br />
 
         <label for="productName">상품 이름</label>
         <input
@@ -72,8 +72,11 @@
           onkeyup="formatPrice()"
         /><br /><br />
 
-        <label>지역</label>
-        <input type="text" id="currentLocation" name="productPrice" required />
+        <label for = "currentLocation">지역</label>
+        <input 
+           type="text"
+           id="currentLocation"
+           name="currentLocation" required />
         <script></script>
         <br /><br />
 

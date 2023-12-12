@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="kor">
-
 <head>
-  <title>Items_Detailed</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-  <link rel="stylesheet" href="/static/css/status-bar.css" />
-  <link rel="stylesheet" href="/static/css/picture.css">
-  <link rel="stylesheet" href="/static/css/text_style.css">
-  <link rel="stylesheet" href="/static/css/screens/items_detailed.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Items_Detailed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/status-bar.css" />
+    <link rel="stylesheet" href="/static/css/picture.css" />
+    <link rel="stylesheet" href="/static/css/text_style.css" />
+    <link rel="stylesheet" href="/static/css/screens/items_detailed.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -25,88 +27,125 @@
       </div>
     </div>
 
-  <!-- 리뷰 사진 부분 -->
-     <div class="pic">
-    <img class="detailed-pic" src="../{{data['product-image']}}">
-      <a href="/list">
-          <i class="fas fa-arrow-left fa-lg" 
-             style="position: absolute; top: 40px; color: white; margin-left: 15px; z-index: 999; left: 0px;">
-          </i>
+    <!-- 리뷰 사진 부분 -->
+    <div class="pic">
+        <img class="detailed-pic" src="../{{data['product-image']}}" />
+        <a href="/list">
+            <i
+                class="fas fa-arrow-left fa-lg"
+                style="
+                    position: absolute;
+                    top: 40px;
+                    color: white;
+                    margin-left: 15px;
+                    z-index: 999;
+                    left: 0px;
+                "
+            >
+            </i>
         </a>
- </div>
+    </div>
 
+    <!-- 상품 제목 및 기본 정보 -->
+    <div class="item_panel">
+        <div name="item_head">
+            <div class="item_title" name="item_title">
+                <b class="Caption1Style">{{data['productName']}}</b>
+                <img
+                    id="heart"
+                    name="좋아요"
+                    src="/static/assets/heart-inactive.svg"
+                    style="padding-left: 5px"
+                />
+            </div>
 
-  <!-- 상품 제목 및 기본 정보 -->
-  <div class="item_panel">
-    <div name="item_head">
-      <div class="item_title" name="item_title">
-          <b  class="Caption1Style">{{data['productName']}}</b>
-          <img id="heart" name="좋아요" src="/static/assets/heart-inactive.svg" style="padding-left:5px;"/>
-    
+            <div class="item_sub_title">
+                <!-- 상품 상태 -->
+                <div class="Caption3Style">{{data['productPrice']}}원</div>
+                <!-- <img id="status-icon" src="/static/assets/flower.svg"/> -->
+                <div id="statusSet" style="color: white; font-size: 0.2pt">
+                    {{data['product-status']}}
+                </div>
+                <!-- 상태 보여줘야 됨!! -->
+                <img
+                    id="statusView"
+                    src="/static/assets/flower.svg"
+                    width="40px"
+                    height="40px"
+                />
+                <!-- 상태가 될 대상 -->
+            </div>
         </div>
-        
-      <div class="item_sub_title">
-        <!-- 상품 상태 -->
-        <div class="Caption3Style">{{data['productPrice']}}원</div>
-        <!-- <img id="status-icon" src="/static/assets/flower.svg"/> -->
-          <div id="statusSet" style="color: white; font-size: 0.2pt;">
-              {{data['product-status']}}
-          </div><!-- 상태 보여줘야 됨!! -->
-          <img id="statusView" src="/static/assets/flower.svg" width="40px" height="40px"/>
-          <!-- 상태가 될 대상 -->
-      </div>
+        <hr />
+        <div name="item_mid" class="item_mid">
+            <div class="Caption4Style" style="margin-top: 20px">{{data['sellerId']}}</div>
+            <div class="Caption4Style" style="margin-top: 10px; margin-bottom: 10px">
+                {{data['location']}}
+            </div>
+        </div>
+        <hr />
+        <div class="item_discription">
+            <p class="Caption3style">{{data['description']}}</p>
+        </div>
     </div>
-    <hr>
-    <div name="item_mid" class="item_mid">
-      <div class="Caption4Style" style="margin-top: 20px;">{{data['sellerId']}}</div>
-      <div class="Caption4Style" style="margin-top: 10px; margin-bottom: 10px;">판매자 지역</div>
-      <button class="review_button" type="button" onclick="location.href='/reg_review_init/{{name}}/';"> 리뷰등록  </button>
-    </div>
-    <hr>
-    <div class="item_discription">
-      <p class="Caption3style">{{data['description']}}
-    </div>
-  </div>
 
-  <div class="button_container">
-    <button class="oval_button" type="button" onclick="alert('구매가 완료되었습니다!')" >구매하기</button>
-  </div>
-    
-   <script>
-    function statusSetting(){
-    var status = document.getElementById("statusSet");
-    var statusView = document.getElementById("statusView");
-        
-    console.log("상탯값은: "+status.innerText);
-    
-    if (status.innerText === '상') {
-         // 아이콘을 활성화 상태로 변경
-            statusView.src = "/static/assets/great_active.svg";
-            
-      } else if (status.innerText === '중'){
-       // 아이콘을 비활성화 상태로 변경
-           statusView.src = "/static/assets/good_active.svg";
-      } else if (status.innerText === '하'){
-      // 아이콘을 비활성화 상태로 변경
-            statusView.src = "/static/assets/soso_active.svg";
-      }
-}
+    <div class="button_container">
+        <button class="oval_button" type="button" onclick="purchase();">구매하기</button>
+    </div>
 
-statusSetting();
+    <script>
+    function statusSetting() {
+        var status = document.getElementById('statusSet');
+        var statusView = document.getElementById('statusView');
+
+        console.log('상탯값은: ' + status.innerText);
+
+        if (status.innerText === '상') {
+            // 아이콘을 활성화 상태로 변경
+            statusView.src = '/static/assets/great_active.svg';
+        } else if (status.innerText === '중') {
+            // 아이콘을 비활성화 상태로 변경
+            statusView.src = '/static/assets/good_active.svg';
+        } else if (status.innerText === '하') {
+            // 아이콘을 비활성화 상태로 변경
+            statusView.src = '/static/assets/soso_active.svg';
+        }
+    }
+        
+    // function purchaseProduct(productName) {
+    //     var data = {
+    //         productName: productName,
+    //     };
+    //     fetch('/purchase', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log('성공:', data);
+    //             alert('구매가 완료되었습니다!');
+    //             // 서버 응답을 여기서 처리할 수 있습니다.
+    //         })
+    //         .catch((error) => {
+    //             console.error('에러:', error);
+    //         });
+    // }
+
+    statusSetting();
     </script>
 </body>
-    
-    
-   
-    {% block section %}
-        <script>
 
-            function setHeartIcon(iconPath) {
-        $("#heart").attr("src", iconPath);
+{% block section %}
+<script>
+    function setHeartIcon(iconPath) {
+        $('#heart').attr('src', iconPath);
     }
 
-        function showHeart() {
-        console.log("showHeart called");
+    function showHeart() {
+        console.log('showHeart called');
         $.ajax({
             type: 'GET',
             url: '/show_heart/{{name}}/',
@@ -115,29 +154,28 @@ statusSetting();
                 let my_heart = response['my_heart'];
                 if (my_heart['interested'] == 'Y') {
                     setHeartIcon('/static/assets/heart-active.svg');
-                    $("#heart").attr("onclick", "unlike()");
+                    $('#heart').attr('onclick', 'unlike()');
                 } else {
                     setHeartIcon('/static/assets/heart-inactive.svg');
-                    $("#heart").attr("onclick", "like()");
+                    $('#heart').attr('onclick', 'like()');
                 }
-            }
+            },
         });
     }
-
 
     function like() {
         $.ajax({
             type: 'POST',
             url: '/like/{{name}}/',
             data: {
-                interested: "Y"
+                interested: 'Y',
             },
             success: function (response) {
-                console.log("liked");
-            alert(response['msg']);
-            setHeartIcon('/static/assets/heart-active.svg'); // 좋아요 클릭 시 이미지 변경
-            $("#heart").attr("onclick", "unlike()"); // 하트 아이콘 클릭 시 unlike() 함수 호출
-            }
+                console.log('liked');
+                alert(response['msg']);
+                setHeartIcon('/static/assets/heart-active.svg'); // 좋아요 클릭 시 이미지 변경
+                $('#heart').attr('onclick', 'unlike()'); // 하트 아이콘 클릭 시 unlike() 함수 호출
+            },
         });
     }
 
@@ -146,25 +184,32 @@ statusSetting();
             type: 'POST',
             url: '/unlike/{{name}}/',
             data: {
-                interested: "N"
+                interested: 'N',
             },
             success: function (response) {
-                console.log("unliked");
-            alert(response['msg']);
-            setHeartIcon('/static/assets/heart-inactive.svg'); // 좋아요 취소 클릭 시 이미지 변경
-            $("#heart").attr("onclick", "like()"); // 하트 아이콘 클릭 시 like() 함수 호출
-                
-            }
+                console.log('unliked');
+                alert(response['msg']);
+                setHeartIcon('/static/assets/heart-inactive.svg'); // 좋아요 취소 클릭 시 이미지 변경
+                $('#heart').attr('onclick', 'like()'); // 하트 아이콘 클릭 시 like() 함수 호출
+            },
         });
     }
 
+    function purchase() {
+        $.ajax({
+            type: 'POST',
+            url: "/purchase/{{data['productName']}}/",
+            success: function(response) {
+                console.log('구매성공');
+                alert(response['msg']);
+            },
+        });
+    }
+    
     $(document).ready(function () {
         showHeart();
     });
+</script>
 
-    </script>
-
-
-    {% endblock %}
-
+{% endblock %}
 </html>

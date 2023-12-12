@@ -14,7 +14,7 @@ DB = DBhandler()
 
 @application.route("/")
 def hello():
-    return render_template("index.html")
+    return render_template("intro.html")
 
 # 메인 페이지
 @application.route("/mainpage")
@@ -61,7 +61,7 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest() 
     if DB.find_user(id_ ,pw_hash):
         session['id'] = id_
-        return redirect(url_for('view_list'))
+        return redirect(url_for('mainpage'))
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
@@ -70,7 +70,7 @@ def login_user():
 @application.route("/logout")
 def logout_user():
     session.clear()
-    return redirect(url_for('view_list'))
+    return redirect(url_for('login'))
 
 
 # 세션 체크
@@ -83,8 +83,7 @@ def check_session():
 # 상품 등록
 @application.route("/reg_items", methods=['GET', 'POST']) 
 def reg_item():
-    user_id = session.get('id')
-    return render_template("reg_items.html", userId=user_id)
+    return render_template("reg_items.html", user=session['id'])
 
 
 @application.route("/submit_items_post", methods=['POST']) 
@@ -95,7 +94,8 @@ def reg_item_submit_post():
         "product-name" : request.form.get("productName"),
         "product-price" : request.form.get("productPrice"),
         "product-status" : request.form.get("condition"),
-        "product-description" : request.form.get("productDescription")
+        "product-description" : request.form.get("productDescription"),
+        "location": request.form.get("currentLocation")
     } 
     if 'productImage' in request.files:
         file = request.files['productImage']
@@ -105,7 +105,8 @@ def reg_item_submit_post():
         data['img_path'] = '../static/images/' +  file.filename
     
     DB.insert_item(data['product-name'], data)
-    return redirect(url_for('view_list'))
+    return redirect('/view_detail/'+data['product-name'])
+
 
 # 상품 전체 조회
 @application.route("/list")
@@ -126,7 +127,6 @@ def view_item_detail(name):
 
 
 # 좋아요 조회
-
 @application.route('/show_heart/<name>/', methods=['GET'])
 def show_heart(name):
     my_heart = DB.get_heart_byname(session['id'],name)
@@ -146,12 +146,17 @@ def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '안좋아요 완료!'})
 
+# 구매하기
+@application.route('/purchase/<name>/', methods=['POST'])
+def purchase(name):
+    DB.buy_item(session['id'],name)
+    return jsonify({'msg': '구매 완료!'})
+
 
 # 리뷰 등록
 @application.route("/reg_review_init/<name>/") 
 def reg_review_init(name):
-    user_id = session.get('id')
-    return render_template("reg_reviews.html", name=name, userId = user_id)
+    return render_template("reg_reviews.html", name=name, user=session['id'])
 
 @application.route("/reg_review", methods=['POST']) 
 def reg_review():
@@ -173,33 +178,49 @@ def reg_review():
     return redirect(url_for('view_review'))
 
 
-# 리뷰 전체 조회
+#리뷰 전체 조회
 @application.route("/review")
 def view_review():
-    page = request.args.get("page", 0, type=int)
-    per_page=6 # item count to display per page
-    per_row=3# item count to display per row
-    row_count=int(per_page/per_row)
-    start_idx=per_page*page
-    end_idx=per_page*(page+1)
-    data = DB.get_all_reviews() #read the table
+    # 페이지 번호 처리 (1부터 시작)
+    page = request.args.get("page", 1, type=int)
+    per_page = 3  # 페이지 당 리뷰 수
+    per_row = 3  # 행 당 리뷰 수
+
+    data = DB.get_all_reviews()  # DB에서 리뷰 가져오기
     item_counts = len(data)
+
+    # 1부터 시작하는 페이지 번호를 0부터 시작하는 인덱스로 변환
+    start_idx = per_page * (page - 1)
+    end_idx = start_idx + per_page
     data = dict(list(data.items())[start_idx:end_idx])
-    tot_count = len(data)
-    for i in range(row_count):#last row
-        if (i == row_count-1) and (tot_count%per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else: 
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+
+    # 페이지 당 표시할 리뷰 처리 및 리뷰 등록자 아이디 처리
+    row_data = {}
+    for i in range(per_page):
+        if i * per_row < len(data):
+            row_key = 'data_{}'.format(i)
+            row_items = dict(list(data.items())[i * per_row:(i + 1) * per_row])
+
+            # 각 리뷰 아이템에 대해 등록자 아이디 처리
+            for key, value in row_items.items():
+                author_id = value['authorId']
+                # 첫 두 글자를 제외한 나머지를 *로 대체
+                masked_id = author_id[:2] + '*' * (len(author_id) - 2)
+                value['authorId'] = masked_id
+            
+            row_data[row_key] = row_items.items()
+
+    # 페이지네이션을 위한 페이지 수 계산
+    page_count = (item_counts // per_page) + (1 if item_counts % per_page else 0)
     return render_template(
         "review_overview.html",
-        datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
-        limit=per_page,
+        int=int,
         page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        row_data=row_data,
+        current_page=page,
+        page_count=page_count,
+        total=item_counts
+    )
 
 
 # 리뷰 상세 조회
@@ -218,13 +239,17 @@ def view_mypage():
     #회원정보
     user_info = DB.get_user_info(user_id)
     
+    #구매내역
+    user_purchase = DB.get_users_purchase(user_id)
+    
     #좋아요 내역
     user_like = DB.get_top_2_hearts_byname(user_id)
-    
+    print(user_like[0])
+
     #등록내역
     registered_item = DB.get_users_registered_item(user_id)
     print(registered_item)
-    return render_template("mypage.html", user=user_info, user_like = user_like, registered=registered_item)
+    return render_template("mypage.html", user=user_info, user_purchase=user_purchase, user_like = user_like, user_register=registered_item)
 
 
 # 회원탈퇴
@@ -232,8 +257,8 @@ def view_mypage():
 def withdraw():
     user_id = session['id']
     DB.withdraw_user(user_id)
-    return jsonify({'msg': '탈퇴 완료'})
-
-
+    return redirect(url_for('login'))
+    # return jsonify({'msg': '탈퇴 완료'})
+    
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=False)

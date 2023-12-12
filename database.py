@@ -1,6 +1,8 @@
 import json
 import pyrebase
 
+from datetime import datetime
+
 
 class DBhandler:
     def __init__(self):
@@ -21,20 +23,26 @@ class DBhandler:
             "email": data['email'],
             "phone": phone  # "phone" 키가 없으면 None으로 설정
         }
-        self.db.child("user").push(user_info)
-        #print(data)
+        if self.user_duplicate_check(str(data['id'])):
+            self.db.child("user").push(user_info)
+            print(data)
+            return True
+        else:
+            return False
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
-        #print("users###", users.val())
 
-        for res in users.each():
-            value = res.val()
+        print("users###", users.val())
+        if str(users.val()) == "None": # first registration
+            return True
+        else:
+            for res in users.each():
+                value = res.val()
 
-            if value['id'] == id_string: #중복 아이디 있으면 false
-                return False
-
-        return True #중복 아이디 없으면 true
+                if value['id'] == id_string:
+                    return False
+            return True
         
     def find_user(self, id_, pw_):
         users = self.db.child("user").get() 
@@ -72,22 +80,31 @@ class DBhandler:
             "productPrice": data['product-price'],
             "product-status": data['product-status'],
             "description": data['product-description'],
-            "product-image": data['img_path']
+            "product-image": data['img_path'],
+            "location": data['location'],
+            "timestamp": datetime.now().timestamp()  # 등록 시간을 timestamp로 추가
         }
         self.db.child("item").child(name).set(item_info)
         print(data)
         return True
-       
+
+
     def get_all_items(self):
         items = self.db.child("item").get()
         result = []
 
         if items.val():
             for item in items.each():
-                result.append(item.val())
+                if 'timestamp' in item.val():
+                    timestamp = item.val()['timestamp']
+                    dt = datetime.fromtimestamp(timestamp)
+                    item.val()['datetime'] = dt.strftime("%Y-%m-%d %H:%M:%S")
+                    result.append(item.val())
 
-        return result
-    
+        sorted_result = sorted(result, key=lambda x: x['datetime'], reverse=True)
+        return sorted_result
+
+
     def get_item_byname(self, name): 
         items = self.db.child("item").get() 
         target_value="" 
@@ -118,6 +135,11 @@ class DBhandler:
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
 
+    def buy_item(self, user_id, item):
+        purchase_info = {
+            "sold": "Y"
+        }
+        self.db.child("purchase").child(user_id).child(item).set(purchase_info)
     
     # Review
     
@@ -158,7 +180,7 @@ class DBhandler:
         for res in items.each(): 
             item = res.val()
             if item['sellerId'] == seller: 
-                result.append(item.val())
+                result.append(item)
                 length += 1
             if length >= 2:
                 break
@@ -166,23 +188,46 @@ class DBhandler:
     
     # 회원탈퇴
     def withdraw_user(self, id_):
-        user = self.db.child("user").order_by_child("id").equal_to(id_).get()
-        print("user:", user)
-        user.remove()
+        users = self.db.child("user").get()
+        for res in users.each():
+            key = res.key()
+            value = res.val()
+            if value['id'] == id_:
+                #print("user:", value)
+                self.db.child("user").child(key).remove()
         return True
+    
     # heart
     def get_top_2_hearts_byname(self, uid):
         hearts = self.db.child("heart").child(uid).get()
-        target_values = []
+        target_product = []
 
         if hearts.val() is None:
-            return target_values
+            return target_product
         # Create a list of tuples containing key-value pairs
         heart_list = [(res.key(), res.val()) for res in hearts.each()]
         # Sort the list based on the values in descending order
         
         top_2_hearts = heart_list[:2]
-        # Check if the requested name is in the top 2 hearts
-        for key, value in top_2_hearts:
-            target_values.append(value)
-        return target_values
+        
+        print("########### target_heart : ", top_2_hearts)
+        for name, _ in top_2_hearts:
+            # Assuming that the name is the key for the product in "products" node
+            product_info = self.db.child("item").child(name).get()
+            if product_info.val() is not None:
+                target_product.append(product_info.val())
+        print("####### target product : ", target_product)
+        return target_product
+    
+    # 구매 내역
+    def get_users_purchase(self, buyer):
+        result = []
+        purchases = self.db.child("purchase").child(buyer).get()
+        purchase_list = [res.key() for res in purchases.each()]
+        top_2_purchases = purchase_list[:2]
+        
+        for name in top_2_purchases:
+            item = self.db.child("item").child(name).get()
+            if item.val() is not None:
+                result.append(item.val())
+        return result

@@ -1,10 +1,14 @@
 div{
-    align-content: center;
+      text-align: center;
 }
 
 #start_button{
     font-size: 20px;
     text-align: center;
+    border-radius: 38px;
+    border-width: 2px;
+    font-weight: 600;
+    margin-top: 4.05rem;
     
     width: 300px;
     height: 70px;
@@ -15,10 +19,13 @@ div{
 }
 
 #handLogo{
-    margin-bottom:2.2 rem;
+    margin-bottom: 2.2rem;
     
 }
 
-#TxtLogo{
-     margin-top:4.1 rem;
+
+.subtitle{
+    font-size: 13pt;
+    color: #4DA36F;
+    font-weight: 500;
 }
