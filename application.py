@@ -175,7 +175,7 @@ def reg_review():
         data['img_path'] = '../static/images/' + file.filename
     
     DB.reg_review(data)
-    return redirect(url_for('view_review'))
+    return redirect('/review_detail/'+data['productName'])
 
 
 #리뷰 전체 조회
