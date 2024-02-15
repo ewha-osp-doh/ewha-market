@@ -2,10 +2,12 @@
 ![1](https://github.com/ewha-osp-doh/ewha-market/assets/138848565/dfcf700b-220b-4e51-9849-37ab7c0aee60)
 
 ⭐️ Ewha Markt is an web application for Ewha Womans University's students to sell and buy their belonings.
-
+-------------------------------------------------------------------------------------------------------------------------
 
 ⭐️ Check Demo Video here:  https://youtu.be/XjfWpTsjR-g
+
 ⭐️Check out awsome pt source here: https://www.canva.com/design/DAF80fnhD3U/DsXoX0-1ix78JXFhE1v0IA/edit?utm_content=DAF80fnhD3U&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ⭐️ Check our Tech Blog here: 
 	- Firebase Realtime Database: https://alert-cup-8be.notion.site/SW-Firebase-Realtime-Database-075b68242b754fffa694985dbbef2fb8
  	- Flask: https://velog.io/@xyzw/%ED%94%8C%EB%9D%BC%EC%8A%A4%ED%81%AC-%EC%84%A4%EC%B9%98
